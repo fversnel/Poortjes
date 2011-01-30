@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<project name="Geometry Wars" default="compile" basedir=".">
+  <description></description>
+
+  <!-- Project specific settings -->
+  <property name="project.name" value="Geometry Wars" />
+  <property name="creator.name" value="Frank Versnel" />
+  <property name="project.file.name" value="geometry_wars" />
+  <property name="main.class" value="frankversnel.processing.GeometryWars" />
+
+  <!-- Version numbers -->
+  <property name="shared.package.version" value="1.0" />
+
+  <!-- Directories used -->
+  <property name="dir.source" location="src" />
+  <property name="dir.build" location="bin" />
+  <property name="dir.distribution" location="dist" />
+  <property name="dir.logfiles" location="log" />
+  <property name="dir.libraries" location="lib" />
+  <property name="dir.dependency.cache" location="depcache" />
+
+  <!-- Compilation related properties -->
+  <property name="preferred.java.version" value="1.6" />
+  <property name="compilation.debug" value="true" />
+  <property name="compilation.includeAntRuntime" value="false" />
+
+  <!-- Testing related properties -->
+  <property name="testing.formatter.type" value="plain" />
+  <property name="testing.printsummary" value="yes" />
+  <property name="testing.haltonfailure" value="no" />
+  <property name="testing.java.files" value="**/*Test*.java" />
+  <property name="testing.class.files" value="**/*Test*.class" />
+
+  <!-- The distribution file to be created -->
+  <property name="distribution.file"
+    value="${dir.distribution}/${project.file.name}.jar" />
+
+  <!-- Dependency checking related properties -->
+  <property name="dependency.check.closure" value="true" />
+
+  <!-- Project class path -->
+  <path id="project.class.path">
+    <fileset dir="lib">
+      <include name="**/*.jar"/>
+    </fileset>
+  </path>
+
+  <!-- Performs tasks useful to all other targets in the ant file, outputs
+       information about Ant, Java and the operation system. -->
+  <target name="initialize">
+    <!-- Create the time stamp -->
+    <tstamp/>
+
+    <echo>Using: ${ant.version}</echo>
+    <echo>Using: Java version ${ant.java.version} (${java.vendor})</echo>
+    <echo>Using: Java version ${preferred.java.version} to compile source files</echo>
+    <echo>Project: ${ant.project.name}</echo>
+    <echo>Project base directory: ${basedir}</echo>
+    <echo>Operating System: ${os.name} ${os.version} (${os.arch})</echo>
+  </target>
+
+  <target name="all" depends="initialize,distribution"
+    description="Builds the whole project.">
+    <echo>Done with everything.</echo>
+  </target>
+
+  <target name="check_dependencies" depends="initialize">
+    <depend srcdir="${dir.source}" destdir="${dir.build}"
+      cache="${dir.dependency.cache}" closure="${dependency.check.closure}">
+      <include name="**/*.java" />
+    </depend>
+  </target>
+
+  <target name="compile" depends="initialize" description="Compiles the source files and outputs them to the 'build' directory.">
+    <mkdir dir="${dir.build}" />
+    <javac srcdir="${dir.source}" destdir="${dir.build}"
+      classpathref="project.class.path" target="${preferred.java.version}"
+      source="${preferred.java.version}"
+      includeAntRuntime="${compilation.includeAntRuntime}"
+      debug="${compilation.debug}">
+    </javac>
+  </target>
+
+  <target name="test" depends="compile" description="Unit test the project.">
+    <mkdir dir="${dir.logfiles}" />
+    <junit printsummary="${testing.printsummary}"
+      haltonfailure="${testing.haltonfailure}">
+      <formatter type="${testing.formatter.type}" />
+
+      <classpath>
+        <pathelement location="${dir.build}" />
+        <path refid="project.class.path" />
+      </classpath>
+
+      <batchtest fork="yes" todir="${dir.logfiles}">
+        <fileset dir="${dir.source}">
+          <include name="${testing.java.files}" />
+        </fileset>
+      </batchtest>
+    </junit>
+  </target>
+
+  <target name="distribution" depends="compile" description="Creates a jar file from the class files in the 'build' directory and outputs it in the 'dist' directory">
+    <mkdir dir="${dir.distribution}" />
+    <manifest file="${dir.distribution}/MANIFEST.MF">
+      <attribute name="Main-Class" value="${main.class}" />
+    </manifest>
+    <jar destfile="${distribution.file}" manifest="${dir.distribution}/MANIFEST.MF" >
+      <fileset dir="${dir.build}" includes="**/*.class"
+        excludes="${testing.class.files}" />
+    </jar>
+    <delete file="${dir.distribution}/MANIFEST.MF" />
+  </target>
+
+  <target name="run" depends="distribution" description="Run the distribution.">
+    <java classname="${main.class}" fork="true" >
+      <!-- Enable assertions -->
+      <jvmarg value ="-ea"/>
+
+      <classpath>
+        <path refid="project.class.path" />
+        <pathelement path="${distribution.file}"/>
+      </classpath>
+    </java>
+  </target>
+
+  <target name="clean" depends="initialize" description="Removes all generated files and directories.">
+    <delete dir="${dir.build}" />
+    <delete dir="${dir.distribution}" />
+    <delete dir="${dir.logfiles}" />
+    <delete dir="${dir.dependency.cache}" />
+  </target>
+
+</project>
