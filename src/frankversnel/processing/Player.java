@@ -13,18 +13,27 @@ public class Player extends GameObject {
 	private final char left;
 	private final char right;
 
+	private int speed;
+
 	public Player(final Position initialPosition, final char forward, final char backward,
-			final char left, final char right) {
-		super(initialPosition, DEFAULT_WIDTH, DEFAULT_HEIGHT, DEFAULT_SPEED);
+			final char left, final char right, final Color color) {
+		super(initialPosition, DEFAULT_WIDTH, DEFAULT_HEIGHT, color);
 
 		this.forward = forward;
 		this.backward = backward;
 		this.left = left;
 		this.right = right;
+
+		this.speed = DEFAULT_SPEED;
 	}
 
 	public void render(final PGraphics renderer) {
-		renderer.rect(this.position.x, this.position.y, this.width, this.height);
+		renderer.fill(this.color.r, this.color.g, this.color.b);
+		renderer.triangle(
+				this.position.x, this.position.y + this.height,
+				this.position.x + this.width / 2, this.position.y,
+				this.position.x + this.width, this.position.y + this.height
+				);
 	}
 
 	public void handleInput(final char key) {

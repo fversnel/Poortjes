@@ -14,6 +14,7 @@ public class GeometryWars extends PApplet {
 	private static final int SCREEN_WIDTH = 400;
 	private static final int SCREEN_HEIGHT = 400;
 	private static final int BACKGROUND_COLOR = 0;
+	private static final int FOREGROUND_COLOR = 255;
 
 	private List<GameObject> gameObjects;
 	private List<Player> players;
@@ -30,20 +31,24 @@ public class GeometryWars extends PApplet {
 		// Create players.
 		this.players.add(new Player(
 	    		new Position(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2),
-	    		'w', 's', 'a', 'd'));
+	    		'w', 's', 'a', 'd', Color.GREEN));
 		// TODO Create enemies.
 		this.enemies.add(new Enemy(new Position(SCREEN_WIDTH / 4, SCREEN_HEIGHT / 4),
-					1));
+					1, Color.RED));
 
 		// Put them into one pool.
 		this.gameObjects.addAll(this.players);
 		this.gameObjects.addAll(this.enemies);
+
+		// TODO Create walls
+		this.gameObjects.add(new LeftWall(SCREEN_WIDTH, SCREEN_HEIGHT));
     }
 
     public void draw() {
     	this.clearScreen();
 		for(GameObject gameObject : gameObjects) {
 			gameObject.render(this.g);
+			this.g.fill(FOREGROUND_COLOR);
 		}
 
 		// Perform collision detection.

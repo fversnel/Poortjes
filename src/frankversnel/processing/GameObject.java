@@ -11,22 +11,23 @@ public abstract class GameObject {
 	protected int width;
 	protected int height;
 
-	protected int speed;
+	protected Color color;
 
 	public GameObject(final Position position, final int width, final int
-			height, final int speed) {
+			height, final Color color) {
 		this.position = position;
 
 		this.width = width;
 		this.height = height;
 
-		this.speed = speed;
+		this.color = color;
 	}
 
 	public abstract void render(final PGraphics renderer);
 
 	public boolean collides(GameObject otherObject) {
 		assert(!this.equals(otherObject)) : "Game object cannot collide with itself.";
+
 		boolean result = true;
 
 		CollisionBox myBox = this.getCollisionBox();
