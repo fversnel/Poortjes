@@ -4,13 +4,12 @@
   <description></description>
 
   <!-- Project specific settings -->
-  <property name="project.name" value="Geometry Wars" />
   <property name="creator.name" value="Frank Versnel" />
   <property name="project.file.name" value="geometry_wars" />
   <property name="main.class" value="frankversnel.processing.GeometryWars" />
 
   <!-- Version numbers -->
-  <property name="shared.package.version" value="1.0" />
+  <property name="version" value="1.0" />
 
   <!-- Directories used -->
   <property name="dir.source" location="src" />
@@ -55,7 +54,7 @@
     <echo>Using: ${ant.version}</echo>
     <echo>Using: Java version ${ant.java.version} (${java.vendor})</echo>
     <echo>Using: Java version ${preferred.java.version} to compile source files</echo>
-    <echo>Project: ${ant.project.name}</echo>
+    <echo>Project: ${ant.project.name} (${version})</echo>
     <echo>Project base directory: ${basedir}</echo>
     <echo>Operating System: ${os.name} ${os.version} (${os.arch})</echo>
   </target>
@@ -72,7 +71,7 @@
     </depend>
   </target>
 
-  <target name="compile" depends="initialize" description="Compiles the source files and outputs them to the 'build' directory.">
+  <target name="compile" depends="check_dependencies" description="Compiles the source files and outputs them to the 'build' directory.">
     <mkdir dir="${dir.build}" />
     <javac srcdir="${dir.source}" destdir="${dir.build}"
       classpathref="project.class.path" target="${preferred.java.version}"
@@ -93,7 +92,7 @@
         <path refid="project.class.path" />
       </classpath>
 
-      <batchtest fork="yes" todir="${dir.logfiles}">
+      <batchtest todir="${dir.logfiles}">
         <fileset dir="${dir.source}">
           <include name="${testing.java.files}" />
         </fileset>
@@ -101,9 +100,10 @@
     </junit>
   </target>
 
-  <target name="distribution" depends="compile" description="Creates a jar file from the class files in the 'build' directory and outputs it in the 'dist' directory">
+  <target name="distribution" depends="test" description="Creates a jar file from the class files in the 'build' directory and outputs it in the 'dist' directory">
     <mkdir dir="${dir.distribution}" />
     <manifest file="${dir.distribution}/MANIFEST.MF">
+      <attribute name="Version" value="${version}"/>
       <attribute name="Main-Class" value="${main.class}" />
     </manifest>
     <jar destfile="${distribution.file}" manifest="${dir.distribution}/MANIFEST.MF" >

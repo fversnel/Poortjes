@@ -1,8 +1,5 @@
 package frankversnel.processing;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import processing.core.*;
 
 public abstract class GameObject {
@@ -59,7 +56,7 @@ public abstract class GameObject {
 		return result;
 	}
 
-	public BoundingBox getBoundingBox() {
+	private BoundingBox getBoundingBox() {
 		return new BoundingBox(
 				new Position(this.position.x, this.position.y),
 				new Position(this.position.x + this.width, this.position.y + this.height)
@@ -67,3 +64,4 @@ public abstract class GameObject {
 	}
 
 }
+
