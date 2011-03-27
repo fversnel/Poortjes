@@ -30,8 +30,8 @@ public abstract class GameObject {
 
 		boolean result = true;
 
-		CollisionBox myBox = this.getCollisionBox();
-		CollisionBox otherBox = otherObject.getCollisionBox();
+		BoundingBox thisBox = this.getBoundingBox();
+		BoundingBox otherBox = otherObject.getBoundingBox();
 
 		// 2D collision detection algorithm by maryrosecook.
 		// (http://www.maryrosecook.com/post/how-to-do-2d-collision-detection)
@@ -43,27 +43,25 @@ public abstract class GameObject {
 		//    There is no collision
 		//If a's bottom right y is less than b's top left y
 		//    There is no collision
-		if(myBox.getBottomRightCorner().x < otherBox.getTopLeftCorner().x) {
+		if(thisBox.bottomRightCorner.x < otherBox.topLeftCorner.x) {
 			result = false;
 		}
-		if(myBox.getTopLeftCorner().x > otherBox.getBottomRightCorner().x) {
+		if(thisBox.topLeftCorner.x > otherBox.bottomRightCorner.x) {
 			result = false;
 		}
-		if(myBox.getTopLeftCorner().y > otherBox.getBottomRightCorner().y) {
+		if(thisBox.topLeftCorner.y > otherBox.bottomRightCorner.y) {
 			result = false;
 		}
-		if(myBox.getBottomRightCorner().y < otherBox.getTopLeftCorner().y) {
+		if(thisBox.bottomRightCorner.y < otherBox.topLeftCorner.y) {
 			result = false;
 		}
 
 		return result;
 	}
 
-	public CollisionBox getCollisionBox() {
-		return new CollisionBox(
+	public BoundingBox getBoundingBox() {
+		return new BoundingBox(
 				new Position(this.position.x, this.position.y),
-				new Position(this.position.x + this.width, this.position.y),
-				new Position(this.position.x, this.position.y + this.height),
 				new Position(this.position.x + this.width, this.position.y + this.height)
 				);
 	}

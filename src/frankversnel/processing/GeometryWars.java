@@ -42,6 +42,9 @@ public class GeometryWars extends PApplet {
 
 		// TODO Create walls
 		this.gameObjects.add(new LeftWall(SCREEN_WIDTH, SCREEN_HEIGHT));
+		this.gameObjects.add(new RightWall(SCREEN_WIDTH, SCREEN_HEIGHT));
+		this.gameObjects.add(new TopWall(SCREEN_WIDTH, SCREEN_HEIGHT));
+		this.gameObjects.add(new BottomWall(SCREEN_WIDTH, SCREEN_HEIGHT));
     }
 
     public void draw() {

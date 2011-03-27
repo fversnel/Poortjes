@@ -16,4 +16,5 @@ public abstract class Wall extends GameObject {
 		renderer.rect(this.position.x, this.position.y,
 				this.width, this.height);
 	}
+
 }
