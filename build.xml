@@ -38,6 +38,9 @@
   <!-- Dependency checking related properties -->
   <property name="dependency.check.closure" value="true" />
 
+  <property name="library.processing" value="lib/processing_core.jar"/>
+  <property name="library.slf4j" value="lib/slf4j-api-1.6.1.jar"/>
+
   <!-- Project class path -->
   <path id="project.class.path">
     <fileset dir="lib">
@@ -109,6 +112,8 @@
     <jar destfile="${distribution.file}" manifest="${dir.distribution}/MANIFEST.MF" >
       <fileset dir="${dir.build}" includes="**/*.class"
         excludes="${testing.class.files}" />
+      <zipfileset src="${library.processing}"/>
+      <zipfileset src="${library.slf4j}"/>
     </jar>
     <delete file="${dir.distribution}/MANIFEST.MF" />
   </target>

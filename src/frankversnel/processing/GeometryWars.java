@@ -1,11 +1,18 @@
 package frankversnel.processing;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import processing.core.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import frankversnel.processing.gameobjects.Enemy;
+import frankversnel.processing.gameobjects.GameObject;
+import frankversnel.processing.gameobjects.Player;
+import frankversnel.processing.gameobjects.Position;
+import frankversnel.processing.gameobjects.wall.BottomWall;
+import frankversnel.processing.gameobjects.wall.LeftWall;
+import frankversnel.processing.gameobjects.wall.RightWall;
+import frankversnel.processing.gameobjects.wall.TopWall;
+import frankversnel.processing.util.Color;
 
 public class GeometryWars extends PApplet {
 	/**
@@ -13,73 +20,51 @@ public class GeometryWars extends PApplet {
 	 */
 	private static final long serialVersionUID = 9178782595328986939L;
 
-	private Logger logger = LoggerFactory.getLogger(GeometryWars.class);
-
 	private static final int SCREEN_WIDTH = 400;
 	private static final int SCREEN_HEIGHT = 400;
 	private static final int BACKGROUND_COLOR = 0;
 	private static final int FOREGROUND_COLOR = 255;
 
-	private List<GameObject> gameObjects = new LinkedList<GameObject>();
-	
-	private List<Player> players = new LinkedList<Player>();
-	private List<Enemy> enemies = new LinkedList<Enemy>();
-	private List<Wall> walls = new LinkedList<Wall>();
+	private GameContext gameContext;
 
     public void setup() {
 	    size(SCREEN_WIDTH, SCREEN_HEIGHT);
 	    background(BACKGROUND_COLOR);
 	    
-		// Create players.
-		this.players.add(new Player(
+	    gameContext = new GameContext();
+	    
+	    gameContext.addPlayer(new Player(
 	    		new Position(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2),
 	    		'w', 's', 'a', 'd', Color.GREEN));
-		
-		// Create enemies.
-		this.enemies.add(new Enemy(new Position(SCREEN_WIDTH / 4, SCREEN_HEIGHT / 4),
-					1, Color.RED));
+	    gameContext.addEnemy(new Enemy(new Position(SCREEN_WIDTH / 4, SCREEN_HEIGHT / 4),
+				1, Color.RED));
 
 		// Create walls.
-		this.walls.add(new LeftWall(SCREEN_WIDTH, SCREEN_HEIGHT));
-		this.walls.add(new RightWall(SCREEN_WIDTH, SCREEN_HEIGHT));
-		this.walls.add(new TopWall(SCREEN_WIDTH, SCREEN_HEIGHT));
-		this.walls.add(new BottomWall(SCREEN_WIDTH, SCREEN_HEIGHT));
-		
-		saveGameObjects(this.walls, this.enemies, this.players);
+	    gameContext.addWall(new LeftWall(SCREEN_WIDTH, SCREEN_HEIGHT));
+	    gameContext.addWall(new RightWall(SCREEN_WIDTH, SCREEN_HEIGHT));
+	    gameContext.addWall(new TopWall(SCREEN_WIDTH, SCREEN_HEIGHT));
+	    gameContext.addWall(new BottomWall(SCREEN_WIDTH, SCREEN_HEIGHT));
     }
 
     public void draw() {
-    	this.clearScreen();
+    	List<GameObject> gameObjects = gameContext.getGameObjects();
+    	
+       	this.clearScreen();
 		for(GameObject gameObject : gameObjects) {
 			gameObject.render(this.g);
 			this.g.fill(FOREGROUND_COLOR);
 		}
 
 		// Perform collision detection.
-		performCollision(players, enemies);
-		performCollision(players, walls);
-		performCollision(enemies, walls);
+		Visitor collisionVisitor = new CollisionVisitor(gameContext);
+    	for(GameObject gameObject : gameObjects) {
+    		gameObject.accept(collisionVisitor);
+    	}
     }
 
     public void keyPressed() {
-    	for(Player player : this.players) {
+    	for(Player player : gameContext.getPlayers()) {
 			player.handleInput(key);
-    	}
-    }
-    
-    private void saveGameObjects(List<? extends GameObject> ... gameObjectsToSave) {
-    	for(List<? extends GameObject> gameObjectsCollection : gameObjectsToSave) {
-    		gameObjects.addAll(gameObjectsCollection);
-    	}
-    }
-    
-	private void performCollision(final List<? extends GameObject> us, final List<? extends GameObject> them) {
-    	for(GameObject ours : us) {
-    		for(GameObject theirs : them) {
-    			if(ours.collides(theirs)) {
-    				logger.info(ours + " collides with " + theirs);
-    			}
-    		}
     	}
     }
 
