@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<project name="Geometry Wars" default="compile" basedir=".">
+<project name="Poortjes" default="compile" basedir=".">
   <description></description>
 
   <!-- Project specific settings -->
   <property name="creator.name" value="Frank Versnel" />
-  <property name="project.file.name" value="geometry_wars" />
   <property name="main.class" value="frankversnel.processing.GeometryWars" />
 
   <!-- Version numbers -->
@@ -33,7 +32,7 @@
 
   <!-- The distribution file to be created -->
   <property name="distribution.file"
-    value="${dir.distribution}/${project.file.name}.jar" />
+    value="${dir.distribution}/${ant.project.name}.jar" />
 
   <!-- Dependency checking related properties -->
   <property name="dependency.check.closure" value="true" />
