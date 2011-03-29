@@ -1,0 +1,28 @@
+collisionmanager
+  for each collisioncomponents
+    for each collisioncomponents
+      collisioncomponent.collide(othercomponent)
+      trigger event if collision
+
+collisionevent
+  the collider that i collided with
+
+component
+  gameobject
+
+gameobject
+  components
+
+playercomponent
+  catches collision events
+    searches appropriate gameobject
+    enemy = gameobject.getcomponent(enemycomponent)
+    if(enemy != null)
+      enemy.die()
+
+enemy
+  die
+    unregister components
+
+
+    
