@@ -32,8 +32,9 @@ public class Color extends Component {
 		return this.b;
 	}
 	
-	private void assertColorValue(int colorValue) {
-		assert(colorValue >= 0 && colorValue <= 255);
+	private void assertColorValue(int value) {
+		assert(value >= 0 && value <= 255) : "A value of the RGB index " +
+				"has to be between 0 and 255, the given value was " + value;
 	}
 	
 	public static Color red(GameObject gameObject) {
