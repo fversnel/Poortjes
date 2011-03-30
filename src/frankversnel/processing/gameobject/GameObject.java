@@ -37,6 +37,17 @@ public class GameObject {
 		return (T) componentStores.get(componentType).get(FIRST_COMPONENT);
 	}
 	
+	@SuppressWarnings("unchecked")
+	public <T extends Component> List<T> getAllComponentsOfType(Class<T> componentType) {
+		List<T> store = (List<T>) componentStores.get(componentType);
+
+		if( store == null) {
+			store = new LinkedList<T>();
+		}
+
+		return store;
+	}
+
 	public boolean removeComponent(Component component) {
 		List<Component> store = componentStores.get(component.getClass());
 		return store.remove(component);
