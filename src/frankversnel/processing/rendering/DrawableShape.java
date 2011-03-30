@@ -23,7 +23,7 @@ public class DrawableShape extends Component implements Drawable {
 
 	@Override
 	public void draw(Renderer renderer) {
-		renderer.draw(position, size, shapeId);
+		renderer.drawShape(position, size, shapeId);
 	}
 
 }

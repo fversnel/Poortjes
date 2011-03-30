@@ -5,10 +5,10 @@ import frankversnel.processing.component.Size;
 
 public interface Renderer {
 	
-	public void draw(Position position, Polygon shape, Color color);
+	public void drawPolygon(Position position, Polygon polygon, Color color);
 	
-	public void draw(Position position, Size size, Color color);
+	public void drawCircle(Position position, Size size, Color color);
 	
-	public void draw(Position position, Size size, String shapeId);
+	public void drawShape(Position position, Size size, String shapeId);
 
 }

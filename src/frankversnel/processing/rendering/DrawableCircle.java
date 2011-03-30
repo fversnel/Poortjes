@@ -21,7 +21,7 @@ public class DrawableCircle extends Component implements Drawable {
 
 	@Override
 	public void draw(Renderer renderer) {
-		renderer.draw(position, size, color);
+		renderer.drawCircle(position, size, color);
 	}
 
 }

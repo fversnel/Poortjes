@@ -27,7 +27,7 @@ public class DrawablePolygon extends Component implements Drawable {
 	}
 	
 	public void draw(Renderer renderer) {
-		renderer.draw(position, shape, color);
+		renderer.drawPolygon(position, shape, color);
 	}
 
 }

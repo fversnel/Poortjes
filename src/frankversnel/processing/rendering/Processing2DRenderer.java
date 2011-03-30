@@ -16,7 +16,7 @@ public class Processing2DRenderer implements Renderer {
 	}
 
 	@Override
-	public void draw(Position position, Polygon polygon, Color color) {
+	public void drawPolygon(Position position, Polygon polygon, Color color) {
 		fill(color);
 
 		graphics.beginShape();
@@ -28,7 +28,7 @@ public class Processing2DRenderer implements Renderer {
 	}
 
 	@Override
-	public void draw(Position position, Size size, Color color) {
+	public void drawCircle(Position position, Size size, Color color) {
 		graphics.ellipse(position.x(), position.y(), 
 				size.width(), size.height());
 	}
@@ -38,7 +38,7 @@ public class Processing2DRenderer implements Renderer {
 	}
 
 	@Override
-	public void draw(Position position, Size size, String shapeId) {
+	public void drawShape(Position position, Size size, String shapeId) {
 		graphics.shape(shapeLoader.getShape(shapeId), 
 				position.x(), position.y(), 
 				size.width(), size.height());
