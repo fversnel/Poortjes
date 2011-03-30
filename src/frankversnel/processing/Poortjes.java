@@ -1,10 +1,13 @@
 package frankversnel.processing;
 
-import java.util.List;
+import java.io.FileNotFoundException;
 
-import frankversnel.processing.component.manager.Processing2DRenderer;
-import frankversnel.processing.component.manager.RenderManager;
+import frankversnel.processing.gameobject.GameObject;
 import frankversnel.processing.gameobject.Player;
+import frankversnel.processing.gameobject.PlayerWithShape;
+import frankversnel.processing.rendering.Processing2DRenderer;
+import frankversnel.processing.rendering.ProcessingShapeLoader;
+import frankversnel.processing.rendering.RenderManager;
 
 import processing.core.*;
 
@@ -17,15 +20,16 @@ public class Poortjes extends PApplet {
 	private static final int SCREEN_WIDTH = 400;
 	private static final int SCREEN_HEIGHT = 400;
 	private static final int BACKGROUND_COLOR = 0;
-	private static final int FOREGROUND_COLOR = 255;
 	
 	private RenderManager renderManager;
 	
     public void setup() {
 	    size(SCREEN_WIDTH, SCREEN_HEIGHT);
 	    background(BACKGROUND_COLOR);
+	    smooth();
 	    
-	    renderManager = new RenderManager(new Processing2DRenderer(g));
+	    ProcessingShapeLoader shapeLoader = new ProcessingShapeLoader(this);
+	    renderManager = new RenderManager(new Processing2DRenderer(g, shapeLoader));
 	    
 	    new Player(renderManager);
     }

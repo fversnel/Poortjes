@@ -5,7 +5,7 @@
 
   <!-- Project specific settings -->
   <property name="creator.name" value="Frank Versnel" />
-  <property name="main.class" value="frankversnel.processing.GeometryWars" />
+  <property name="main.class" value="frankversnel.processing.Poortjes" />
 
   <!-- Version numbers -->
   <property name="version" value="1.0" />
