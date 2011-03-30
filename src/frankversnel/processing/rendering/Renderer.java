@@ -2,6 +2,8 @@ package frankversnel.processing.rendering;
 
 import frankversnel.processing.component.Position;
 import frankversnel.processing.component.Size;
+import frankversnel.processing.rendering.component.Color;
+import frankversnel.processing.rendering.component.Polygon;
 
 public interface Renderer {
 	

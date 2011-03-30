@@ -1,13 +1,10 @@
 package frankversnel.processing;
 
-import java.io.FileNotFoundException;
 
-import frankversnel.processing.gameobject.GameObject;
 import frankversnel.processing.gameobject.Player;
-import frankversnel.processing.gameobject.PlayerWithShape;
 import frankversnel.processing.rendering.Processing2DRenderer;
-import frankversnel.processing.rendering.ProcessingShapeLoader;
-import frankversnel.processing.rendering.RenderManager;
+import frankversnel.processing.rendering.RenderingManager;
+import frankversnel.processing.rendering.shapeloader.ProcessingShapeLoader;
 
 import processing.core.*;
 
@@ -21,7 +18,7 @@ public class Poortjes extends PApplet {
 	private static final int SCREEN_HEIGHT = 400;
 	private static final int BACKGROUND_COLOR = 0;
 	
-	private RenderManager renderManager;
+	private RenderingManager renderManager;
 	
     public void setup() {
 	    size(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -29,7 +26,7 @@ public class Poortjes extends PApplet {
 	    smooth();
 	    
 	    ProcessingShapeLoader shapeLoader = new ProcessingShapeLoader(this);
-	    renderManager = new RenderManager(new Processing2DRenderer(g, shapeLoader));
+	    renderManager = new RenderingManager(new Processing2DRenderer(g, shapeLoader));
 	    
 	    new Player(renderManager);
     }
