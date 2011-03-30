@@ -2,33 +2,35 @@ package frankversnel.processing.rendering.component;
 
 import frankversnel.processing.component.Component;
 import frankversnel.processing.component.Position;
+import frankversnel.processing.component.Size;
 import frankversnel.processing.gameobject.GameObject;
 import frankversnel.processing.rendering.Renderer;
 
 public class DrawablePolygon extends Component implements Drawable {
-	private Color color;
-	private Position position;
-	private Polygon shape;
-	
-	public DrawablePolygon(GameObject gameObject, Position position, 
-			Polygon polygon, Color color) {
+	private Position[] coords;
+
+	public DrawablePolygon(GameObject gameObject, Position... coords) {
 		super(gameObject);
 		
-		this.shape = polygon;
-		this.position = position;
-		this.color = color;
+		this.coords = coords;
+	}
+	
+	@Override
+	public void draw(Renderer renderer) {
+		GameObject gameObject = getGameObject();
+		
+		Position gameObjectPosition = gameObject.getComponent(Position.class);
+		Color gameObjectColor = gameObject.getComponent(Color.class);
+		
+		renderer.drawPolygon(gameObjectPosition, gameObjectColor, coords);
 	}
 
-	public Position getPosition() {
-		return position;
-	}
-	
-	public Polygon getShape() {
-		return shape;
-	}
-	
-	public void draw(Renderer renderer) {
-		renderer.drawPolygon(position, shape, color);
+	public static DrawablePolygon square(GameObject gameObject, Size size) {
+		return new DrawablePolygon(gameObject,
+				new Position(gameObject, 0, 0),
+				new Position(gameObject, size.width(), 0),
+				new Position(gameObject, size.width(), size.height()),
+				new Position(gameObject, 0, size.height()));
 	}
 
 }

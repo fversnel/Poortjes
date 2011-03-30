@@ -109,7 +109,7 @@
       <attribute name="Main-Class" value="${main.class}" />
     </manifest>
     <jar destfile="${distribution.file}" manifest="${dir.distribution}/MANIFEST.MF" >
-      <fileset dir="${dir.build}" includes="**/*.class"
+      <fileset dir="${dir.build}" includes="**/*.*"
         excludes="${testing.class.files}" />
       <zipfileset src="${library.processing}"/>
       <zipfileset src="${library.slf4j}"/>

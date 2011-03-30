@@ -1,15 +1,16 @@
 package frankversnel.processing.rendering.component;
 
-public class Color {
-	public static final Color RED = new Color(255, 0, 0);
-	public static final Color GREEN = new Color(0, 255, 0);
-	public static final Color BLUE = new Color(0, 0, 255);
-	
+import frankversnel.processing.component.Component;
+import frankversnel.processing.gameobject.GameObject;
+
+public class Color extends Component {
 	private int r;
 	private int g;
 	private int b;
 
-	public Color(int r, int g, int b) {
+	public Color(GameObject gameObject, int r, int g, int b) {
+		super(gameObject);
+		
 		assertColorValue(r);
 		assertColorValue(g);
 		assertColorValue(b);
@@ -33,6 +34,16 @@ public class Color {
 	
 	private void assertColorValue(int colorValue) {
 		assert(colorValue >= 0 && colorValue <= 255);
+	}
+	
+	public static Color red(GameObject gameObject) {
+		return new Color(gameObject, 255, 0, 0);
+	}
+	public static Color green(GameObject gameObject) {
+		return new Color(gameObject, 0, 255, 0);
+	}
+	public static Color blue(GameObject gameObject) {
+		return new Color(gameObject, 0, 0, 255);
 	}
 
 }

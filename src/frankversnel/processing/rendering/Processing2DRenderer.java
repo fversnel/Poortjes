@@ -3,7 +3,6 @@ package frankversnel.processing.rendering;
 import frankversnel.processing.component.Position;
 import frankversnel.processing.component.Size;
 import frankversnel.processing.rendering.component.Color;
-import frankversnel.processing.rendering.component.Polygon;
 import frankversnel.processing.rendering.shapeloader.ProcessingShapeLoader;
 import processing.core.PConstants;
 import processing.core.PGraphics;
@@ -19,11 +18,11 @@ public class Processing2DRenderer implements Renderer {
 	}
 
 	@Override
-	public void drawPolygon(Position position, Polygon polygon, Color color) {
+	public void drawPolygon(Position position, Color color, Position[] polygonCoords) {
 		fill(color);
 
 		graphics.beginShape();
-		for(Position coords : polygon.getCoords()) {
+		for(Position coords : polygonCoords) {
 			graphics.vertex(position.x() + coords.x(),
 					position.y() + coords.y());
 		}

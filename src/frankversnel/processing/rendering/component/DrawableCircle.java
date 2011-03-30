@@ -7,22 +7,20 @@ import frankversnel.processing.gameobject.GameObject;
 import frankversnel.processing.rendering.Renderer;
 
 public class DrawableCircle extends Component implements Drawable {
-	private Position position;
-	private Color color;
-	private Size size;
 	
-	public DrawableCircle(GameObject gameObject, 
-			Position position, Size size, Color color) {
+	public DrawableCircle(GameObject gameObject) {
 		super(gameObject);
-		
-		this.position = position;
-		this.color = color;
-		this.size = size;
 	}
 
 	@Override
 	public void draw(Renderer renderer) {
-		renderer.drawCircle(position, size, color);
+		GameObject gameObject = getGameObject();
+		
+		Position gameObjectPosition = gameObject.getComponent(Position.class);
+		Size gameObjectSize = gameObject.getComponent(Size.class);
+		Color gameObjectColor = gameObject.getComponent(Color.class);
+		
+		renderer.drawCircle(gameObjectPosition, gameObjectSize, gameObjectColor);
 	}
 
 }

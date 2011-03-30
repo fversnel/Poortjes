@@ -1,11 +1,23 @@
 package frankversnel.processing.component;
 
-public class Position {
+import frankversnel.processing.gameobject.GameObject;
+
+public class Position extends Component {
 	private int x;
 	private int y;
 	
-	public Position(int x, int y) {
+	public Position(GameObject gameObject, int x, int y) {
+		super(gameObject);
+		
 		this.x = x;
+		this.y = y;
+	}
+	
+	public void x(int x) {
+		this.x = x;
+	}
+	
+	public void y(int y) {
 		this.y = y;
 	}
 	
