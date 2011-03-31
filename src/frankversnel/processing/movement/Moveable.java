@@ -20,7 +20,6 @@ public class Moveable extends Component implements ActionListener {
 		float speed = getGameObject().safe_getComponent(Speed.class).getValue();
 		float angle = getGameObject().safe_getComponent(Angle.class).getRadians();
 		
-		// Calculate the point to draw to.
 		final float newXCoordinate = position.x() + speed
 				* (float)Math.sin(angle);
 		final float newYCoordinate = position.y() - speed
