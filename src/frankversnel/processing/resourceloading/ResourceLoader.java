@@ -1,4 +1,4 @@
-package frankversnel.processing.rendering.shapeloader;
+package frankversnel.processing.resourceloading;
 
 import java.io.FileNotFoundException;
 import java.util.HashMap;

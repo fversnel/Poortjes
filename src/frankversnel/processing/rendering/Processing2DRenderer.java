@@ -3,7 +3,7 @@ package frankversnel.processing.rendering;
 import frankversnel.processing.component.Position;
 import frankversnel.processing.component.Size;
 import frankversnel.processing.rendering.component.Color;
-import frankversnel.processing.rendering.shapeloader.ProcessingShapeLoader;
+import frankversnel.processing.resourceloading.ProcessingShapeLoader;
 import processing.core.PConstants;
 import processing.core.PGraphics;
 

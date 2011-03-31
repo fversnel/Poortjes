@@ -3,7 +3,7 @@ package frankversnel.processing;
 
 import frankversnel.processing.rendering.Processing2DRenderer;
 import frankversnel.processing.rendering.RenderingManager;
-import frankversnel.processing.rendering.shapeloader.ProcessingShapeLoader;
+import frankversnel.processing.resourceloading.ProcessingShapeLoader;
 
 import processing.core.*;
 
