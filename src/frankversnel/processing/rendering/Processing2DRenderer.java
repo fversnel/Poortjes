@@ -43,7 +43,7 @@ public class Processing2DRenderer implements Renderer {
 
 	@Override
 	public void drawShape(Position position, Size size, String shapeId) {
-		graphics.shape(shapeLoader.getShape(shapeId), 
+		graphics.shape(shapeLoader.getResource(shapeId), 
 				position.x(), position.y(), 
 				size.width(), size.height());
 	}
