@@ -3,29 +3,29 @@ package frankversnel.processing.component;
 import frankversnel.processing.GameObject;
 
 public class Position extends Component {
-	private int x;
-	private int y;
+	private float x;
+	private float y;
 	
-	public Position(GameObject gameObject, int x, int y) {
+	public Position(GameObject gameObject, float x, float y) {
 		super(gameObject);
 		
 		this.x = x;
 		this.y = y;
 	}
 	
-	public void x(int x) {
+	public void x(float x) {
 		this.x = x;
 	}
 	
-	public void y(int y) {
+	public void y(float y) {
 		this.y = y;
 	}
 	
-	public int x() {
+	public float x() {
 		return x;
 	}
 	
-	public int y() {
+	public float y() {
 		return y;
 	}
 

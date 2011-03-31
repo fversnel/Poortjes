@@ -14,10 +14,4 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
-	<variableList>
-		<variable>
-			<name>Drawing</name>
-			<value>file:/home/frank/programming/java-workspace/geometry_wars/src/frankversnel/processing/rendering/drawing.svg</value>
-		</variable>
-	</variableList>
 </projectDescription>

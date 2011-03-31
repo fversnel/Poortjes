@@ -1,6 +1,12 @@
 package frankversnel.processing;
 
+import java.io.FileNotFoundException;
 
+import frankversnel.processing.collision.CollisionManager;
+import frankversnel.processing.dummy.PlayerWithPolygon;
+import frankversnel.processing.dummy.PlayerWithShape;
+import frankversnel.processing.gameloop.DefaultGameLoop;
+import frankversnel.processing.gameloop.GameLoop;
 import frankversnel.processing.rendering.Processing2DRenderer;
 import frankversnel.processing.rendering.RenderingManager;
 import frankversnel.processing.resourceloading.ProcessingShapeLoader;
@@ -18,16 +24,25 @@ public class Poortjes extends PApplet {
 	private static final int BACKGROUND_COLOR = 0;
 	
 	private RenderingManager renderManager;
+	private CollisionManager collisionManager;
 	
-    public void setup() {
-	    size(SCREEN_WIDTH, SCREEN_HEIGHT);
+	private GameLoop gameLoop;
+	
+	public void setup() {
+		size(SCREEN_WIDTH, SCREEN_HEIGHT);
 	    background(BACKGROUND_COLOR);
 	    smooth();
 	    
 	    ProcessingShapeLoader shapeLoader = new ProcessingShapeLoader(this);
 	    renderManager = new RenderingManager(new Processing2DRenderer(g, shapeLoader));
 	    
-	    new Player(renderManager);
+	    collisionManager = new CollisionManager();
+	    
+	    gameLoop = new DefaultGameLoop();
+	    gameLoop.addActionListener(collisionManager);
+	    gameLoop.start();
+	    
+	    new PlayerWithPolygon(renderManager, gameLoop);
     }
 
     public void draw() {
