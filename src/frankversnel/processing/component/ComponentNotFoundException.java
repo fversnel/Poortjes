@@ -10,8 +10,8 @@ public class ComponentNotFoundException extends Exception {
 
 	public <T extends Component>  ComponentNotFoundException(Class<T> componentType, 
 			GameObject gameObject) {
-		super("Component of type " + componentType.getClass() + 
-				" could not be fournd for " + gameObject);
+		super("Component of type " + componentType + 
+				" could not be found for " + gameObject);
 	}
 
 }
