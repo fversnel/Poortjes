@@ -1,7 +1,7 @@
 package frankversnel.processing.rendering.component;
 
+import frankversnel.processing.GameObject;
 import frankversnel.processing.component.Component;
-import frankversnel.processing.gameobject.GameObject;
 
 public class Color extends Component {
 	private int r;

@@ -1,9 +1,9 @@
 package frankversnel.processing.rendering.component;
 
+import frankversnel.processing.GameObject;
 import frankversnel.processing.component.Component;
 import frankversnel.processing.component.Position;
 import frankversnel.processing.component.Size;
-import frankversnel.processing.gameobject.GameObject;
 import frankversnel.processing.rendering.Renderer;
 
 public class DrawablePolygon extends Component implements Drawable {

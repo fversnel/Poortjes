@@ -1,4 +1,4 @@
-package frankversnel.processing.gameobject;
+package frankversnel.processing;
 
 import java.util.List;
 import java.util.LinkedList;
@@ -36,7 +36,7 @@ public class GameObject {
 	public <T extends Component> T getComponent(Class<T> componentType) {
 		List<Component> store = componentStores.get(componentType);
 		
-		if(store.size() > 0) {
+		if(store != null && store.size() > 0) {
 			return (T) store.get(FIRST_COMPONENT);
 		}
 		

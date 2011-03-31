@@ -1,6 +1,6 @@
 package frankversnel.processing.component;
 
-import frankversnel.processing.gameobject.GameObject;
+import frankversnel.processing.GameObject;
 
 public class Size extends Component {
 	private int width;
