@@ -1,9 +1,15 @@
 package frankversnel.processing.rendering.component;
 
+import frankversnel.processing.GameObject;
+import frankversnel.processing.component.Component;
 import frankversnel.processing.rendering.Renderer;
 
-public interface Drawable {
+public abstract class Drawable extends Component {
 	
-	public void draw(Renderer renderer);
+	public Drawable(GameObject gameObject) {
+		super(gameObject);
+	}
+
+	public abstract void draw(Renderer renderer);
 
 }

@@ -32,7 +32,7 @@ public class Poortjes extends PApplet {
 
     public void draw() {
     	clearScreen();
-    	renderManager.drawAll();
+    	renderManager.processComponents();
     }
 
     private void clearScreen() {

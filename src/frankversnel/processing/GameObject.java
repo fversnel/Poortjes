@@ -8,6 +8,7 @@ import java.util.HashMap;
 
 import frankversnel.processing.component.Component;
 import frankversnel.processing.component.ComponentManager;
+import frankversnel.processing.component.ComponentNotFoundException;
 
 public class GameObject {
 	private static final int FIRST_COMPONENT = 0;
@@ -43,6 +44,21 @@ public class GameObject {
 		return null;
 	}
 	
+	/**
+	 * This is the safe variant of the {@link GameObject#getComponent(Class)} method, 
+	 * meaning a {@link RuntimeException} will be thrown when a component could not be found.
+	 */
+	public <T extends Component> T safe_getComponent(Class<T> componentType) {
+		T component = getComponent(componentType);
+		
+		if(component == null) {
+			throw new RuntimeException(
+					new ComponentNotFoundException(componentType, this));
+		}
+		
+		return component;
+	}
+	
 	@SuppressWarnings("unchecked")
 	public <T extends Component> List<T> getAllComponentsOfType(Class<T> componentType) {
 		List<T> store = (List<T>) componentStores.get(componentType);
@@ -51,6 +67,21 @@ public class GameObject {
 			store = new LinkedList<T>();
 		}
 
+		return store;
+	}
+	
+	/**
+	 * This is the safe variant of the {@link GameObject#getComponentOfType(Class)} method, 
+	 * meaning a {@link RuntimeException} will be thrown the component(s) could not be found.
+	 */
+	public <T extends Component> List<T> safe_getAllComponentsOfType(Class<T> componentType) {
+		List<T> store = getAllComponentsOfType(componentType);
+		
+		if(store.size() == 0) {
+			throw new RuntimeException(
+					new ComponentNotFoundException(componentType, this));
+		}
+		
 		return store;
 	}
 
@@ -67,6 +98,11 @@ public class GameObject {
 				}
 			}
 		}
+	}
+	
+	@Override
+	public String toString() {
+		return "GameObject with components " + this.componentStores.values();
 	}
 
 }

@@ -31,6 +31,8 @@ public class Processing2DRenderer implements Renderer {
 
 	@Override
 	public void drawCircle(Position position, Size size, Color color) {
+		fill(color);
+		
 		graphics.ellipse(position.x(), position.y(), 
 				size.width(), size.height());
 	}

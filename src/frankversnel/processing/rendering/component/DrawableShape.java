@@ -1,12 +1,11 @@
 package frankversnel.processing.rendering.component;
 
 import frankversnel.processing.GameObject;
-import frankversnel.processing.component.Component;
 import frankversnel.processing.component.Position;
 import frankversnel.processing.component.Size;
 import frankversnel.processing.rendering.Renderer;
 
-public class DrawableShape extends Component implements Drawable {
+public class DrawableShape extends Drawable {
 	private String shapeId;
 	
 	private Position position;

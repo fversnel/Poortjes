@@ -1,8 +1,19 @@
 package frankversnel.processing.component;
 
+import java.util.LinkedList;
+import java.util.List;
 
-public interface ComponentManager {
+public abstract class ComponentManager <T extends Component> {
+	protected List<T> components = new LinkedList<T>();
 	
-	public boolean removeComponent(Component component);
+	public void addComponent(T component) {
+		components.add(component);
+	}
+	
+	public abstract void processComponents();
+	
+	public boolean removeComponent(Component component) {
+		return components.remove(component);
+	}
 	
 }

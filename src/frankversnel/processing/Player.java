@@ -16,7 +16,7 @@ public class Player extends GameObject {
 		Size size = new Size(this, 20, 20);
 		
 		DrawablePolygon playerLooks = DrawablePolygon.square(this, size);
-		renderManager.addDrawable(playerLooks);
+		renderManager.addComponent(playerLooks);
 	}
 
 }
