@@ -7,8 +7,9 @@ public class CollisionManager extends ComponentManager<Collidable> {
 
 	@Override
 	public void processComponents() {
-		// TODO Auto-generated method stub
-		
+		for(Collidable collidables : components) {
+			
+		}
 	}
 
 }

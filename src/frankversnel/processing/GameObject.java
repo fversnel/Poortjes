@@ -1,7 +1,8 @@
 package frankversnel.processing;
 
-import java.util.List;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
@@ -26,7 +27,7 @@ public class GameObject {
 		List<Component> store = componentStores.get(component.getClass());
 		
 		if(store == null) {
-			store = new LinkedList<Component>();
+			store = new ArrayList<Component>();
 			componentStores.put(component.getClass(), store);
 		}
 		
@@ -64,7 +65,7 @@ public class GameObject {
 		List<T> store = (List<T>) componentStores.get(componentType);
 
 		if(store == null) {
-			store = new LinkedList<T>();
+			store = new ArrayList<T>();
 		}
 
 		return store;
