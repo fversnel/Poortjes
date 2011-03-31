@@ -1,6 +1,9 @@
 package frankversnel.processing;
 
+import java.io.FileNotFoundException;
 
+import frankversnel.processing.dummy.PlayerWithPolygon;
+import frankversnel.processing.dummy.PlayerWithShape;
 import frankversnel.processing.rendering.Processing2DRenderer;
 import frankversnel.processing.rendering.RenderingManager;
 import frankversnel.processing.resourceloading.ProcessingShapeLoader;
@@ -25,9 +28,17 @@ public class Poortjes extends PApplet {
 	    smooth();
 	    
 	    ProcessingShapeLoader shapeLoader = new ProcessingShapeLoader(this);
+	    String shapeId;
+	    try {
+			shapeId = shapeLoader.load("drawing.svg");
+		} catch (FileNotFoundException e) {
+			throw new RuntimeException(e);
+		}
+		
 	    renderManager = new RenderingManager(new Processing2DRenderer(g, shapeLoader));
 	    
-	    new Player(renderManager);
+	    new PlayerWithPolygon(renderManager);
+	    new PlayerWithShape(renderManager, shapeId);
     }
 
     public void draw() {

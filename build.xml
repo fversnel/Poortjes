@@ -12,6 +12,7 @@
 
   <!-- Directories used -->
   <property name="dir.source" location="src" />
+  <property name="dir.resources" location="${dir.source}/resources" />
   <property name="dir.build" location="bin" />
   <property name="dir.distribution" location="dist" />
   <property name="dir.logfiles" location="log" />
@@ -111,6 +112,7 @@
     <jar destfile="${distribution.file}" manifest="${dir.distribution}/MANIFEST.MF" >
       <fileset dir="${dir.build}" includes="**/*.*"
         excludes="${testing.class.files}" />
+      <fileset dir="${dir.resources}"/>
       <zipfileset src="${library.processing}"/>
       <zipfileset src="${library.slf4j}"/>
     </jar>
