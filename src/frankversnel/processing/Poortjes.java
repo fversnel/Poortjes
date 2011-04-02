@@ -2,9 +2,6 @@ package frankversnel.processing;
 
 import java.io.FileNotFoundException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import frankversnel.processing.collision.CollisionManager;
 import frankversnel.processing.dummy.PlayerWithCircle;
 import frankversnel.processing.dummy.PlayerWithShape;
@@ -22,8 +19,6 @@ public class Poortjes extends PApplet {
 	 */
 	private static final long serialVersionUID = 9178782595328986939L;
 	
-	private static final Logger logger = LoggerFactory.getLogger(Poortjes.class);
-
 	private static final int SCREEN_WIDTH = 400;
 	private static final int SCREEN_HEIGHT = 400;
 	private static final int BACKGROUND_COLOR = 0;
@@ -41,7 +36,7 @@ public class Poortjes extends PApplet {
 	    ProcessingShapeLoader shapeLoader = new ProcessingShapeLoader(this);
 	    String shapeId;
 	    try {
-			shapeId  = shapeLoader.load("drawing.svg");
+			shapeId  = shapeLoader.load("resources/drawing.svg");
 		} catch (FileNotFoundException e) {
 			throw new RuntimeException(e);
 		}
