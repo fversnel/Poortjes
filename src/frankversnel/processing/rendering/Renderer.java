@@ -1,15 +1,12 @@
 package frankversnel.processing.rendering;
 
-import frankversnel.processing.component.Position;
-import frankversnel.processing.component.Size;
+import frankversnel.processing.component.Transform;
 import frankversnel.processing.rendering.component.Color;
 
 public interface Renderer {
 	
-	public void drawPolygon(Position position, Color color, Position[] pologonCoords);
+	public void drawCircle(Transform transform, Color color);
 	
-	public void drawCircle(Position position, Size size, Color color);
-	
-	public void drawShape(Position position, Size size, String shapeId);
+	public void drawShape(Transform transform, String shapeId);
 
 }

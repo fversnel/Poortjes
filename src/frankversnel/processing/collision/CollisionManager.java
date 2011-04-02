@@ -14,8 +14,6 @@ public class CollisionManager extends ComponentManager<Collidable> implements Ac
 
 	@Override
 	public void processComponents() {
-		logger.info("processing collision detection");
-
 		for(Collidable collidables : components) {
 
 		}

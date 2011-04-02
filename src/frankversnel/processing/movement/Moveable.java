@@ -4,33 +4,29 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import frankversnel.processing.GameObject;
-import frankversnel.processing.component.Angle;
 import frankversnel.processing.component.Component;
-import frankversnel.processing.component.Position;
 import frankversnel.processing.component.Speed;
+import frankversnel.processing.component.Transform;
+import frankversnel.processing.gameloop.GameLoop;
 
 public class Moveable extends Component implements ActionListener {
 
-	public Moveable(GameObject gameObject) {
+	public Moveable(GameObject gameObject, GameLoop gameLoop) {
 		super(gameObject);
+		
+		gameLoop.addActionListener(this);
 	}
 	
 	public void move() {
-		Position position = getGameObject().safe_getComponent(Position.class);
-		float speed = getGameObject().safe_getComponent(Speed.class).getValue();
-		float angle = getGameObject().safe_getComponent(Angle.class).getRadians();
+		Transform transform = getGameObject().safe_getComponent(Transform.class);
+		Speed speed = getGameObject().safe_getComponent(Speed.class);
 		
-		final float newXCoordinate = position.x() + speed
-				* (float)Math.sin(angle);
-		final float newYCoordinate = position.y() - speed
-				* (float)Math.cos(angle);
-		
-		position.x(newXCoordinate);
-		position.y(newYCoordinate);
+		transform.rotate(speed.getRotation());
+		transform.translate(speed.getDistance(), speed.getDistance());
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
+	public void actionPerformed(ActionEvent event) {
 		move();
 	}
 

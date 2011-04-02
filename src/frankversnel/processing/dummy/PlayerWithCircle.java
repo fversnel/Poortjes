@@ -6,21 +6,21 @@ import frankversnel.processing.component.Transform;
 import frankversnel.processing.gameloop.GameLoop;
 import frankversnel.processing.movement.Moveable;
 import frankversnel.processing.rendering.RenderingManager;
-import frankversnel.processing.rendering.component.DrawableShape;
+import frankversnel.processing.rendering.component.Color;
+import frankversnel.processing.rendering.component.DrawableCircle;
 
-public class PlayerWithShape extends GameObject {
-	
-	public PlayerWithShape(RenderingManager renderManager, 
-			GameLoop gameLoop, String shapeId) {
+public class PlayerWithCircle extends GameObject {
+
+	public PlayerWithCircle(RenderingManager renderManager, GameLoop gameLoop) {
 		super(renderManager);
 		
-		new Transform(this, 300, 300, 50, 50, 0);
+		new Transform(this, 200, 200, 50, 50, 0);
+		Color.red(this);
+		new Speed(this, 0.2f, 0.2f);
 		new Moveable(this, gameLoop);
-		new Speed(this, 0.1f, 0.1f);
 		
-		DrawableShape playerLooks = new DrawableShape(this, shapeId);
+		DrawableCircle playerLooks = new DrawableCircle(this);
 		renderManager.addComponent(playerLooks);
 	}
-
 
 }

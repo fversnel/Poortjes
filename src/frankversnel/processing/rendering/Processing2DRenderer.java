@@ -1,10 +1,8 @@
 package frankversnel.processing.rendering;
 
-import frankversnel.processing.component.Position;
-import frankversnel.processing.component.Size;
+import frankversnel.processing.component.Transform;
 import frankversnel.processing.rendering.component.Color;
 import frankversnel.processing.resourceloading.ProcessingShapeLoader;
-import processing.core.PConstants;
 import processing.core.PGraphics;
 
 public class Processing2DRenderer implements Renderer {
@@ -18,23 +16,14 @@ public class Processing2DRenderer implements Renderer {
 	}
 
 	@Override
-	public void drawPolygon(Position position, Color color, Position[] polygonCoords) {
-		fill(color);
-
-		graphics.beginShape();
-		for(Position coords : polygonCoords) {
-			graphics.vertex(position.x() + coords.x(),
-					position.y() + coords.y());
-		}
-		graphics.endShape(PConstants.CLOSE);
-	}
-
-	@Override
-	public void drawCircle(Position position, Size size, Color color) {
+	public void drawCircle(Transform transform, Color color) {
 		fill(color);
 		
-		graphics.ellipse(position.x(), position.y(), 
-				size.width(), size.height());
+		graphics.setMatrix(transform.getMatrix());
+		graphics.pushMatrix();
+		// TODO Drawing with a scale of 1 results in an empty screen, why?
+		graphics.ellipse(0, 0, 2, 2);
+		graphics.popMatrix();
 	}
 	
 	private void fill(Color color) {
@@ -42,10 +31,11 @@ public class Processing2DRenderer implements Renderer {
 	}
 
 	@Override
-	public void drawShape(Position position, Size size, String shapeId) {
-		graphics.shape(shapeLoader.getResource(shapeId), 
-				position.x(), position.y(), 
-				size.width(), size.height());
+	public void drawShape(Transform transform, String shapeId) {
+		graphics.setMatrix(transform.getMatrix());
+		graphics.pushMatrix();
+		graphics.shape(shapeLoader.getResource(shapeId), 0, 0, 2, 2);
+		graphics.popMatrix();
 	}
 
 }
