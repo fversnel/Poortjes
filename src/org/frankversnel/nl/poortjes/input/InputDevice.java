@@ -1,7 +1,12 @@
 package org.frankversnel.nl.poortjes.input;
 
-public interface InputDevice {
-	
-	public void handleInput();
+import org.frankversnel.nl.poortjes.GameObject;
+import org.frankversnel.nl.poortjes.component.Component;
+
+public abstract class InputDevice extends Component {
+
+	public InputDevice(GameObject gameObject) {
+		super(gameObject);
+	}
 
 }

@@ -3,32 +3,53 @@ package org.frankversnel.nl.poortjes.input;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.frankversnel.nl.poortjes.GameObject;
+import org.frankversnel.nl.poortjes.component.Speed;
 
-public class Keyboard implements KeyListener {
-	private static Logger logger = LoggerFactory.getLogger(Keyboard.class);
+public class Keyboard extends InputDevice implements KeyListener {
+	private char keyForward;
+	private char keyBackwards;
+	private char keyTurnLeft;
+	private char keyTurnRight;
+	
+	public Keyboard(GameObject gameObject, 
+			char keyForward, char keyBackwards, char keyTurnLeft, char keyTurnRight) {
+		super(gameObject);
+		
+		this.keyForward = keyForward;
+		this.keyBackwards = keyBackwards;
+		this.keyTurnLeft = keyTurnLeft;
+		this.keyTurnRight = keyTurnRight;
+	}
 
 	@Override
-	public void keyPressed(KeyEvent arg0) {
-		char keyPressed = arg0.getKeyChar();
+	public void keyPressed(KeyEvent keyEvent) {
+		setSpeed(keyEvent.getKeyChar(), 1);
+	}
+
+	@Override
+	public void keyReleased(KeyEvent keyEvent) {
+		setSpeed(keyEvent.getKeyChar(), 0);
+	}
+
+	@Override
+	public void keyTyped(KeyEvent keyEvent) {
+		// We don't care about what happens when this event is trigger, 
+		// we don't need it to move our objects.
+	}
+	
+	private void setSpeed(char keyPressed, int speedValue) {
+		Speed speed = getGameObject().safe_getComponent(Speed.class);
 		
-		// DEBUG CODE
-		if(keyPressed == 's') {
-			logger.info("Key " + keyPressed);
+		if(keyPressed == keyForward) {
+			speed.move(speedValue);
+		} else if(keyPressed == keyBackwards) {
+			speed.move(speedValue * -1);
+		} else if(keyPressed == keyTurnLeft) {
+			speed.rotate(speedValue * -1);
+		} else if(keyPressed == keyTurnRight) {
+			speed.rotate(speedValue);
 		}
-	}
-
-	@Override
-	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

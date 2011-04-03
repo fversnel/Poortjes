@@ -14,7 +14,7 @@ public class PlayerWithShape extends GameObject {
 			GameLoop gameLoop, String shapeId) {
 		super(renderManager);
 		
-		new Transform(this, 300, 300, 50, 50, 0);
+		new Transform(this, 300, 300, 20, 20, 0);
 		new Moveable(this, gameLoop);
 		new Speed(this, 0.001f, 0.001f).rotate(1);
 		

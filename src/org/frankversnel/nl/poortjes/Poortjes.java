@@ -7,6 +7,7 @@ import org.frankversnel.nl.poortjes.dummy.PlayerWithCircle;
 import org.frankversnel.nl.poortjes.dummy.PlayerWithShape;
 import org.frankversnel.nl.poortjes.gameloop.DefaultGameLoop;
 import org.frankversnel.nl.poortjes.gameloop.GameLoop;
+import org.frankversnel.nl.poortjes.input.Keyboard;
 import org.frankversnel.nl.poortjes.rendering.Processing2DRenderer;
 import org.frankversnel.nl.poortjes.rendering.RenderingManager;
 import org.frankversnel.nl.poortjes.resourceloading.ProcessingShapeLoader;
@@ -50,7 +51,9 @@ public class Poortjes extends PApplet {
 	    gameLoop.addActionListener(collisionManager);
 	    gameLoop.start();
 	    
-	    new PlayerWithCircle(renderManager, gameLoop);
+	    GameObject player = new PlayerWithCircle(renderManager, gameLoop);
+		this.addKeyListener(new Keyboard(player, 'w', 's', 'a', 'd'));
+		
 	    new PlayerWithShape(renderManager, gameLoop, shapeId);
     }
 
