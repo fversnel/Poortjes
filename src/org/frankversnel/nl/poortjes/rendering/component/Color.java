@@ -12,11 +12,12 @@ public class Color extends Component {
 		super(gameObject);
 		
 		assertColorValue(r);
-		assertColorValue(g);
-		assertColorValue(b);
-		
 		this.r = r;
+
+		assertColorValue(g);
 		this.g = g;
+
+		assertColorValue(b);
 		this.b = b;
 	}
 	

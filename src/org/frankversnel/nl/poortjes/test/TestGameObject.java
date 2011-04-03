@@ -4,22 +4,17 @@ import java.util.List;
 
 import org.frankversnel.nl.poortjes.GameObject;
 import org.frankversnel.nl.poortjes.component.Component;
-import org.frankversnel.nl.poortjes.component.ComponentManager;
 import org.frankversnel.nl.poortjes.component.Speed;
 import org.junit.*;
 
-
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 
 public class TestGameObject {
 	private GameObject gameObject;
-	private ComponentManager componentManager;
 	
 	@Before
 	public void setUp() {
-		componentManager = mock(ComponentManager.class);
-		gameObject = new GameObject(componentManager);
+		gameObject = new GameObject();
 	}
 	
 	@Test

@@ -12,7 +12,7 @@ import org.frankversnel.nl.poortjes.collision.component.CollidableBox;
 
 public class PlayerWithShape extends GameObject {
 
-	public PlayerWithShape(RenderingManager renderManager,	CollisionManager collisionManager,
+	public PlayerWithShape(RenderingManager renderManager, CollisionManager collisionManager,
 			GameLoop gameLoop, float positionX, float positionY, String shapeId) {
 		super(renderManager);
 

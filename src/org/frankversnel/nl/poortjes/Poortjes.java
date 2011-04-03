@@ -3,7 +3,7 @@ package org.frankversnel.nl.poortjes;
 import java.io.FileNotFoundException;
 
 import org.frankversnel.nl.poortjes.collision.CollisionManager;
-import org.frankversnel.nl.poortjes.dummy.PlayerWithCircle;
+import org.frankversnel.nl.poortjes.dummy.CandyInstance;
 import org.frankversnel.nl.poortjes.dummy.PlayerWithShape;
 import org.frankversnel.nl.poortjes.gameloop.DefaultGameLoop;
 import org.frankversnel.nl.poortjes.gameloop.GameLoop;
@@ -36,9 +36,11 @@ public class Poortjes extends PApplet {
 	    smooth();
 	    
 	    ProcessingShapeLoader shapeLoader = new ProcessingShapeLoader(this);
-	    String shapeId;
+	    String playerShapeId;
+	    String candyId;
 	    try {
-			shapeId  = shapeLoader.load("resources/drawing.svg");
+	    	playerShapeId  = shapeLoader.load("resources/drawing.svg");
+	    	candyId = shapeLoader.load("resources/candy.svg");
 		} catch (FileNotFoundException e) {
 			throw new RuntimeException(e);
 		}
@@ -52,10 +54,11 @@ public class Poortjes extends PApplet {
 	    gameLoop.start();
 	    
 	    
-	    GameObject player = new PlayerWithShape(renderManager, collisionManager, gameLoop, 200, 200, shapeId);
+	    GameObject player = new PlayerWithShape(renderManager, collisionManager, gameLoop, 300, 200, playerShapeId);
 		this.addKeyListener(new Keyboard(player, 'w', 's', 'a', 'd'));
 		
-		new PlayerWithShape(renderManager, collisionManager, gameLoop, 300, 300, shapeId);
+		new PlayerWithShape(renderManager, collisionManager, gameLoop, 300, 300, playerShapeId);
+		new CandyInstance(renderManager, collisionManager, gameLoop, 200, 100, candyId);
     }
 
     public void draw() {
