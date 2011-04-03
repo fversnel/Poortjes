@@ -16,7 +16,9 @@ public class PlayerWithCircle extends GameObject {
 		
 		new Transform(this, 200, 200, 50, 50, 0);
 		Color.red(this);
-		new Speed(this, 0.2f, 0.2f);
+		Speed speed = new Speed(this, 0.002f, 0.002f);
+		speed.move(1);
+		speed.rotate(1);
 		new Moveable(this, gameLoop);
 		
 		DrawableCircle playerLooks = new DrawableCircle(this);

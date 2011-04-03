@@ -16,7 +16,7 @@ public class PlayerWithShape extends GameObject {
 		
 		new Transform(this, 300, 300, 50, 50, 0);
 		new Moveable(this, gameLoop);
-		new Speed(this, 0.1f, 0.1f);
+		new Speed(this, 0.001f, 0.001f).rotate(1);
 		
 		DrawableShape playerLooks = new DrawableShape(this, shapeId);
 		renderManager.addComponent(playerLooks);

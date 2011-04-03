@@ -17,17 +17,19 @@ public class Moveable extends Component implements ActionListener {
 		gameLoop.addActionListener(this);
 	}
 	
-	public void move() {
+	public void move(int timeSinceLastEvent) {
 		Transform transform = getGameObject().safe_getComponent(Transform.class);
 		Speed speed = getGameObject().safe_getComponent(Speed.class);
 		
-		transform.rotate(speed.getRotation());
-		transform.translate(speed.getDistance(), speed.getDistance());
+		transform.rotate(speed.getRotation() * timeSinceLastEvent);
+		transform.translate(speed.getDistance() * timeSinceLastEvent
+				, speed.getDistance() * timeSinceLastEvent);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		move();
+		int timeSinceLastEvent = ((GameLoop)event.getSource()).getDelay();
+		move(timeSinceLastEvent);
 	}
 
 }

@@ -14,6 +14,7 @@ public class Transform extends Component {
 		matrix = new PMatrix2D();
 		matrix.translate(positionX, positionY);
 		matrix.scale(scaleX, scaleY);
+		matrix.rotate(rotationTheta);
 	}
 	
 	public float getPositionX() {
@@ -37,6 +38,7 @@ public class Transform extends Component {
 	}
 	
 	public void rotate(float theta) {
+		// TODO Rotation needs to be performed around the object's axis. 
 		matrix.rotate(theta);
 	}
 
