@@ -34,7 +34,7 @@ public class Keyboard extends InputDevice implements KeyListener {
 
 	@Override
 	public void keyTyped(KeyEvent keyEvent) {
-		// We don't care about what happens when this event is trigger, 
+		// We don't care about what happens when this event is triggered, 
 		// we don't need it to move our objects.
 	}
 	

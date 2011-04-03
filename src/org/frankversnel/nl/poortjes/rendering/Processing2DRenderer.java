@@ -20,7 +20,7 @@ public class Processing2DRenderer implements Renderer {
 	public void drawCircle(Transform transform, Color color) {
 		fill(color);
 		
-		graphics.setMatrix(transform.getMatrix());
+		graphics.setMatrix(transform.getProcessingMatrix());
 		graphics.pushMatrix();
 		// TODO Drawing with a scale of 1 results in an empty screen, why?
 		graphics.ellipse(0, 0, 2, 2);
@@ -33,9 +33,9 @@ public class Processing2DRenderer implements Renderer {
 
 	@Override
 	public void drawShape(Transform transform, String shapeId) {
-		graphics.setMatrix(transform.getMatrix());
+		graphics.setMatrix(transform.getProcessingMatrix());
 		graphics.pushMatrix();
-		graphics.shape(shapeLoader.getResource(shapeId), 0, 0, 2, 2);
+		graphics.shape(shapeLoader.getResource(shapeId), 0, 0, 1, 1);
 		graphics.popMatrix();
 	}
 

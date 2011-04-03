@@ -51,10 +51,11 @@ public class Poortjes extends PApplet {
 	    gameLoop.addActionListener(collisionManager);
 	    gameLoop.start();
 	    
-	    GameObject player = new PlayerWithCircle(renderManager, gameLoop);
+	    
+	    GameObject player = new PlayerWithShape(renderManager, collisionManager, gameLoop, 200, 200, shapeId);
 		this.addKeyListener(new Keyboard(player, 'w', 's', 'a', 'd'));
 		
-	    new PlayerWithShape(renderManager, gameLoop, shapeId);
+		new PlayerWithShape(renderManager, collisionManager, gameLoop, 300, 300, shapeId);
     }
 
     public void draw() {

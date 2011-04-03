@@ -74,7 +74,7 @@ public class GameObject {
 	
 	/**
 	 * This is the safe variant of the {@link GameObject#getComponentOfType(Class)} method, 
-	 * meaning a {@link RuntimeException} will be thrown the component(s) could not be found.
+	 * meaning a {@link RuntimeException} will be thrown when the component(s) could not be found.
 	 */
 	public <T extends Component> List<T> safe_getAllComponentsOfType(Class<T> componentType) {
 		List<T> store = getAllComponentsOfType(componentType);

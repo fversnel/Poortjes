@@ -2,6 +2,8 @@ package org.frankversnel.nl.poortjes.collision;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.frankversnel.nl.poortjes.collision.component.Collidable;
 import org.frankversnel.nl.poortjes.component.ComponentManager;
@@ -14,8 +16,15 @@ public class CollisionManager extends ComponentManager<Collidable> implements Ac
 
 	@Override
 	public void processComponents() {
-		for(Collidable collidables : components) {
+		for(Collidable collidable : components) {
+			List<Collidable> otherCollidables = new LinkedList<Collidable>(components);
+			otherCollidables.remove(collidable);
 
+			for(Collidable otherCollidable : otherCollidables) {
+				if(collidable.collidesWith(otherCollidable)) {
+					logger.info(collidable + " collides with " + otherCollidable);
+				}
+			}
 		}
 	}
 
