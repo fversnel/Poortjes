@@ -36,7 +36,7 @@ public class Poortjes extends PApplet {
 		String playerShapeId;
 		String candyId;
 		try {
-			playerShapeId = shapeLoader.load("resources/drawing.svg");
+			playerShapeId = shapeLoader.load("resources/ship.svg");
 			candyId = shapeLoader.load("resources/candy.svg");
 		} catch (FileNotFoundException e) {
 			throw new RuntimeException(e);
