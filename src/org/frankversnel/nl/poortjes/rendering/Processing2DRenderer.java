@@ -10,7 +10,7 @@ public class Processing2DRenderer implements Renderer {
 	private PGraphics graphics;
 	private ProcessingShapeLoader shapeLoader;
 
-	public Processing2DRenderer(PGraphics graphics, 
+	public Processing2DRenderer(PGraphics graphics,
 			ProcessingShapeLoader shapeLoader) {
 		this.graphics = graphics;
 		this.shapeLoader = shapeLoader;
@@ -19,14 +19,14 @@ public class Processing2DRenderer implements Renderer {
 	@Override
 	public void drawCircle(Transform transform, Color color) {
 		fill(color);
-		
+
 		graphics.setMatrix(transform.getProcessingMatrix());
 		graphics.pushMatrix();
 		// TODO Drawing with a scale of 1 results in an empty screen, why?
 		graphics.ellipse(0, 0, 1, 1);
 		graphics.popMatrix();
 	}
-	
+
 	private void fill(Color color) {
 		graphics.fill(color.r(), color.g(), color.b());
 	}

@@ -7,16 +7,17 @@ import org.frankversnel.nl.poortjes.rendering.RenderingManager;
 
 public abstract class Drawable extends Component {
 	private RenderingManager renderingManager;
-	
+
 	public Drawable(GameObject gameObject, RenderingManager renderingManager) {
 		super(gameObject);
-		
+
 		this.renderingManager = renderingManager;
 		renderingManager.addComponent(this);
 	}
 
 	public abstract void draw(Renderer renderer);
-	
+
+	@Override
 	public void remove() {
 		renderingManager.removeComponent(this);
 	}

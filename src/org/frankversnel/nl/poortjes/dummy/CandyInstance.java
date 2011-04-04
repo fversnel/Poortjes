@@ -10,9 +10,10 @@ import org.frankversnel.nl.poortjes.rendering.RenderingManager;
 import org.frankversnel.nl.poortjes.rendering.component.DrawableShape;
 
 public class CandyInstance extends GameObject {
-	
-	public CandyInstance(RenderingManager renderManager, CollisionManager collisionManager,
-			GameLoop gameLoop, float positionX, float positionY, String shapeId) {
+
+	public CandyInstance(RenderingManager renderManager,
+			CollisionManager collisionManager, GameLoop gameLoop,
+			float positionX, float positionY, String shapeId) {
 		new Transform(this, positionX, positionY, 20, 20, 0);
 		new CollidableBox(this, collisionManager);
 		new Candy(this);

@@ -11,11 +11,11 @@ public class Keyboard extends InputDevice implements KeyListener {
 	private char keyBackwards;
 	private char keyTurnLeft;
 	private char keyTurnRight;
-	
-	public Keyboard(GameObject gameObject, 
-			char keyForward, char keyBackwards, char keyTurnLeft, char keyTurnRight) {
+
+	public Keyboard(GameObject gameObject, char keyForward, char keyBackwards,
+			char keyTurnLeft, char keyTurnRight) {
 		super(gameObject);
-		
+
 		this.keyForward = keyForward;
 		this.keyBackwards = keyBackwards;
 		this.keyTurnLeft = keyTurnLeft;
@@ -34,21 +34,21 @@ public class Keyboard extends InputDevice implements KeyListener {
 
 	@Override
 	public void keyTyped(KeyEvent keyEvent) {
-		// We don't care about what happens when this event is triggered, 
+		// We don't care about what happens when this event is triggered,
 		// we don't need it to move our objects.
 	}
-	
+
 	private void setSpeed(char keyPressed, int speedValue) {
 		Speed speed = getGameObject().getComponent(Speed.class);
-		
-		if(speed != null) {
-			if(keyPressed == keyForward) {
+
+		if (speed != null) {
+			if (keyPressed == keyForward) {
 				speed.move(speedValue);
-			} else if(keyPressed == keyBackwards) {
+			} else if (keyPressed == keyBackwards) {
 				speed.move(speedValue * -1);
-			} else if(keyPressed == keyTurnLeft) {
+			} else if (keyPressed == keyTurnLeft) {
 				speed.rotate(speedValue * -1);
-			} else if(keyPressed == keyTurnRight) {
+			} else if (keyPressed == keyTurnRight) {
 				speed.rotate(speedValue);
 			}
 		}
@@ -56,7 +56,8 @@ public class Keyboard extends InputDevice implements KeyListener {
 
 	@Override
 	public void remove() {
-		// TODO Find a way to properly unregister this component from its keylisteners.
+		// TODO Find a way to properly unregister this component from its
+		// keylisteners.
 	}
 
 }

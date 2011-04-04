@@ -7,21 +7,22 @@ import processing.core.PShape;
 
 public class ProcessingShapeLoader extends ResourceLoader<PShape> {
 	private PApplet pApplet;
-	
+
 	public ProcessingShapeLoader(PApplet pApplet) {
 		this.pApplet = pApplet;
 	}
-	
+
 	/**
 	 * @return the shape's id
-	 * @throws FileNotFoundException 
+	 * @throws FileNotFoundException
 	 */
+	@Override
 	public String load(String fileName) throws FileNotFoundException {
 		PShape newShape = pApplet.loadShape(fileName);
-		if(newShape == null) {
+		if (newShape == null) {
 			throw new FileNotFoundException();
 		}
-		
+
 		return addResource(newShape);
 	}
 

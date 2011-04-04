@@ -7,14 +7,14 @@ public abstract class Component {
 
 	public Component(GameObject gameObject) {
 		this.gameObject = gameObject;
-		
+
 		gameObject.addComponent(this);
 	}
-	
+
 	public GameObject getGameObject() {
 		return this.gameObject;
 	}
-	
+
 	public abstract void remove();
-	
+
 }

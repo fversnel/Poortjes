@@ -9,20 +9,21 @@ import org.frankversnel.nl.poortjes.collision.component.Collidable;
 import org.frankversnel.nl.poortjes.component.Component;
 
 public class Player extends Component implements ActionListener {
-    private Collidable collidable;
+	private Collidable collidable;
 
 	public Player(GameObject gameObject, Collidable collidable) {
 		super(gameObject);
-		
+
 		collidable.addActionListener(this);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent collisionEvent) {
-		GameObject collidedWith = ((CollisionEvent)collisionEvent).getCollidedWith();
-		
+		GameObject collidedWith = ((CollisionEvent) collisionEvent)
+				.getCollidedWith();
+
 		Candy candy = collidedWith.getComponent(Candy.class);
-		if(candy != null) {
+		if (candy != null) {
 			collidedWith.destroy();
 		}
 	}
