@@ -5,15 +5,16 @@ import java.awt.event.ActionListener;
 
 import org.frankversnel.nl.poortjes.GameObject;
 import org.frankversnel.nl.poortjes.collision.CollisionEvent;
-import org.frankversnel.nl.poortjes.collision.CollisionManager;
+import org.frankversnel.nl.poortjes.collision.component.Collidable;
 import org.frankversnel.nl.poortjes.component.Component;
 
 public class Player extends Component implements ActionListener {
+    private Collidable collidable;
 
-	public Player(GameObject gameObject, CollisionManager collisionManager) {
+	public Player(GameObject gameObject, Collidable collidable) {
 		super(gameObject);
 		
-		collisionManager.addActionListener(this);
+		collidable.addActionListener(this);
 	}
 
 	@Override
@@ -21,9 +22,14 @@ public class Player extends Component implements ActionListener {
 		GameObject collidedWith = ((CollisionEvent)collisionEvent).getCollidedWith();
 		
 		Candy candy = collidedWith.getComponent(Candy.class);
-		
 		if(candy != null) {
+			collidedWith.destroy();
 		}
+	}
+
+	@Override
+	public void remove() {
+		collidable.removeActionListener(this);
 	}
 
 }

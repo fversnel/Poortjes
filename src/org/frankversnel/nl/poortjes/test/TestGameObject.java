@@ -40,12 +40,4 @@ public class TestGameObject {
 		assertTrue(actual.size() == 2);
 	}
 	
-	@Test
-	public void testRemoveComponent() {
-		Component component = new Speed(gameObject, 0,0);
-		gameObject.removeComponent(component);
-		
-		assertNull(gameObject.getComponent(Speed.class));
-	}
-
 }

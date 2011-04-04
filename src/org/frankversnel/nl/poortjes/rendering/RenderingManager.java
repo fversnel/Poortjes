@@ -12,7 +12,7 @@ public class RenderingManager extends ComponentManager<Drawable> {
 
 	@Override
 	public void processComponents() {
-		for(Drawable drawable : components) {
+		for(Drawable drawable : getComponents()) {
 			drawable.draw(renderer);
 		}
 	}

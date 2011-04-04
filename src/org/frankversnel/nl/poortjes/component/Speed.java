@@ -33,4 +33,8 @@ public class Speed extends Component {
 		return this.currentRotation;
 	}
 
+	@Override
+	public void remove() {
+	}
+
 }

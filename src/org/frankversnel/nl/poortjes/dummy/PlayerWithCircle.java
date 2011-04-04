@@ -15,16 +15,12 @@ public class PlayerWithCircle extends GameObject {
 
 	public PlayerWithCircle(RenderingManager renderManager, 
 			CollisionManager collisionManager, GameLoop gameLoop) {
-		super(renderManager, collisionManager);
-
 		new Transform(this, 200, 200, 20, 20, 0);
 		Color.green(this);
 		new Speed(this, 0.002f, 0.005f);
 		new Moveable(this, gameLoop);
-		collisionManager.addComponent(new CollidableBox(this));
-
-		DrawableCircle playerLooks = new DrawableCircle(this);
-		renderManager.addComponent(playerLooks);
+		new CollidableBox(this, collisionManager);
+		new DrawableCircle(this, renderManager);
 	}
 
 }

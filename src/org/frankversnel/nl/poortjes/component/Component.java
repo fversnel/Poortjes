@@ -15,4 +15,6 @@ public abstract class Component {
 		return this.gameObject;
 	}
 	
+	public abstract void remove();
+	
 }

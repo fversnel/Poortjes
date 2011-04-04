@@ -3,26 +3,16 @@ package org.frankversnel.nl.poortjes;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 
 import org.frankversnel.nl.poortjes.component.Component;
-import org.frankversnel.nl.poortjes.component.ComponentManager;
-import org.frankversnel.nl.poortjes.component.ComponentNotFoundException;
-
 
 public class GameObject {
 	private static final int FIRST_COMPONENT = 0;
 	
-	private List<ComponentManager> componentManagers = new LinkedList<ComponentManager>();
-	
 	@SuppressWarnings("rawtypes")
 	private Map<Class, List<Component>> componentStores = new HashMap<Class, List<Component>>();
-
-	public GameObject(ComponentManager ... componentManagers) {
-		this.componentManagers.addAll(Arrays.asList(componentManagers));
-	}
 
 	public <T extends Component> void addComponent(T component) {
 		List<Component> store = componentStores.get(component.getClass());
@@ -46,21 +36,6 @@ public class GameObject {
 		return null;
 	}
 	
-	/**
-	 * This is the safe variant of the {@link GameObject#getComponent(Class)} method, 
-	 * meaning a {@link RuntimeException} will be thrown when a component could not be found.
-	 */
-	public <T extends Component> T safe_getComponent(Class<T> componentType) {
-		T component = getComponent(componentType);
-		
-		if(component == null) {
-			throw new RuntimeException(
-					new ComponentNotFoundException(componentType, this));
-		}
-		
-		return component;
-	}
-	
 	@SuppressWarnings("unchecked")
 	public <T extends Component> List<T> getAllComponentsOfType(Class<T> componentType) {
 		List<T> store = (List<T>) componentStores.get(componentType);
@@ -71,40 +46,20 @@ public class GameObject {
 
 		return store;
 	}
-	
-	/**
-	 * This is the safe variant of the {@link GameObject#getComponentOfType(Class)} method, 
-	 * meaning a {@link RuntimeException} will be thrown when the component(s) could not be found.
-	 */
-	public <T extends Component> List<T> safe_getAllComponentsOfType(Class<T> componentType) {
-		List<T> store = getAllComponentsOfType(componentType);
-		
-		if(store.size() == 0) {
-			throw new RuntimeException(
-					new ComponentNotFoundException(componentType, this));
-		}
-		
-		return store;
-	}
-
-	public boolean removeComponent(Component component) {
-		List<Component> store = componentStores.get(component.getClass());
-		return store.remove(component);
-	}
 
 	public void destroy() {
 		for(List<Component> store : componentStores.values()) {
-			for(Component component : store) {
-				for(ComponentManager manager : componentManagers) {
-					manager.removeComponent(component);
-				}
+			for(Component component : new LinkedList<Component>(store)) {
+				component.remove();
+				store.remove(component);
 			}
 		}
 	}
 	
 	@Override
 	public String toString() {
-		return "GameObject with components " + this.componentStores.values();
+		return "GameObject (" + hashCode() + ") with components " + 
+				this.componentStores.values();
 	}
 
 }

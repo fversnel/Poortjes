@@ -16,9 +16,6 @@ import org.frankversnel.nl.poortjes.resourceloading.ProcessingShapeLoader;
 import processing.core.*;
 
 public class Poortjes extends PApplet {
-	/**
-	 *
-	 */
 	private static final long serialVersionUID = 9178782595328986939L;
 	
 	private static final int SCREEN_WIDTH = 400;

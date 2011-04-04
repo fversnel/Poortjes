@@ -48,4 +48,8 @@ public class Color extends Component {
 		return new Color(gameObject, 0, 0, 255);
 	}
 
+	@Override
+	public void remove() {
+	}
+
 }

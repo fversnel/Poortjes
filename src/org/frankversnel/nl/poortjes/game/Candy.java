@@ -9,4 +9,8 @@ public class Candy extends Component {
 		super(gameObject);
 	}
 
+	@Override
+	public void remove() {
+	}
+
 }

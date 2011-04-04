@@ -11,26 +11,35 @@ import org.frankversnel.nl.poortjes.gameloop.GameLoop;
 
 
 public class Moveable extends Component implements ActionListener {
+	GameLoop gameLoop;
 
 	public Moveable(GameObject gameObject, GameLoop gameLoop) {
 		super(gameObject);
 		
+		this.gameLoop = gameLoop;
 		gameLoop.addActionListener(this);
 	}
 	
 	public void move(int timeSinceLastEvent) {
-		Transform transform = getGameObject().safe_getComponent(Transform.class);
-		Speed speed = getGameObject().safe_getComponent(Speed.class);
+		Transform transform = getGameObject().getComponent(Transform.class);
+		Speed speed = getGameObject().getComponent(Speed.class);
 		
-		transform.rotate(speed.getRotation() * timeSinceLastEvent);
-		transform.translate(speed.getDistance() * timeSinceLastEvent
-				, speed.getDistance() * timeSinceLastEvent);
+		if(transform != null && speed != null) {
+			transform.rotate(speed.getRotation() * timeSinceLastEvent);
+			transform.translate(speed.getDistance() * timeSinceLastEvent
+					, speed.getDistance() * timeSinceLastEvent);
+		}
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		int timeSinceLastEvent = ((GameLoop)event.getSource()).getDelay();
 		move(timeSinceLastEvent);
+	}
+
+	@Override
+	public void remove() {
+		gameLoop.removeActionListener(this);
 	}
 
 }

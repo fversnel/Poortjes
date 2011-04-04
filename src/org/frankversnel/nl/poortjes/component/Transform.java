@@ -53,4 +53,8 @@ public class Transform extends Component {
 		return matrix;
 	}
 
+	@Override
+	public void remove() {
+	}
+
 }

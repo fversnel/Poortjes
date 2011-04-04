@@ -14,10 +14,10 @@ public class CandyInstance extends GameObject {
 	public CandyInstance(RenderingManager renderManager, CollisionManager collisionManager,
 			GameLoop gameLoop, float positionX, float positionY, String shapeId) {
 		new Transform(this, positionX, positionY, 20, 20, 0);
-		collisionManager.addComponent(new CollidableBox(this));
+		new CollidableBox(this, collisionManager);
 		new Candy(this);
 
-		DrawableShape looks = new DrawableShape(this, shapeId);
+		DrawableShape looks = new DrawableShape(this, renderManager, shapeId);
 		renderManager.addComponent(looks);
 	}
 

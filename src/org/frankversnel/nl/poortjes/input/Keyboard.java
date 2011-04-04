@@ -39,17 +39,24 @@ public class Keyboard extends InputDevice implements KeyListener {
 	}
 	
 	private void setSpeed(char keyPressed, int speedValue) {
-		Speed speed = getGameObject().safe_getComponent(Speed.class);
+		Speed speed = getGameObject().getComponent(Speed.class);
 		
-		if(keyPressed == keyForward) {
-			speed.move(speedValue);
-		} else if(keyPressed == keyBackwards) {
-			speed.move(speedValue * -1);
-		} else if(keyPressed == keyTurnLeft) {
-			speed.rotate(speedValue * -1);
-		} else if(keyPressed == keyTurnRight) {
-			speed.rotate(speedValue);
+		if(speed != null) {
+			if(keyPressed == keyForward) {
+				speed.move(speedValue);
+			} else if(keyPressed == keyBackwards) {
+				speed.move(speedValue * -1);
+			} else if(keyPressed == keyTurnLeft) {
+				speed.rotate(speedValue * -1);
+			} else if(keyPressed == keyTurnRight) {
+				speed.rotate(speedValue);
+			}
 		}
+	}
+
+	@Override
+	public void remove() {
+		// TODO Find a way to properly unregister this component from its keylisteners.
 	}
 
 }
