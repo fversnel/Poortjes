@@ -6,19 +6,19 @@ import java.util.List;
 
 import org.frankversnel.nl.poortjes.GameObject;
 import org.frankversnel.nl.poortjes.collision.CollisionEvent;
-import org.frankversnel.nl.poortjes.collision.CollisionManager;
+import org.frankversnel.nl.poortjes.collision.CollisionLevel;
 import org.frankversnel.nl.poortjes.component.Component;
 
 public abstract class Collidable extends Component {
-	private CollisionManager collisionManager;
+	private CollisionLevel collisionLevel;
 
 	private List<ActionListener> actionListenerList;
 
-	public Collidable(GameObject gameObject, CollisionManager collisionManager) {
+	public Collidable(GameObject gameObject, CollisionLevel collisionLevel) {
 		super(gameObject);
 
-		this.collisionManager = collisionManager;
-		collisionManager.addComponent(this);
+		this.collisionLevel = collisionLevel;
+		collisionLevel.addComponent(this);
 	}
 
 	public abstract void collidesWith(Collidable other);
@@ -57,7 +57,7 @@ public abstract class Collidable extends Component {
 
 	@Override
 	public void remove() {
-		collisionManager.removeComponent(this);
+		collisionLevel.removeComponent(this);
 	}
 
 }

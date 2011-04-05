@@ -5,7 +5,7 @@ import java.awt.geom.Rectangle2D;
 
 import org.frankversnel.nl.poortjes.GameObject;
 import org.frankversnel.nl.poortjes.collision.CollisionEvent;
-import org.frankversnel.nl.poortjes.collision.CollisionManager;
+import org.frankversnel.nl.poortjes.collision.CollisionLevel;
 import org.frankversnel.nl.poortjes.component.Transform;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,8 +14,8 @@ public class CollidableBox extends Collidable {
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 
 	public CollidableBox(GameObject gameObject,
-			CollisionManager collisionManager) {
-		super(gameObject, collisionManager);
+			CollisionLevel collisionLevel) {
+		super(gameObject, collisionLevel);
 	}
 
 	@Override

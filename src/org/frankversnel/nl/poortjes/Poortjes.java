@@ -2,7 +2,7 @@ package org.frankversnel.nl.poortjes;
 
 import java.io.FileNotFoundException;
 
-import org.frankversnel.nl.poortjes.collision.CollisionManager;
+import org.frankversnel.nl.poortjes.collision.CollisionLevel;
 import org.frankversnel.nl.poortjes.dummy.CandyInstance;
 import org.frankversnel.nl.poortjes.dummy.PlayerWithShape;
 import org.frankversnel.nl.poortjes.gameloop.DefaultGameLoop;
@@ -22,7 +22,6 @@ public class Poortjes extends PApplet {
 	private static final int BACKGROUND_COLOR = 0;
 
 	private RenderingManager renderManager;
-	private CollisionManager collisionManager;
 
 	private GameLoop gameLoop;
 
@@ -45,19 +44,19 @@ public class Poortjes extends PApplet {
 		renderManager = new RenderingManager(new Processing2DRenderer(g,
 				shapeLoader));
 
-		collisionManager = new CollisionManager();
-
 		gameLoop = new DefaultGameLoop();
-		gameLoop.addActionListener(collisionManager);
 		gameLoop.start();
+		
+		CollisionLevel candy = new CollisionLevel(gameLoop);
+		CollisionLevel players = new CollisionLevel(gameLoop, candy);
 
 		GameObject player = new PlayerWithShape(renderManager,
-				collisionManager, gameLoop, 300, 200, playerShapeId);
+				players, gameLoop, 300, 200, playerShapeId);
 		this.addKeyListener(new Keyboard(player, 'w', 's', 'a', 'd'));
 
-		new PlayerWithShape(renderManager, collisionManager, gameLoop, 300,
+		new PlayerWithShape(renderManager, players, gameLoop, 300,
 				300, playerShapeId);
-		new CandyInstance(renderManager, collisionManager, gameLoop, 200, 100,
+		new CandyInstance(renderManager, candy, gameLoop, 200, 100,
 				candyId);
 	}
 
