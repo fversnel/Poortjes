@@ -8,7 +8,7 @@
   <property name="main.class" value="org.frankversnel.nl.poortjes.Poortjes" />
 
   <!-- Version numbers -->
-  <property name="version" value="1.0" />
+  <property name="version" value="pre-1.0" />
 
   <!-- Directories used -->
   <property name="dir.source" location="src" />
@@ -38,7 +38,8 @@
   <property name="dependency.check.closure" value="true" />
 
   <property name="library.processing" value="lib/processing_core.jar"/>
-  <property name="library.slf4j" value="lib/slf4j-api-1.6.1.jar"/>
+  <property name="library.slf4j.api" value="lib/slf4j-api-1.6.1.jar"/>
+  <property name="library.slf4j.implementation" value="lib/slf4j-simple-1.6.1.jar"/>
 
   <!-- Project class path -->
   <path id="project.class.path">
@@ -59,11 +60,6 @@
     <echo>Project: ${ant.project.name} (${version})</echo>
     <echo>Project base directory: ${basedir}</echo>
     <echo>Operating System: ${os.name} ${os.version} (${os.arch})</echo>
-  </target>
-
-  <target name="all" depends="initialize,distribution"
-    description="Builds the whole project.">
-    <echo>Done with everything.</echo>
   </target>
 
   <target name="check_dependencies" depends="initialize">
@@ -105,29 +101,22 @@
   <target name="distribution" depends="test" description="Creates a jar file from the class files in the 'build' directory and outputs it in the 'dist' directory">
     <mkdir dir="${dir.distribution}" />
     <manifest file="${dir.distribution}/MANIFEST.MF">
-      <attribute name="Version" value="${version}"/>
       <attribute name="Main-Class" value="${main.class}" />
+      <attribute name="Poortjes-Version" value="${version}" />
     </manifest>
     <jar destfile="${distribution.file}" manifest="${dir.distribution}/MANIFEST.MF" >
       <fileset dir="${dir.build}" includes="**/*.*"
         excludes="${testing.class.files}" />
       <fileset dir="${dir.source}" includes="resources/*.*"/>
       <zipfileset src="${library.processing}"/>
-      <zipfileset src="${library.slf4j}"/>
+      <zipfileset src="${library.slf4j.api}"/>
+      <zipfileset src="${library.slf4j.implementation}"/>
     </jar>
     <delete file="${dir.distribution}/MANIFEST.MF" />
   </target>
 
-  <target name="run" depends="distribution" description="Run the distribution.">
-    <java classname="${main.class}" fork="true" >
-      <!-- Enable assertions -->
-      <jvmarg value ="-ea"/>
-
-      <classpath>
-        <path refid="project.class.path" />
-        <pathelement path="${distribution.file}"/>
-      </classpath>
-    </java>
+  <target name="run" depends="distribution" description="Play Poortjes">
+    <java jar="${distribution.file}" fork="true" />
   </target>
 
   <target name="clean" depends="initialize" description="Removes all generated files and directories.">
