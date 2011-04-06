@@ -1,17 +1,20 @@
 package org.frankversnel.nl.poortjes.component;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public abstract class ComponentManager<T extends Component> {
-	private List<T> components = new LinkedList<T>();
+	private List<T> components = Collections.synchronizedList(new ArrayList<T>());
 
 	public void addComponent(T component) {
 		components.add(component);
 	}
 
 	public List<T> getComponents() {
-		return new LinkedList<T>(components);
+		List<T> componentsCopy = new ArrayList<T>(components.size());
+		componentsCopy.addAll(components);
+		return componentsCopy;
 	}
 
 	public abstract void processComponents();

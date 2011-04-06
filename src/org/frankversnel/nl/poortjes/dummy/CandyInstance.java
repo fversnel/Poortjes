@@ -14,7 +14,7 @@ public class CandyInstance extends GameObject {
 	public CandyInstance(RenderingManager renderManager,
 			CollisionLevel collisionLevel, GameLoop gameLoop,
 			float positionX, float positionY, String shapeId) {
-		new Transform(this, positionX, positionY, 20, 20, 0);
+		new Transform(this, positionX, positionY, 5, 5, 0);
 		new CollidableBox(this, collisionLevel);
 		new Candy(this);
 

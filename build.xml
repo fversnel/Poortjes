@@ -19,7 +19,7 @@
   <property name="dir.dependency.cache" location="depcache" />
 
   <!-- Compilation related properties -->
-  <property name="preferred.java.version" value="1.6" />
+  <property name="preferred.java.version" value="1.5" />
   <property name="compilation.debug" value="true" />
   <property name="compilation.includeAntRuntime" value="false" />
 

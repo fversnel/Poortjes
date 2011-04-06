@@ -40,8 +40,19 @@ public class Transform extends Component {
 		matrix.translate(positionX, positionY);
 	}
 
+	/**
+	 * TODO Hack to rotate around axis; apparently rotating around the 
+	 * objects center works when translating by 0.5 on both axes, no idea why. Find it out!
+	 * @param theta
+	 */
 	public void rotate(float theta) {
-		matrix.rotate(theta);
+		PMatrix2D matrixCopy = matrix.get();
+		
+		matrixCopy.translate(0.5f, 0.5f);
+		matrixCopy.rotate(theta);
+		matrixCopy.translate(-0.5f, -0.5f);
+		
+		matrix.set(matrixCopy);
 	}
 
 	public AffineTransform getAffineTransform() {

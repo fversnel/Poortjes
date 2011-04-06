@@ -1,6 +1,7 @@
 package org.frankversnel.nl.poortjes;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -12,13 +13,13 @@ public class GameObject {
 	private static final int FIRST_COMPONENT = 0;
 
 	@SuppressWarnings("rawtypes")
-	private Map<Class, List<Component>> componentStores = new HashMap<Class, List<Component>>();
+	private Map<Class, List<Component>> componentStores = Collections.synchronizedMap(new HashMap<Class, List<Component>>());
 
 	public <T extends Component> void addComponent(T component) {
 		List<Component> store = componentStores.get(component.getClass());
 
 		if (store == null) {
-			store = new ArrayList<Component>();
+			store = Collections.synchronizedList(new ArrayList<Component>());
 			componentStores.put(component.getClass(), store);
 		}
 

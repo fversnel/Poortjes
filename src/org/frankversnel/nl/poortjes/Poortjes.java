@@ -1,6 +1,7 @@
 package org.frankversnel.nl.poortjes;
 
 import java.io.FileNotFoundException;
+import java.util.Random;
 
 import org.frankversnel.nl.poortjes.collision.CollisionLevel;
 import org.frankversnel.nl.poortjes.dummy.CandyInstance;
@@ -17,8 +18,8 @@ import processing.core.PApplet;
 public class Poortjes extends PApplet {
 	private static final long serialVersionUID = 9178782595328986939L;
 
-	private static final int SCREEN_WIDTH = 400;
-	private static final int SCREEN_HEIGHT = 400;
+	private static final int SCREEN_WIDTH = 800;
+	private static final int SCREEN_HEIGHT = 800;
 	private static final int BACKGROUND_COLOR = 0;
 
 	private RenderingManager renderManager;
@@ -53,11 +54,17 @@ public class Poortjes extends PApplet {
 		GameObject player = new PlayerWithShape(renderManager,
 				players, gameLoop, 300, 200, playerShapeId);
 		this.addKeyListener(new Keyboard(player, 'w', 's', 'a', 'd'));
+		
+		for(int i = 0; i < 2000; i++) {
+			int width = new Random().nextInt(SCREEN_WIDTH);
+			int height = new Random().nextInt(SCREEN_HEIGHT);
+			new CandyInstance(renderManager, candy, gameLoop, width, height,
+					candyId);
+		}
 
 		new PlayerWithShape(renderManager, players, gameLoop, 300,
 				300, playerShapeId);
-		new CandyInstance(renderManager, candy, gameLoop, 200, 100,
-				candyId);
+
 	}
 
 	@Override
