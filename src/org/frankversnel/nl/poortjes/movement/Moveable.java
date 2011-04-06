@@ -10,7 +10,7 @@ import org.frankversnel.nl.poortjes.component.Transform;
 import org.frankversnel.nl.poortjes.gameloop.GameLoop;
 
 public class Moveable extends Component implements ActionListener {
-	GameLoop gameLoop;
+	private GameLoop gameLoop;
 
 	public Moveable(GameObject gameObject, GameLoop gameLoop) {
 		super(gameObject);
@@ -25,8 +25,7 @@ public class Moveable extends Component implements ActionListener {
 
 		if (transform != null && speed != null) {
 			transform.rotate(speed.getRotation() * timeSinceLastEvent);
-			transform.translate(speed.getDistance() * timeSinceLastEvent,
-					speed.getDistance() * timeSinceLastEvent);
+			transform.translate(0, -(speed.getDistance() * timeSinceLastEvent));
 		}
 	}
 

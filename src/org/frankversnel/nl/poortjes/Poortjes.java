@@ -18,8 +18,8 @@ import processing.core.PApplet;
 public class Poortjes extends PApplet {
 	private static final long serialVersionUID = 9178782595328986939L;
 
-	private static final int SCREEN_WIDTH = 800;
-	private static final int SCREEN_HEIGHT = 800;
+	private static final int SCREEN_WIDTH = 400;
+	private static final int SCREEN_HEIGHT = 400;
 	private static final int BACKGROUND_COLOR = 0;
 
 	private RenderingManager renderManager;
@@ -52,19 +52,19 @@ public class Poortjes extends PApplet {
 		CollisionLevel players = new CollisionLevel(gameLoop, candy);
 
 		GameObject player = new PlayerWithShape(renderManager,
-				players, gameLoop, 300, 200, playerShapeId);
+				players, gameLoop, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, playerShapeId);
 		this.addKeyListener(new Keyboard(player, 'w', 's', 'a', 'd'));
 		
-		for(int i = 0; i < 2000; i++) {
+		for(int i = 0; i < 50; i++) {
 			int width = new Random().nextInt(SCREEN_WIDTH);
 			int height = new Random().nextInt(SCREEN_HEIGHT);
 			new CandyInstance(renderManager, candy, gameLoop, width, height,
 					candyId);
 		}
 
-		new PlayerWithShape(renderManager, players, gameLoop, 300,
+		GameObject otherPlayer = new PlayerWithShape(renderManager, players, gameLoop, 300,
 				300, playerShapeId);
-
+		//new EnemyAnimation(otherPlayer, gameLoop);
 	}
 
 	@Override

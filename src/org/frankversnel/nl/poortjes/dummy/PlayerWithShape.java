@@ -17,7 +17,7 @@ public class PlayerWithShape extends GameObject {
 	public PlayerWithShape(RenderingManager renderManager,
 			CollisionLevel collisionLevel, GameLoop gameLoop,
 			float positionX, float positionY, String shapeId) {
-		new Transform(this, positionX, positionY, 100, 100, 0);
+		new Transform(this, positionX, positionY, 20, 20, 0);
 		new Moveable(this, gameLoop);
 		new Speed(this, 0.015f, 0.006f);
 		new DrawableShape(this, renderManager, shapeId);
