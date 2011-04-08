@@ -1,11 +1,12 @@
-package org.frankversnel.nl.poortjes;
+package org.frankversnel.nl.poortjes.game;
 
 import java.io.FileNotFoundException;
 import java.util.Random;
 
+import org.frankversnel.nl.poortjes.GameObject;
 import org.frankversnel.nl.poortjes.collision.CollisionLevel;
-import org.frankversnel.nl.poortjes.dummy.CandyInstance;
-import org.frankversnel.nl.poortjes.dummy.PlayerWithShape;
+import org.frankversnel.nl.poortjes.game.instance.CandyInstance;
+import org.frankversnel.nl.poortjes.game.instance.PlayerWithShape;
 import org.frankversnel.nl.poortjes.gameloop.DefaultGameLoop;
 import org.frankversnel.nl.poortjes.gameloop.GameLoop;
 import org.frankversnel.nl.poortjes.input.Keyboard;
@@ -77,7 +78,7 @@ public class Poortjes extends PApplet {
 	}
 
 	public static void main(String args[]) {
-		PApplet.main(new String[] { "org.frankversnel.nl.poortjes.Poortjes" });
+		PApplet.main(new String[] { "org.frankversnel.nl.poortjes.game.Poortjes" });
 	}
 
 }

@@ -5,7 +5,7 @@
 
   <!-- Project specific settings -->
   <property name="creator.name" value="Frank Versnel" />
-  <property name="main.class" value="org.frankversnel.nl.poortjes.Poortjes" />
+  <property name="main.class" value="org.frankversnel.nl.poortjes.game.Poortjes" />
 
   <!-- Version numbers -->
   <property name="version" value="pre-1.0" />

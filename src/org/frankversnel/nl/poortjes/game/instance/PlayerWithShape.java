@@ -1,4 +1,4 @@
-package org.frankversnel.nl.poortjes.dummy;
+package org.frankversnel.nl.poortjes.game.instance;
 
 import org.frankversnel.nl.poortjes.GameObject;
 import org.frankversnel.nl.poortjes.collision.CollisionLevel;
