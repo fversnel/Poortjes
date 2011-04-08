@@ -105,7 +105,7 @@
       <attribute name="Poortjes-Version" value="${version}" />
     </manifest>
     <jar destfile="${distribution.file}" manifest="${dir.distribution}/MANIFEST.MF" >
-      <fileset dir="${dir.build}" includes="**/*.*"
+      <fileset dir="${dir.build}" includes="**/*.class"
         excludes="${testing.class.files}" />
       <fileset dir="${dir.source}" includes="resources/*.*"/>
       <zipfileset src="${library.processing}"/>
