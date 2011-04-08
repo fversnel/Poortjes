@@ -47,14 +47,14 @@ public class Poortjes extends PApplet {
 
 		gameLoop = new DefaultGameLoop();
 		gameLoop.start();
-		
+
 		CollisionLevel candy = new CollisionLevel(gameLoop);
 		CollisionLevel players = new CollisionLevel(gameLoop, candy);
 
 		GameObject player = new PlayerWithShape(renderManager,
 				players, gameLoop, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, playerShapeId);
 		this.addKeyListener(new Keyboard(player, 'w', 's', 'a', 'd'));
-		
+
 		for(int i = 0; i < 50; i++) {
 			int width = new Random().nextInt(SCREEN_WIDTH);
 			int height = new Random().nextInt(SCREEN_HEIGHT);
@@ -78,7 +78,7 @@ public class Poortjes extends PApplet {
 	}
 
 	public static void main(String args[]) {
-		PApplet.main(new String[] { "--present",
+		PApplet.main(new String[] {
 				"org.frankversnel.nl.poortjes.Poortjes" });
 	}
 
