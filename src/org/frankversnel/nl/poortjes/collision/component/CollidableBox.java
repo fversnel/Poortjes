@@ -13,8 +13,7 @@ import org.slf4j.LoggerFactory;
 public class CollidableBox extends Collidable {
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 
-	public CollidableBox(GameObject gameObject,
-			CollisionLevel collisionLevel) {
+	public CollidableBox(GameObject gameObject, CollisionLevel collisionLevel) {
 		super(gameObject, collisionLevel);
 	}
 
@@ -40,7 +39,8 @@ public class CollidableBox extends Collidable {
 	}
 
 	private Area getBoundingBox(Transform transform) {
-		Area boundingBox = new Area(new Rectangle2D.Float(0, 0, 1, 1));
+		Area boundingBox = new Area(new Rectangle2D.Float(0, 0,
+				transform.getWidth(), transform.getHeight()));
 		boundingBox.transform(transform.getAffineTransform());
 		return boundingBox;
 	}

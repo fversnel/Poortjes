@@ -8,12 +8,8 @@ import java.util.UUID;
 public abstract class ResourceLoader<T> {
 	protected Map<String, T> resources = new HashMap<String, T>();
 
-	/**
-	 * 
-	 * @param filePath
-	 * @return the resource id
-	 */
-	public abstract String load(String filePath) throws FileNotFoundException;
+	public abstract String loadResource(String filePath)
+			throws FileNotFoundException;
 
 	public T getResource(String resourceId) {
 		return resources.get(resourceId);

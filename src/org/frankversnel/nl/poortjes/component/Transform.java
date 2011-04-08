@@ -10,14 +10,16 @@ import processing.core.PMatrix2D;
 public class Transform extends Component {
 	private PMatrix2D matrix;
 
+	private Size size;
+
 	public Transform(GameObject gameObject, float positionX, float positionY,
-			float scaleX, float scaleY, float rotationTheta) {
+			Size size) {
 		super(gameObject);
 
 		matrix = new PMatrix2D();
 		matrix.translate(positionX, positionY);
-		matrix.scale(scaleX, scaleY);
-		matrix.rotate(rotationTheta);
+
+		this.size = size;
 	}
 
 	public float getPositionX() {
@@ -36,22 +38,29 @@ public class Transform extends Component {
 		return matrix.m11;
 	}
 
+	public float getWidth() {
+		return size.width();
+	}
+
+	public float getHeight() {
+		return size.height();
+	}
+
 	public void translate(float positionX, float positionY) {
 		matrix.translate(positionX, positionY);
 	}
 
-	/**
-	 * TODO Hack to rotate around axis; apparently rotating around the 
-	 * objects center works when translating by 0.5 on both axes, no idea why. Find it out!
-	 * @param theta
-	 */
+	public void scale(float scaleX, float scaleY) {
+		matrix.scale(scaleX, scaleY);
+	}
+
 	public void rotate(float theta) {
 		PMatrix2D matrixCopy = matrix.get();
-		
-		matrixCopy.translate(0.5f, 0.5f);
+
+		matrixCopy.translate(size.width() / 2, size.height() / 2);
 		matrixCopy.rotate(theta);
-		matrixCopy.translate(-0.5f, -0.5f);
-		
+		matrixCopy.translate(-(size.width() / 2), -(size.height() / 2));
+
 		matrix.set(matrixCopy);
 	}
 
@@ -66,6 +75,7 @@ public class Transform extends Component {
 
 	@Override
 	public void remove() {
+		// No need to remove anything.
 	}
 
 }

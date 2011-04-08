@@ -36,8 +36,8 @@ public class Poortjes extends PApplet {
 		String playerShapeId;
 		String candyId;
 		try {
-			playerShapeId = shapeLoader.load("resources/ship.svg");
-			candyId = shapeLoader.load("resources/candy.svg");
+			playerShapeId = shapeLoader.loadResource("resources/ship.svg");
+			candyId = shapeLoader.loadResource("resources/candy.svg");
 		} catch (FileNotFoundException e) {
 			throw new RuntimeException(e);
 		}
@@ -51,20 +51,19 @@ public class Poortjes extends PApplet {
 		CollisionLevel candy = new CollisionLevel(gameLoop);
 		CollisionLevel players = new CollisionLevel(gameLoop, candy);
 
-		GameObject player = new PlayerWithShape(renderManager,
-				players, gameLoop, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, playerShapeId);
+		GameObject player = new PlayerWithShape(renderManager, players,
+				gameLoop, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, playerShapeId);
 		this.addKeyListener(new Keyboard(player, 'w', 's', 'a', 'd'));
 
-		for(int i = 0; i < 50; i++) {
+		for (int i = 0; i < 50; i++) {
 			int width = new Random().nextInt(SCREEN_WIDTH);
 			int height = new Random().nextInt(SCREEN_HEIGHT);
 			new CandyInstance(renderManager, candy, gameLoop, width, height,
 					candyId);
 		}
 
-		GameObject otherPlayer = new PlayerWithShape(renderManager, players, gameLoop, 300,
-				300, playerShapeId);
-		//new EnemyAnimation(otherPlayer, gameLoop);
+		new PlayerWithShape(renderManager, players, gameLoop, 300, 300,
+				playerShapeId);
 	}
 
 	@Override
@@ -78,8 +77,7 @@ public class Poortjes extends PApplet {
 	}
 
 	public static void main(String args[]) {
-		PApplet.main(new String[] {
-				"org.frankversnel.nl.poortjes.Poortjes" });
+		PApplet.main(new String[] { "org.frankversnel.nl.poortjes.Poortjes" });
 	}
 
 }

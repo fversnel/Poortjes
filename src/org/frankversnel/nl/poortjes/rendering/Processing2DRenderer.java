@@ -17,6 +17,17 @@ public class Processing2DRenderer implements Renderer {
 	}
 
 	@Override
+	public void drawRectangle(Transform transform, Color color) {
+		fill(color);
+
+		graphics.setMatrix(transform.getProcessingMatrix());
+		graphics.pushMatrix();
+		// TODO Drawing with a scale of 1 results in an empty screen, why?
+		graphics.rect(0, 0, 1, 1);
+		graphics.popMatrix();
+	}
+
+	@Override
 	public void drawCircle(Transform transform, Color color) {
 		fill(color);
 
@@ -35,7 +46,8 @@ public class Processing2DRenderer implements Renderer {
 	public void drawShape(Transform transform, String shapeId) {
 		graphics.setMatrix(transform.getProcessingMatrix());
 		graphics.pushMatrix();
-		graphics.shape(shapeLoader.getResource(shapeId), 0, 0, 1, 1);
+		graphics.shape(shapeLoader.getResource(shapeId), 0, 0,
+				transform.getWidth(), transform.getHeight());
 		graphics.popMatrix();
 	}
 

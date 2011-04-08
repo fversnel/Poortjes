@@ -12,12 +12,8 @@ public class ProcessingShapeLoader extends ResourceLoader<PShape> {
 		this.pApplet = pApplet;
 	}
 
-	/**
-	 * @return the shape's id
-	 * @throws FileNotFoundException
-	 */
 	@Override
-	public String load(String fileName) throws FileNotFoundException {
+	public String loadResource(String fileName) throws FileNotFoundException {
 		PShape newShape = pApplet.loadShape(fileName);
 		if (newShape == null) {
 			throw new FileNotFoundException();

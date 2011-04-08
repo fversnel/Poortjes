@@ -13,7 +13,8 @@ public class GameObject {
 	private static final int FIRST_COMPONENT = 0;
 
 	@SuppressWarnings("rawtypes")
-	private Map<Class, List<Component>> componentStores = Collections.synchronizedMap(new HashMap<Class, List<Component>>());
+	private Map<Class, List<Component>> componentStores = Collections
+			.synchronizedMap(new HashMap<Class, List<Component>>());
 
 	public <T extends Component> void addComponent(T component) {
 		List<Component> store = componentStores.get(component.getClass());

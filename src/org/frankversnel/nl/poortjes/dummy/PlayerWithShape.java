@@ -4,6 +4,7 @@ import org.frankversnel.nl.poortjes.GameObject;
 import org.frankversnel.nl.poortjes.collision.CollisionLevel;
 import org.frankversnel.nl.poortjes.collision.component.Collidable;
 import org.frankversnel.nl.poortjes.collision.component.CollidableBox;
+import org.frankversnel.nl.poortjes.component.Size;
 import org.frankversnel.nl.poortjes.component.Speed;
 import org.frankversnel.nl.poortjes.component.Transform;
 import org.frankversnel.nl.poortjes.game.Player;
@@ -15,11 +16,11 @@ import org.frankversnel.nl.poortjes.rendering.component.DrawableShape;
 public class PlayerWithShape extends GameObject {
 
 	public PlayerWithShape(RenderingManager renderManager,
-			CollisionLevel collisionLevel, GameLoop gameLoop,
-			float positionX, float positionY, String shapeId) {
-		new Transform(this, positionX, positionY, 20, 20, 0);
+			CollisionLevel collisionLevel, GameLoop gameLoop, float positionX,
+			float positionY, String shapeId) {
+		new Transform(this, positionX, positionY, new Size(20, 28));
 		new Moveable(this, gameLoop);
-		new Speed(this, 0.015f, 0.006f);
+		new Speed(this, 0.30f, 0.006f);
 		new DrawableShape(this, renderManager, shapeId);
 
 		Collidable collidable = new CollidableBox(this, collisionLevel);

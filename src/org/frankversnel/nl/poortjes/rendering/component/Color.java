@@ -11,6 +11,10 @@ public class Color extends Component {
 	public Color(GameObject gameObject, int r, int g, int b) {
 		super(gameObject);
 
+		set(r, g, b);
+	}
+
+	public void set(int r, int g, int b) {
 		assertColorValue(r);
 		this.r = r;
 
@@ -52,6 +56,7 @@ public class Color extends Component {
 
 	@Override
 	public void remove() {
+		// No need to remove anything.
 	}
 
 }

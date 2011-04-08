@@ -5,7 +5,8 @@ import java.util.Collections;
 import java.util.List;
 
 public abstract class ComponentManager<T extends Component> {
-	private List<T> components = Collections.synchronizedList(new ArrayList<T>());
+	private List<T> components = Collections
+			.synchronizedList(new ArrayList<T>());
 
 	public void addComponent(T component) {
 		components.add(component);

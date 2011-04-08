@@ -10,21 +10,21 @@ import org.frankversnel.nl.poortjes.collision.component.Collidable;
 import org.frankversnel.nl.poortjes.component.ComponentManager;
 import org.frankversnel.nl.poortjes.gameloop.GameLoop;
 
-public class CollisionLevel extends ComponentManager<Collidable> implements ActionListener {
-	List<CollisionLevel> collisionLevels =
-		new LinkedList<CollisionLevel>();
-	
+public class CollisionLevel extends ComponentManager<Collidable> implements
+		ActionListener {
+	List<CollisionLevel> collisionLevels = new LinkedList<CollisionLevel>();
+
 	public CollisionLevel(GameLoop gameLoop, CollisionLevel... collidesWith) {
 		gameLoop.addActionListener(this);
-		
+
 		collisionLevels.addAll(Arrays.asList(collidesWith));
 	}
-	
+
 	@Override
 	public void processComponents() {
-		for(Collidable ours : getComponents()) {
-			for(CollisionLevel level : collisionLevels) {
-				for(Collidable theirs : level.getComponents()) {
+		for (Collidable ours : getComponents()) {
+			for (CollisionLevel level : collisionLevels) {
+				for (Collidable theirs : level.getComponents()) {
 					ours.collidesWith(theirs);
 				}
 			}

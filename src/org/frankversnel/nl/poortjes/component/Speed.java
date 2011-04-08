@@ -35,6 +35,7 @@ public class Speed extends Component {
 
 	@Override
 	public void remove() {
+		// No need to remove anything.
 	}
 
 }
