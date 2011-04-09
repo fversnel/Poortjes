@@ -5,8 +5,11 @@ import java.util.Random;
 
 import org.frankversnel.nl.poortjes.GameObject;
 import org.frankversnel.nl.poortjes.collision.CollisionLevel;
+import org.frankversnel.nl.poortjes.component.Size;
 import org.frankversnel.nl.poortjes.game.instance.CandyInstance;
-import org.frankversnel.nl.poortjes.game.instance.PlayerWithShape;
+import org.frankversnel.nl.poortjes.game.instance.LeftWallInstance;
+import org.frankversnel.nl.poortjes.game.instance.ShepherdInstance;
+import org.frankversnel.nl.poortjes.game.instance.PlayerInstance;
 import org.frankversnel.nl.poortjes.gameloop.DefaultGameLoop;
 import org.frankversnel.nl.poortjes.gameloop.GameLoop;
 import org.frankversnel.nl.poortjes.input.Keyboard;
@@ -36,9 +39,11 @@ public class Poortjes extends PApplet {
 		ProcessingShapeLoader shapeLoader = new ProcessingShapeLoader(this);
 		String playerShapeId;
 		String candyId;
+		String shepherdId;
 		try {
 			playerShapeId = shapeLoader.loadResource("resources/ship.svg");
 			candyId = shapeLoader.loadResource("resources/candy.svg");
+			shepherdId = shapeLoader.loadResource("resources/shepherd.svg");
 		} catch (FileNotFoundException e) {
 			throw new RuntimeException(e);
 		}
@@ -51,8 +56,10 @@ public class Poortjes extends PApplet {
 
 		CollisionLevel candy = new CollisionLevel(gameLoop);
 		CollisionLevel players = new CollisionLevel(gameLoop, candy);
+		CollisionLevel enemies = new CollisionLevel(gameLoop, players);
+		CollisionLevel walls = new CollisionLevel(gameLoop, players, enemies);
 
-		GameObject player = new PlayerWithShape(renderManager, players,
+		GameObject player = new PlayerInstance(renderManager, players,
 				gameLoop, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, playerShapeId);
 		this.addKeyListener(new Keyboard(player, 'w', 's', 'a', 'd'));
 
@@ -63,8 +70,8 @@ public class Poortjes extends PApplet {
 					candyId);
 		}
 
-		new PlayerWithShape(renderManager, players, gameLoop, 300, 300,
-				playerShapeId);
+		new ShepherdInstance(renderManager, enemies, gameLoop, 100, 100, shepherdId);
+		new LeftWallInstance(renderManager, walls, gameLoop, new Size(5, SCREEN_HEIGHT));
 	}
 
 	@Override

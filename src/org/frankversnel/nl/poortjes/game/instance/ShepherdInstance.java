@@ -7,24 +7,24 @@ import org.frankversnel.nl.poortjes.collision.component.CollidableBox;
 import org.frankversnel.nl.poortjes.component.Size;
 import org.frankversnel.nl.poortjes.component.Speed;
 import org.frankversnel.nl.poortjes.component.Transform;
-import org.frankversnel.nl.poortjes.game.Player;
+import org.frankversnel.nl.poortjes.game.component.ai.Shepherd;
 import org.frankversnel.nl.poortjes.gameloop.GameLoop;
 import org.frankversnel.nl.poortjes.movement.Moveable;
 import org.frankversnel.nl.poortjes.rendering.RenderingManager;
 import org.frankversnel.nl.poortjes.rendering.component.DrawableShape;
 
-public class PlayerWithShape extends GameObject {
+public class ShepherdInstance extends GameObject {
 
-	public PlayerWithShape(RenderingManager renderManager,
+	public ShepherdInstance(RenderingManager renderManager,
 			CollisionLevel collisionLevel, GameLoop gameLoop, float positionX,
 			float positionY, String shapeId) {
-		new Transform(this, positionX, positionY, new Size(20, 28));
+		new Transform(this, positionX, positionY, new Size(20, 20));
 		new Moveable(this, gameLoop);
-		new Speed(this, 0.30f, 0.006f);
+		new Speed(this, 0.25f, 0.005f);
 		new DrawableShape(this, renderManager, shapeId);
 
 		Collidable collidable = new CollidableBox(this, collisionLevel);
-		new Player(this, collidable);
+		new Shepherd(this, collidable);
 	}
 
 }

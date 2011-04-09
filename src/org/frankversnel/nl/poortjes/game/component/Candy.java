@@ -1,4 +1,4 @@
-package org.frankversnel.nl.poortjes.game;
+package org.frankversnel.nl.poortjes.game.component;
 
 import org.frankversnel.nl.poortjes.GameObject;
 import org.frankversnel.nl.poortjes.component.Component;

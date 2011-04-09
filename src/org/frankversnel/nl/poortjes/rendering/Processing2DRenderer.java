@@ -22,8 +22,7 @@ public class Processing2DRenderer implements Renderer {
 
 		graphics.setMatrix(transform.getProcessingMatrix());
 		graphics.pushMatrix();
-		// TODO Drawing with a scale of 1 results in an empty screen, why?
-		graphics.rect(0, 0, 1, 1);
+		graphics.rect(0, 0, transform.getWidth(), transform.getHeight());
 		graphics.popMatrix();
 	}
 
@@ -33,8 +32,7 @@ public class Processing2DRenderer implements Renderer {
 
 		graphics.setMatrix(transform.getProcessingMatrix());
 		graphics.pushMatrix();
-		// TODO Drawing with a scale of 1 results in an empty screen, why?
-		graphics.ellipse(0, 0, 1, 1);
+		graphics.ellipse(0, 0, transform.getWidth(), transform.getHeight());
 		graphics.popMatrix();
 	}
 

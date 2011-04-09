@@ -78,4 +78,9 @@ public class Transform extends Component {
 		// No need to remove anything.
 	}
 
+	public void setPosition(float x, float y) {
+		matrix.m02 = x;
+		matrix.m12 = y;
+	}
+
 }
