@@ -28,7 +28,7 @@
   <property name="testing.printsummary" value="yes" />
   <property name="testing.haltonfailure" value="no" />
   <property name="testing.java.files" value="**/*Test*.java" />
-  <property name="testing.class.files" value="**/*Test*.class" />
+  <property name="testing.class.files" value="**/test/*.class" />
 
   <!-- The distribution file to be created -->
   <property name="distribution.file"
