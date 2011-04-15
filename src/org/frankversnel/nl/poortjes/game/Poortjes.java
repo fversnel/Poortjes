@@ -15,6 +15,7 @@ import org.frankversnel.nl.poortjes.gameloop.GameLoop;
 import org.frankversnel.nl.poortjes.input.Keyboard;
 import org.frankversnel.nl.poortjes.rendering.Processing2DRenderer;
 import org.frankversnel.nl.poortjes.rendering.RenderingManager;
+import org.frankversnel.nl.poortjes.resourceloading.ResourceLoader;
 import org.frankversnel.nl.poortjes.resourceloading.ProcessingShapeLoader;
 
 import processing.core.PApplet;
@@ -27,6 +28,7 @@ public class Poortjes extends PApplet {
 	private static final int BACKGROUND_COLOR = 0;
 
 	private RenderingManager renderManager;
+	private ProcessingShapeLoader resourceloader;
 
 	private GameLoop gameLoop;
 
@@ -36,20 +38,10 @@ public class Poortjes extends PApplet {
 		background(BACKGROUND_COLOR);
 		smooth();
 
-		ProcessingShapeLoader shapeLoader = new ProcessingShapeLoader(this);
-		String playerShapeId;
-		String candyId;
-		String shepherdId;
-		try {
-			playerShapeId = shapeLoader.loadResource("resources/ship.svg");
-			candyId = shapeLoader.loadResource("resources/candy.svg");
-			shepherdId = shapeLoader.loadResource("resources/shepherd.svg");
-		} catch (FileNotFoundException e) {
-			throw new RuntimeException(e);
-		}
+		resourceloader = new ProcessingShapeLoader(this);
 
 		renderManager = new RenderingManager(new Processing2DRenderer(g,
-				shapeLoader));
+				resourceloader));
 
 		gameLoop = new DefaultGameLoop();
 		gameLoop.start();
@@ -59,19 +51,22 @@ public class Poortjes extends PApplet {
 		CollisionLevel enemies = new CollisionLevel(gameLoop, players);
 		CollisionLevel walls = new CollisionLevel(gameLoop, players, enemies);
 
-		GameObject player = new PlayerInstance(renderManager, players,
-				gameLoop, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, playerShapeId);
+		GameObject player = new PlayerInstance(renderManager, resourceloader,
+				"resources/ship.svg", players, gameLoop, SCREEN_WIDTH / 2,
+				SCREEN_HEIGHT / 2);
 		this.addKeyListener(new Keyboard(player, 'w', 's', 'a', 'd'));
 
 		for (int i = 0; i < 50; i++) {
 			int width = new Random().nextInt(SCREEN_WIDTH);
 			int height = new Random().nextInt(SCREEN_HEIGHT);
-			new CandyInstance(renderManager, candy, gameLoop, width, height,
-					candyId);
+			new CandyInstance(renderManager, resourceloader,
+					"resources/candy.svg", candy, gameLoop, width, height);
 		}
 
-		new ShepherdInstance(renderManager, enemies, gameLoop, 100, 100, shepherdId);
-		new LeftWallInstance(renderManager, walls, gameLoop, new Size(5, SCREEN_HEIGHT));
+		new ShepherdInstance(renderManager, resourceloader,
+				"resources/shepherd.svg", enemies, gameLoop, 100, 100);
+		new LeftWallInstance(renderManager, walls, gameLoop, new Size(5,
+					SCREEN_HEIGHT));
 	}
 
 	@Override

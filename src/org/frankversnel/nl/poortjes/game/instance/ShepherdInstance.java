@@ -12,16 +12,20 @@ import org.frankversnel.nl.poortjes.gameloop.GameLoop;
 import org.frankversnel.nl.poortjes.movement.Moveable;
 import org.frankversnel.nl.poortjes.rendering.RenderingManager;
 import org.frankversnel.nl.poortjes.rendering.component.DrawableShape;
+import org.frankversnel.nl.poortjes.resourceloading.ResourceLoader;
 
 public class ShepherdInstance extends GameObject {
 
 	public ShepherdInstance(RenderingManager renderManager,
+			ResourceLoader resourceloader, String resourceFile,
 			CollisionLevel collisionLevel, GameLoop gameLoop, float positionX,
-			float positionY, String shapeId) {
+			float positionY) {
 		new Transform(this, positionX, positionY, new Size(20, 20));
 		new Moveable(this, gameLoop);
 		new Speed(this, 0.25f, 0.005f);
-		new DrawableShape(this, renderManager, shapeId);
+
+		resourceloader.addResource(resourceFile);
+		new DrawableShape(this, renderManager, resourceFile);
 
 		Collidable collidable = new CollidableBox(this, collisionLevel);
 		new Shepherd(this, collidable);

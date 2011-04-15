@@ -13,13 +13,13 @@ public class ProcessingShapeLoader extends ResourceLoader<PShape> {
 	}
 
 	@Override
-	public String loadResource(String fileName) throws FileNotFoundException {
+	protected PShape loadResource(String fileName) throws FileNotFoundException {
 		PShape newShape = pApplet.loadShape(fileName);
 		if (newShape == null) {
 			throw new FileNotFoundException();
 		}
 
-		return addResource(newShape);
+		return newShape;
 	}
 
 }
