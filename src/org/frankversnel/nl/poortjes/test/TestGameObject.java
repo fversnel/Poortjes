@@ -8,7 +8,6 @@ import java.util.List;
 
 import org.frankversnel.nl.poortjes.GameObject;
 import org.frankversnel.nl.poortjes.component.Component;
-import org.frankversnel.nl.poortjes.component.Speed;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,23 +21,24 @@ public class TestGameObject {
 
 	@Test
 	public void testGetComponent() {
-		Component expected = new Speed(gameObject, 0, 0);
-		Component actual = gameObject.getComponent(Speed.class);
+		Component expected = new MockComponent(gameObject);
+		Component actual = gameObject.getComponent(MockComponent.class);
 
 		assertEquals(expected, actual);
 	}
 
 	@Test
 	public void testNonExistentComponent() {
-		assertNull(gameObject.getComponent(Speed.class));
+		assertNull(gameObject.getComponent(MockComponent.class));
 	}
 
 	@Test
 	public void testGetAllComponentOfType() {
-		new Speed(gameObject, 0, 0);
-		new Speed(gameObject, 0, 0);
+		new MockComponent(gameObject);
+		new MockComponent(gameObject);
 
-		List<Speed> actual = gameObject.getAllComponentsOfType(Speed.class);
+		List<MockComponent> actual =
+			gameObject.getAllComponentsOfType(MockComponent.class);
 
 		assertTrue(actual.size() == 2);
 	}
