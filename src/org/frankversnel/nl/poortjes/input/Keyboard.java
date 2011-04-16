@@ -45,9 +45,9 @@ public class Keyboard extends InputDevice implements KeyListener {
 			if (keyPressed == keyForward) {
 				speed.move(speedValue);
 			} else if (keyPressed == keyBackwards) {
-				speed.move(speedValue * -1);
+				speed.move(-speedValue);
 			} else if (keyPressed == keyTurnLeft) {
-				speed.rotate(speedValue * -1);
+				speed.rotate(-speedValue);
 			} else if (keyPressed == keyTurnRight) {
 				speed.rotate(speedValue);
 			}
