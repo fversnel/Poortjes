@@ -4,3 +4,4 @@ depcache/
 log/
 *.swp
 *.class
+*.log
