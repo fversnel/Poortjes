@@ -15,6 +15,9 @@ public abstract class Component {
 		return this.gameObject;
 	}
 
-	public abstract void remove();
+	public void remove() {
+		// Necessary garbage collection.
+		gameObject = null;
+	}
 
 }
