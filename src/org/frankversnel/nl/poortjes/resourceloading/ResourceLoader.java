@@ -11,7 +11,7 @@ import java.util.Map;
  * {@link ResourceLoader#addResource(String)} is called.
  */
 public abstract class ResourceLoader<T> {
-	protected Map<String, T> resources = new HashMap<String, T>();
+	private Map<String, T> resources = new HashMap<String, T>();
 
 	/**
 	 * Loads the resource into memory, but only if it isn't loaded already.
