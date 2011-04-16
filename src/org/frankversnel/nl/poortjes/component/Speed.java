@@ -6,8 +6,8 @@ public class Speed extends Component {
 	private final float distanceInMetersPerSecond;
 	private final float rotationSpeed;
 
-	private float currentDistance = 0.0f;
-	private float currentRotation = 0.0f;
+	private float currentDistance = 0f;
+	private float currentRotation = 0f;
 
 	public Speed(GameObject gameObject, float distanceInMetersPerSecond,
 			float rotationSpeed) {
@@ -18,10 +18,14 @@ public class Speed extends Component {
 	}
 
 	public void rotate(float amount) {
+		assert(amount <= 1f) : "Maximum rotationSpeed speed is 1 times " +
+								rotationSpeed;
 		this.currentRotation = rotationSpeed * amount;
 	}
 
 	public void move(float amount) {
+		assert(amount <= 1f) : "Maximum movement speed is 1 times " +
+								distanceInMetersPerSecond;
 		this.currentDistance = distanceInMetersPerSecond * amount;
 	}
 
