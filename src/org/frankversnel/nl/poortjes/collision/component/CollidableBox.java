@@ -4,7 +4,7 @@ import java.awt.geom.Area;
 import java.awt.geom.Rectangle2D;
 
 import org.frankversnel.nl.poortjes.GameObject;
-import org.frankversnel.nl.poortjes.collision.CollisionEvent;
+import org.frankversnel.nl.poortjes.collision.Collision;
 import org.frankversnel.nl.poortjes.collision.CollisionLevel;
 import org.frankversnel.nl.poortjes.component.Transform;
 import org.slf4j.Logger;
@@ -33,7 +33,7 @@ public class CollidableBox extends Collidable {
 				logger.info(getGameObject() + " collides with "
 						+ theirs.getGameObject());
 
-				processEvent(new CollisionEvent(this, theirs));
+				fireCollision(new Collision(this, theirs));
 			}
 		}
 	}

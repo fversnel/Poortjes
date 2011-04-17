@@ -3,7 +3,7 @@ package org.frankversnel.nl.poortjes.collision.component.test;
 import org.frankversnel.nl.poortjes.GameObject;
 import org.frankversnel.nl.poortjes.component.Size;
 import org.frankversnel.nl.poortjes.component.Transform;
-import org.frankversnel.nl.poortjes.collision.CollisionEvent;
+import org.frankversnel.nl.poortjes.collision.Collision;
 import org.frankversnel.nl.poortjes.collision.CollisionLevel;
 import org.frankversnel.nl.poortjes.collision.CollisionListener;
 import org.frankversnel.nl.poortjes.collision.component.Collidable;
@@ -28,9 +28,9 @@ public class TestCollidableBox {
 		Collidable box1 = createCollidableBox(0, 0, new Size(25, 10));
 		Collidable box2 = createCollidableBox(20, 5, new Size(10, 10));
 
-		box1.addActionListener(collisionListener);
+		box1.addListener(collisionListener);
 		box1.collidesWith(box2);
-		verify(collisionListener).actionPerformed(any(CollisionEvent.class));
+		verify(collisionListener).collision(any(Collision.class));
 	}
 
 	@Test
@@ -38,9 +38,9 @@ public class TestCollidableBox {
 		Collidable box1 = createCollidableBox(0, 0, new Size(10, 10));
 		Collidable box2 = createCollidableBox(20, 5, new Size(10, 10));
 
-		box1.addActionListener(collisionListener);
+		box1.addListener(collisionListener);
 		box1.collidesWith(box2);
-		verify(collisionListener, never()).actionPerformed(any(CollisionEvent.class));
+		verify(collisionListener, never()).collision(any(Collision.class));
 	}
 
 	private Collidable createCollidableBox(float positionX, float positionY, Size size) {

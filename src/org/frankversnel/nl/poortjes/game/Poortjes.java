@@ -4,9 +4,7 @@ import java.util.Random;
 
 import org.frankversnel.nl.poortjes.GameObject;
 import org.frankversnel.nl.poortjes.collision.CollisionLevel;
-import org.frankversnel.nl.poortjes.component.Size;
 import org.frankversnel.nl.poortjes.game.instance.CandyInstance;
-import org.frankversnel.nl.poortjes.game.instance.LeftWallInstance;
 import org.frankversnel.nl.poortjes.game.instance.ShepherdInstance;
 import org.frankversnel.nl.poortjes.game.instance.PlayerInstance;
 import org.frankversnel.nl.poortjes.gameloop.DefaultGameLoop;
@@ -47,7 +45,6 @@ public class Poortjes extends PApplet {
 		CollisionLevel candy = new CollisionLevel(gameLoop);
 		CollisionLevel players = new CollisionLevel(gameLoop, candy);
 		CollisionLevel enemies = new CollisionLevel(gameLoop, players);
-		CollisionLevel walls = new CollisionLevel(gameLoop, players, enemies);
 
 		GameObject player = new PlayerInstance(renderManager, resourceloader,
 				"resources/ship.svg", players, gameLoop, SCREEN_WIDTH / 2,
@@ -63,8 +60,6 @@ public class Poortjes extends PApplet {
 
 		new ShepherdInstance(renderManager, resourceloader,
 				"resources/shepherd.svg", enemies, gameLoop, 100, 100);
-		new LeftWallInstance(renderManager, walls, gameLoop, new Size(5,
-					SCREEN_HEIGHT));
 	}
 
 	@Override

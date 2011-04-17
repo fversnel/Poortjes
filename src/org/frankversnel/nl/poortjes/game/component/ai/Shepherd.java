@@ -3,15 +3,19 @@ package org.frankversnel.nl.poortjes.game.component.ai;
 import java.util.List;
 
 import org.frankversnel.nl.poortjes.GameObject;
+import org.frankversnel.nl.poortjes.collision.Collision;
 import org.frankversnel.nl.poortjes.collision.CollisionListener;
 import org.frankversnel.nl.poortjes.collision.component.Collidable;
+import org.frankversnel.nl.poortjes.component.Component;
 import org.frankversnel.nl.poortjes.component.Speed;
 import org.frankversnel.nl.poortjes.component.Transform;
 import org.frankversnel.nl.poortjes.game.component.Player;
 
-public class Shepherd extends CollisionListener {
+public class Shepherd extends Component implements CollisionListener {
 	public Shepherd(GameObject gameObject, Collidable collidable) {
-		super(gameObject, collidable);
+		super(gameObject);
+		
+		collidable.addListener(this);
 	}
 	
 	public void followNearestPlayer(List<Player> players) {
@@ -29,14 +33,13 @@ public class Shepherd extends CollisionListener {
 	}
 
 	@Override
-	public void collisionActionPerformed(GameObject collidedWith) {
-		Player player = collidedWith.getComponent(Player.class);
+	public void collision(Collision collision) {
+		Player player = collision.getCollidedWith().getComponent(Player.class);
 		if (player != null) {
-			collidedWith.destroy();
+			collision.getCollidedWith().destroy();
 		}
-		
 	}
-	
+
 	private Player getNearestPlayer(List<Player> players) {
 		Transform ownTransform = getGameObject().getComponent(Transform.class);
 		Float nearness = null;
@@ -60,6 +63,7 @@ public class Shepherd extends CollisionListener {
 			
 		return nearnessX + nearnessY;
 	}
+
 
 
 }
