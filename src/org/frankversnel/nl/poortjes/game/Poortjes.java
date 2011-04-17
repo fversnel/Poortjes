@@ -9,6 +9,7 @@ import org.frankversnel.nl.poortjes.game.instance.ShepherdInstance;
 import org.frankversnel.nl.poortjes.game.instance.PlayerInstance;
 import org.frankversnel.nl.poortjes.gameloop.DefaultGameLoop;
 import org.frankversnel.nl.poortjes.gameloop.GameLoop;
+import org.frankversnel.nl.poortjes.gameloop.GameTick;
 import org.frankversnel.nl.poortjes.gameloop.RenderGameLoop;
 import org.frankversnel.nl.poortjes.input.Keyboard;
 import org.frankversnel.nl.poortjes.rendering.Processing2DRenderer;
@@ -28,7 +29,6 @@ public class Poortjes extends PApplet {
 	private ProcessingShapeLoader resourceloader;
 
 	private GameLoop gameLoop;
-	private GameLoop renderGameLoop;
 
 	@Override
 	public void setup() {
@@ -38,9 +38,8 @@ public class Poortjes extends PApplet {
 
 		resourceloader = new ProcessingShapeLoader(this);
 
-		renderGameLoop = new RenderGameLoop();
 		renderManager = new RenderingManager(new Processing2DRenderer(g,
-				resourceloader, BACKGROUND_COLOR), renderGameLoop);
+				resourceloader, BACKGROUND_COLOR), new RenderGameLoop());
 
 		gameLoop = new DefaultGameLoop();		
 
@@ -64,7 +63,10 @@ public class Poortjes extends PApplet {
 				"resources/shepherd.svg", enemies, gameLoop, 100, 100);
 		
 		gameLoop.start();
-		renderGameLoop.start();
+	}
+	
+	public void draw() {
+		renderManager.gameTickOccurred(new GameTick(this, (int) (1000 / this.frameRate)));
 	}
 	
 	public static void main(String args[]) {
