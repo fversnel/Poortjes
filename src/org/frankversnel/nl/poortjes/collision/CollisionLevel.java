@@ -1,7 +1,5 @@
 package org.frankversnel.nl.poortjes.collision;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -9,13 +7,15 @@ import java.util.List;
 import org.frankversnel.nl.poortjes.collision.component.Collidable;
 import org.frankversnel.nl.poortjes.component.ComponentManager;
 import org.frankversnel.nl.poortjes.gameloop.GameLoop;
+import org.frankversnel.nl.poortjes.gameloop.GameTick;
+import org.frankversnel.nl.poortjes.gameloop.GameTickListener;
 
 public class CollisionLevel extends ComponentManager<Collidable> implements
-		ActionListener {
+		GameTickListener {
 	List<CollisionLevel> collisionLevels = new LinkedList<CollisionLevel>();
 
 	public CollisionLevel(GameLoop gameLoop, CollisionLevel... collidesWith) {
-		gameLoop.addActionListener(this);
+		gameLoop.addListener(this);
 
 		collisionLevels.addAll(Arrays.asList(collidesWith));
 	}
@@ -30,9 +30,9 @@ public class CollisionLevel extends ComponentManager<Collidable> implements
 			}
 		}
 	}
-
+	
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
+	public void gameTickOccurred(GameTick gameTick) {
 		processComponents();
 	}
 

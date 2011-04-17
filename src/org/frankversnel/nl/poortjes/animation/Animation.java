@@ -1,33 +1,31 @@
 package org.frankversnel.nl.poortjes.animation;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import org.frankversnel.nl.poortjes.GameObject;
 import org.frankversnel.nl.poortjes.component.Component;
 import org.frankversnel.nl.poortjes.gameloop.GameLoop;
+import org.frankversnel.nl.poortjes.gameloop.GameTick;
+import org.frankversnel.nl.poortjes.gameloop.GameTickListener;
 
-public abstract class Animation extends Component implements ActionListener {
+public abstract class Animation extends Component implements GameTickListener {
 	private GameLoop gameLoop;
 
 	public Animation(GameObject gameObject, GameLoop gameLoop) {
 		super(gameObject);
 
 		this.gameLoop = gameLoop;
-		gameLoop.addActionListener(this);
+		gameLoop.addListener(this);
 	}
 
 	public abstract void animate(int timeSinceLastEvent);
-
+	
 	@Override
-	public void actionPerformed(ActionEvent event) {
-		int timeSinceLastEvent = ((GameLoop) event.getSource()).getDelay();
-		animate(timeSinceLastEvent);
+	public void remove() {
+		gameLoop.removeListener(this);
 	}
 
 	@Override
-	public void remove() {
-		gameLoop.removeActionListener(this);
+	public void gameTickOccurred(GameTick gameTick) {
+		animate(gameTick.getDelayInMilliSeconds());
 	}
 
 }

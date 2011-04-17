@@ -1,6 +1,5 @@
 package org.frankversnel.nl.poortjes.game;
 
-import java.io.FileNotFoundException;
 import java.util.Random;
 
 import org.frankversnel.nl.poortjes.GameObject;
@@ -15,7 +14,6 @@ import org.frankversnel.nl.poortjes.gameloop.GameLoop;
 import org.frankversnel.nl.poortjes.input.Keyboard;
 import org.frankversnel.nl.poortjes.rendering.Processing2DRenderer;
 import org.frankversnel.nl.poortjes.rendering.RenderingManager;
-import org.frankversnel.nl.poortjes.resourceloading.ResourceLoader;
 import org.frankversnel.nl.poortjes.resourceloading.ProcessingShapeLoader;
 
 import processing.core.PApplet;
