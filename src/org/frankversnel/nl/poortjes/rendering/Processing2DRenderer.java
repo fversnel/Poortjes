@@ -8,12 +8,18 @@ import processing.core.PGraphics;
 
 public class Processing2DRenderer implements Renderer {
 	private PGraphics graphics;
+	
 	private ProcessingShapeLoader shapeLoader;
+	
+	private int backgroundColor;
 
 	public Processing2DRenderer(PGraphics graphics,
-			ProcessingShapeLoader shapeLoader) {
+			ProcessingShapeLoader shapeLoader, int backgroundColor) {
 		this.graphics = graphics;
+		
 		this.shapeLoader = shapeLoader;
+		
+		this.backgroundColor = backgroundColor;
 	}
 
 	@Override
@@ -47,6 +53,11 @@ public class Processing2DRenderer implements Renderer {
 		graphics.shape(shapeLoader.getResource(shapeId), 0, 0,
 				transform.getWidth(), transform.getHeight());
 		graphics.popMatrix();
+	}
+
+	@Override
+	public void clearScreen() {
+		graphics.background(backgroundColor);
 	}
 
 }

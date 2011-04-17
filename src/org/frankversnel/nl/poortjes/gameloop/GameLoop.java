@@ -8,11 +8,11 @@ import javax.swing.event.EventListenerList;
 public class GameLoop implements ActionListener {
 	private static final long serialVersionUID = -178112459234430448L;
 	
-	private final int delayInMilliSeconds;
+	private int delayInMilliSeconds;
 	
-	private final Timer timer;
+	private Timer timer;
 	
-    private final EventListenerList listenerList = new EventListenerList();
+    private EventListenerList listenerList = new EventListenerList();
 
 	public GameLoop(int delayInMilliSeconds) {
 		this.delayInMilliSeconds = delayInMilliSeconds;

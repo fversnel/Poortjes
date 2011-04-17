@@ -11,4 +11,6 @@ public interface Renderer {
 
 	public void drawShape(Transform transform, String shapeId);
 
+	public void clearScreen();
+
 }

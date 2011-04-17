@@ -9,6 +9,7 @@ import org.frankversnel.nl.poortjes.game.instance.ShepherdInstance;
 import org.frankversnel.nl.poortjes.game.instance.PlayerInstance;
 import org.frankversnel.nl.poortjes.gameloop.DefaultGameLoop;
 import org.frankversnel.nl.poortjes.gameloop.GameLoop;
+import org.frankversnel.nl.poortjes.gameloop.RenderGameLoop;
 import org.frankversnel.nl.poortjes.input.Keyboard;
 import org.frankversnel.nl.poortjes.rendering.Processing2DRenderer;
 import org.frankversnel.nl.poortjes.rendering.RenderingManager;
@@ -27,6 +28,7 @@ public class Poortjes extends PApplet {
 	private ProcessingShapeLoader resourceloader;
 
 	private GameLoop gameLoop;
+	private GameLoop renderGameLoop;
 
 	@Override
 	public void setup() {
@@ -36,11 +38,11 @@ public class Poortjes extends PApplet {
 
 		resourceloader = new ProcessingShapeLoader(this);
 
+		renderGameLoop = new RenderGameLoop();
 		renderManager = new RenderingManager(new Processing2DRenderer(g,
-				resourceloader));
+				resourceloader, BACKGROUND_COLOR), renderGameLoop);
 
-		gameLoop = new DefaultGameLoop();
-		gameLoop.start();
+		gameLoop = new DefaultGameLoop();		
 
 		CollisionLevel candy = new CollisionLevel(gameLoop);
 		CollisionLevel players = new CollisionLevel(gameLoop, candy);
@@ -60,18 +62,11 @@ public class Poortjes extends PApplet {
 
 		new ShepherdInstance(renderManager, resourceloader,
 				"resources/shepherd.svg", enemies, gameLoop, 100, 100);
+		
+		gameLoop.start();
+		renderGameLoop.start();
 	}
-
-	@Override
-	public void draw() {
-		clearScreen();
-		renderManager.processComponents();
-	}
-
-	private void clearScreen() {
-		background(BACKGROUND_COLOR);
-	}
-
+	
 	public static void main(String args[]) {
 		PApplet.main(new String[] { "org.frankversnel.nl.poortjes.game.Poortjes" });
 	}
