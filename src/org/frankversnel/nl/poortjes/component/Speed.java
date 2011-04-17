@@ -42,7 +42,7 @@ public class Speed extends Component {
 
 	private void assertSpeedModfier(float speedModifierAmount) {
 		assert(speedModifierAmount <= 1f && speedModifierAmount >= -1f)
-			: "Speed modifier has to be a value between 1 and -1" +
+			: "Speed modifier has to be a value between 1 and -1 but was " +
 			   distanceInMetersPerSecond;
 	}
 
