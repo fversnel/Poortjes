@@ -14,30 +14,29 @@ public class GameLoop {
 	private int delayInMilliSeconds;
 
 	private Timer timer;
-	private TimerTask fireGameTick;
 
 	private List<GameTickListener> listeners =
 		Collections.synchronizedList(new LinkedList<GameTickListener>());
 
 	public GameLoop(int delayInMilliSeconds) {
 		this.delayInMilliSeconds = delayInMilliSeconds;
-
-		timer = new Timer();
 	}
 
 	public void start() {
-		fireGameTick = new FireGameTick(new GameTick(this, delayInMilliSeconds));
+		timer = new Timer();
+
+		TimerTask fireGameTick = new FireGameTick(new GameTick(this, delayInMilliSeconds));
 		timer.scheduleAtFixedRate(fireGameTick, INITIAL_DELAY_IN_MILLISECONDS,
 				delayInMilliSeconds);
 	}
 
 	public void stop() {
-		if(fireGameTick == null) {
+		if(timer == null) {
 			throw new GameLoopNotStartedException(
 					"Game loop cannot be stopped because it was never started.");
 		}
 
-		fireGameTick.cancel();
+		timer.cancel();
 		timer.purge();
 	}
 
