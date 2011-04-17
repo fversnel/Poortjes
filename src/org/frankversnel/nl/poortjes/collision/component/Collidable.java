@@ -1,6 +1,7 @@
 package org.frankversnel.nl.poortjes.collision.component;
 
-import javax.swing.event.EventListenerList;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.frankversnel.nl.poortjes.GameObject;
 import org.frankversnel.nl.poortjes.collision.Collision;
@@ -11,7 +12,7 @@ import org.frankversnel.nl.poortjes.component.Component;
 public abstract class Collidable extends Component {
 	private CollisionLevel collisionLevel;
 
-    private final EventListenerList listenerList = new EventListenerList();
+    private final List<CollisionListener> listenerList = new LinkedList<CollisionListener>();
 
 	public Collidable(GameObject gameObject, CollisionLevel collisionLevel) {
 		super(gameObject);
@@ -23,21 +24,16 @@ public abstract class Collidable extends Component {
 	public abstract void collidesWith(Collidable other);
 
     public void addListener(CollisionListener listener) {
-        listenerList.add(CollisionListener.class, listener);
+        listenerList.add(listener);
     }
     
     public void removeListener(CollisionListener listener) {
-        listenerList.remove(CollisionListener.class, listener);
+        listenerList.remove(listener);
     }
     
     protected void fireCollision(Collision collision) {
-        Object[] listeners = listenerList.getListenerList();
-        // Each listener occupies two elements - the first is the listener class
-        // and the second is the listener instance
-        for (int i=0; i<listeners.length; i+=2) {
-            if (listeners[i]==CollisionListener.class) {
-                ((CollisionListener)listeners[i+1]).collision(collision);
-            }
+        for (CollisionListener listener : listenerList) {
+        	listener.collision(collision);
         }
     }
 
