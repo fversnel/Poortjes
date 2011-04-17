@@ -3,7 +3,7 @@ package org.frankversnel.nl.poortjes.test;
 import org.frankversnel.nl.poortjes.GameObject;
 import org.frankversnel.nl.poortjes.component.Component;
 
-public class MockComponent extends Component {
+class MockComponent extends Component {
 
 	public MockComponent(GameObject gameObject) {
 		super(gameObject);
