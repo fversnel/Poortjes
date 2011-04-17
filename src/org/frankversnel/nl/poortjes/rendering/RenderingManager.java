@@ -1,18 +1,16 @@
 package org.frankversnel.nl.poortjes.rendering;
 
-import org.frankversnel.nl.poortjes.component.ComponentManager;
 import org.frankversnel.nl.poortjes.gameloop.GameLoop;
-import org.frankversnel.nl.poortjes.gameloop.GameTick;
-import org.frankversnel.nl.poortjes.gameloop.GameTickListener;
+import org.frankversnel.nl.poortjes.component.ComponentManager;
 import org.frankversnel.nl.poortjes.rendering.component.Drawable;
 
-public class RenderingManager extends ComponentManager<Drawable> implements GameTickListener {
+public class RenderingManager extends ComponentManager<Drawable> {
 	private Renderer renderer;
 
 	public RenderingManager(Renderer renderer, GameLoop gameLoop) {
+		super(gameLoop);
+
 		this.renderer = renderer;
-		
-		gameLoop.addListener(this);
 	}
 
 	@Override
@@ -21,11 +19,6 @@ public class RenderingManager extends ComponentManager<Drawable> implements Game
 		for (Drawable drawable : getComponents()) {
 			drawable.draw(renderer);
 		}
-	}
-
-	@Override
-	public void gameTickOccurred(GameTick gameTick) {
-		processComponents();
 	}
 
 }

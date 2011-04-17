@@ -7,15 +7,12 @@ import java.util.List;
 import org.frankversnel.nl.poortjes.collision.component.Collidable;
 import org.frankversnel.nl.poortjes.component.ComponentManager;
 import org.frankversnel.nl.poortjes.gameloop.GameLoop;
-import org.frankversnel.nl.poortjes.gameloop.GameTick;
-import org.frankversnel.nl.poortjes.gameloop.GameTickListener;
 
-public class CollisionLevel extends ComponentManager<Collidable> implements
-		GameTickListener {
+public class CollisionLevel extends ComponentManager<Collidable> {
 	List<CollisionLevel> collisionLevels = new LinkedList<CollisionLevel>();
 
 	public CollisionLevel(GameLoop gameLoop, CollisionLevel... collidesWith) {
-		gameLoop.addListener(this);
+		super(gameLoop);
 
 		collisionLevels.addAll(Arrays.asList(collidesWith));
 	}
@@ -29,11 +26,6 @@ public class CollisionLevel extends ComponentManager<Collidable> implements
 				}
 			}
 		}
-	}
-	
-	@Override
-	public void gameTickOccurred(GameTick gameTick) {
-		processComponents();
 	}
 
 }
