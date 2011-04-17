@@ -18,14 +18,12 @@ public class Speed extends Component {
 	}
 
 	public void rotate(float amount) {
-		assert(amount <= 1f) : "Maximum rotationSpeed speed is 1 times " +
-								rotationSpeed;
+		assertSpeedModfier(amount);
 		this.currentRotation = rotationSpeed * amount;
 	}
 
 	public void move(float amount) {
-		assert(amount <= 1f) : "Maximum movement speed is 1 times " +
-								distanceInMetersPerSecond;
+		assertSpeedModfier(amount);
 		this.currentDistance = distanceInMetersPerSecond * amount;
 	}
 
@@ -40,6 +38,12 @@ public class Speed extends Component {
 	@Override
 	public void remove() {
 		// No need to remove anything.
+	}
+
+	private void assertSpeedModfier(float speedModifierAmount) {
+		assert(speedModifierAmount <= 1f && speedModifierAmount >= -1f)
+			: "Speed modifier has to be a value between 1 and -1" +
+			   distanceInMetersPerSecond;
 	}
 
 }
