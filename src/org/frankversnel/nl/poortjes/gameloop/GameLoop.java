@@ -6,14 +6,21 @@ import java.util.Collections;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
 public class GameLoop {
 	private static final long serialVersionUID = -178112459234430448L;
 
 	private static final int INITIAL_DELAY_IN_MILLISECONDS = 0;
 
+	private final Logger logger = LoggerFactory.getLogger(getClass());
+
 	private int delayInMilliSeconds;
 
 	private Timer timer;
+	private boolean isTimerStarted = false;
 
 	private List<GameTickListener> listeners =
 		Collections.synchronizedList(new LinkedList<GameTickListener>());
@@ -23,30 +30,36 @@ public class GameLoop {
 	}
 
 	public void start() {
-		timer = new Timer();
+		if(!isTimerStarted) {
+			timer = new Timer();
 
-		TimerTask fireGameTick = new FireGameTick(new GameTick(this, delayInMilliSeconds));
-		timer.scheduleAtFixedRate(fireGameTick, INITIAL_DELAY_IN_MILLISECONDS,
-				delayInMilliSeconds);
+			TimerTask fireGameTick = new FireGameTick(new GameTick(this, delayInMilliSeconds));
+			timer.scheduleAtFixedRate(fireGameTick, INITIAL_DELAY_IN_MILLISECONDS,
+					delayInMilliSeconds);
+
+			isTimerStarted = true;
+		} else {
+			logger.info("Game loop is already running");
+		}
 	}
 
 	public void stop() {
-		if(timer == null) {
-			throw new GameLoopNotStartedException(
-					"Game loop cannot be stopped because it was never started.");
-		}
+		if(isTimerStarted) {
+			timer.cancel();
 
-		timer.cancel();
-		timer.purge();
+			isTimerStarted = false;
+		} else {
+			logger.info("Game loop cannot be stopped because it was not started.");
+		}
 	}
 
-    public void addListener(GameTickListener listener) {
-        listeners.add(listener);
-    }
+	public void addListener(GameTickListener listener) {
+		listeners.add(listener);
+	}
 
-    public void removeListener(GameTickListener listener) {
-        listeners.remove(listener);
-    }
+	public void removeListener(GameTickListener listener) {
+		listeners.remove(listener);
+	}
 
 	private class FireGameTick extends TimerTask {
 		private GameTick gameTick;
@@ -59,7 +72,7 @@ public class GameLoop {
 			for(GameTickListener listener :
 					new LinkedList<GameTickListener>(listeners)) {
 				listener.gameTickOccurred(gameTick);
-			}
+					}
 		}
 	}
 
