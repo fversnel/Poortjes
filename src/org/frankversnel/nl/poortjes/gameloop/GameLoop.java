@@ -20,7 +20,7 @@ public class GameLoop {
 	private int delayInMilliSeconds;
 
 	private Timer timer;
-	private boolean isTimerStarted = false;
+	private boolean isTimerRunning = false;
 
 	private List<GameTickListener> listeners =
 		Collections.synchronizedList(new LinkedList<GameTickListener>());
@@ -30,24 +30,24 @@ public class GameLoop {
 	}
 
 	public void start() {
-		if(!isTimerStarted) {
+		if(!isTimerRunning) {
 			timer = new Timer();
 
 			TimerTask fireGameTick = new FireGameTick(new GameTick(this, delayInMilliSeconds));
 			timer.scheduleAtFixedRate(fireGameTick, INITIAL_DELAY_IN_MILLISECONDS,
 					delayInMilliSeconds);
 
-			isTimerStarted = true;
+			isTimerRunning = true;
 		} else {
 			logger.info("Game loop is already running");
 		}
 	}
 
 	public void stop() {
-		if(isTimerStarted) {
+		if(isTimerRunning) {
 			timer.cancel();
 
-			isTimerStarted = false;
+			isTimerRunning = false;
 		} else {
 			logger.info("Game loop cannot be stopped because it was not started.");
 		}
