@@ -37,7 +37,7 @@
   <!-- Dependency checking related properties -->
   <property name="dependency.check.closure" value="true" />
 
-  <property name="library.processing" value="lib/processing_core.jar"/>
+  <property name="library.processing" value="lib/processing_core-1.5.jar"/>
   <property name="library.slf4j.api" value="lib/slf4j-api-1.6.1.jar"/>
   <property name="library.slf4j.implementation" value="lib/slf4j-simple-1.6.1.jar"/>
 
