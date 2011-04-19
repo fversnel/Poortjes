@@ -36,12 +36,12 @@ public class Poortjes extends PApplet {
 		background(BACKGROUND_COLOR);
 		smooth();
 
+		gameLoop = new DefaultGameLoop();
+
 		resourceloader = new ProcessingShapeLoader(this);
 
 		renderManager = new RenderingManager(new Processing2DRenderer(g,
 				resourceloader, BACKGROUND_COLOR), new RenderGameLoop());
-
-		gameLoop = new DefaultGameLoop();		
 
 		CollisionLevel candy = new CollisionLevel(gameLoop);
 		CollisionLevel players = new CollisionLevel(gameLoop, candy);
@@ -61,14 +61,14 @@ public class Poortjes extends PApplet {
 
 		new ShepherdInstance(renderManager, resourceloader,
 				"resources/shepherd.svg", enemies, gameLoop, 100, 100);
-		
+
 		gameLoop.start();
 	}
-	
+
 	public void draw() {
 		renderManager.gameTickOccurred(new GameTick(this, (int) (1000 / this.frameRate)));
 	}
-	
+
 	public static void main(String args[]) {
 		PApplet.main(new String[] { "org.frankversnel.nl.poortjes.game.Poortjes" });
 	}

@@ -9,7 +9,7 @@ import org.frankversnel.nl.poortjes.gameloop.GameTick;
 import org.frankversnel.nl.poortjes.gameloop.GameTickListener;
 
 public abstract class ComponentManager<T extends Component>
-		implements GameTickListener{
+		implements GameTickListener {
 	private List<T> components = Collections
 			.synchronizedList(new ArrayList<T>());
 

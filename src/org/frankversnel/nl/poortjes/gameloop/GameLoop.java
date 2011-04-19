@@ -3,54 +3,32 @@ package org.frankversnel.nl.poortjes.gameloop;
 import java.util.List;
 import java.util.LinkedList;
 import java.util.Collections;
-import java.util.Timer;
-import java.util.TimerTask;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import javax.swing.Timer;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class GameLoop {
-	private static final long serialVersionUID = -178112459234430448L;
+	private final Timer timer;
 
-	private static final int INITIAL_DELAY_IN_MILLISECONDS = 0;
-
-	private final Logger logger = LoggerFactory.getLogger(getClass());
-
-	private int delayInMilliSeconds;
-
-	private Timer timer;
-	private boolean isTimerRunning = false;
-
-	private List<GameTickListener> listeners =
+	private final List<GameTickListener> listeners =
 		Collections.synchronizedList(new LinkedList<GameTickListener>());
 
 	public GameLoop(int delayInMilliSeconds) {
-		this.delayInMilliSeconds = delayInMilliSeconds;
+		GameTick gameTick = new GameTick(this, delayInMilliSeconds);
+		timer = new Timer(delayInMilliSeconds, new FireGameTick(gameTick));
 	}
 
 	public void start() {
-		if(!isTimerRunning) {
-			timer = new Timer();
-
-			TimerTask fireGameTick = new FireGameTick(new GameTick(this, delayInMilliSeconds));
-			timer.scheduleAtFixedRate(fireGameTick, INITIAL_DELAY_IN_MILLISECONDS,
-					delayInMilliSeconds);
-
-			isTimerRunning = true;
-		} else {
-			logger.info("Game loop is already running");
-		}
+		timer.start();
 	}
 
 	public void stop() {
-		if(isTimerRunning) {
-			timer.cancel();
+		timer.stop();
+	}
 
-			isTimerRunning = false;
-		} else {
-			logger.info("Game loop cannot be stopped because it was not started.");
-		}
+	public void setCoalesce(boolean flag) {
+		timer.setCoalesce(flag);
 	}
 
 	public void addListener(GameTickListener listener) {
@@ -61,19 +39,20 @@ public class GameLoop {
 		listeners.remove(listener);
 	}
 
-	private class FireGameTick extends TimerTask {
+	private class FireGameTick implements ActionListener {
 		private GameTick gameTick;
 
 		public FireGameTick(GameTick gameTick) {
 			this.gameTick = gameTick;
 		}
 
-		public void run() {
+		public void actionPerformed(ActionEvent e) {
 			for(GameTickListener listener :
 					new LinkedList<GameTickListener>(listeners)) {
 				listener.gameTickOccurred(gameTick);
-					}
+			}
 		}
+
 	}
 
 }
