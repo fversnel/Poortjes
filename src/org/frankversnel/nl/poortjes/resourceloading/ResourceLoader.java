@@ -24,7 +24,7 @@ public abstract class ResourceLoader<T> {
 			try {
 				resources.put(filePath, loadResource(filePath));
 			} catch(FileNotFoundException e) {
-				throw new UnknownResourceException(filePath);
+				throw new UnknownResourceException("Resource could not be found at: " + filePath, e);
 			}
 		}
 	}
@@ -39,7 +39,7 @@ public abstract class ResourceLoader<T> {
 		T resource = resources.get(filePath);
 
 		if(resource == null) {
-			throw new UnknownResourceException(filePath);
+			throw new UnknownResourceException("Resource at " + filePath + " was never loaded.");
 		}
 
 		return resource;
