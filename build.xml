@@ -1,129 +1,131 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<project name="Poortjes" default="compile" basedir=".">
-  <description></description>
+<project name="poortjes" default="compile" basedir=".">
+	<description></description>
 
-  <!-- Project specific settings -->
-  <property name="creator.name" value="Frank Versnel" />
-  <property name="main.class" value="org.frankversnel.nl.poortjes.game.Poortjes" />
+	<!-- Project specific settings -->
+	<property name="creator.name" value="Frank Versnel" />
+	<property name="main.class" value="org.frankversnel.nl.poortjes.game.Poortjes" />
 
-  <!-- Version numbers -->
-  <property name="version" value="pre-1.0" />
+	<!-- Version numbers -->
+	<property name="version" value="pre-1.0" />
 
-  <!-- Directories used -->
-  <property name="dir.source" location="src" />
-  <property name="dir.build" location="bin" />
-  <property name="dir.distribution" location="dist" />
-  <property name="dir.logfiles" location="log" />
-  <property name="dir.libraries" location="lib" />
-  <property name="dir.dependency.cache" location="depcache" />
+	<!-- Directories used -->
+	<property name="dir.source" location="src" />
+	<property name="dir.build" location="bin" />
+	<property name="dir.distribution" location="dist" />
+	<property name="dir.logfiles" location="log" />
+	<property name="dir.libraries" location="lib" />
 
-  <!-- Compilation related properties -->
-  <property name="preferred.java.version" value="1.5" />
-  <property name="compilation.debug" value="true" />
-  <property name="compilation.includeAntRuntime" value="false" />
+	<!-- Compilation related properties -->
+	<property name="preferred.java.version" value="jvm-1.5" />
+	<property name="compilation.debug" value="true" />
 
-  <!-- Testing related properties -->
-  <property name="testing.formatter.type" value="plain" />
-  <property name="testing.printsummary" value="yes" />
-  <property name="testing.haltonfailure" value="no" />
-  <property name="testing.java.files" value="**/*Test*.java" />
-  <property name="testing.class.files" value="**/test/*.class" />
+	<!-- Testing related properties -->
+	<property name="testing.formatter.type" value="plain" />
+	<property name="testing.printsummary" value="yes" />
+	<property name="testing.haltonfailure" value="no" />
+	<property name="testing.java.files" value="**/*Test*.java" />
+	<property name="testing.class.files" value="**/test/*.class" />
 
-  <!-- The distribution file to be created -->
-  <property name="distribution.file"
-    value="${dir.distribution}/${ant.project.name}.jar" />
+	<!-- The distribution file to be created -->
+	<property name="distribution.file"
+		value="${dir.distribution}/${ant.project.name}.jar" />
 
-  <!-- Dependency checking related properties -->
-  <property name="dependency.check.closure" value="true" />
+	<!-- Dependency checking related properties -->
+	<property name="dependency.check.closure" value="true" />
 
-  <property name="library.processing" value="lib/processing_core-1.5.jar"/>
-  <property name="library.slf4j.api" value="lib/slf4j-api-1.6.1.jar"/>
-  <property name="library.slf4j.implementation" value="lib/slf4j-simple-1.6.1.jar"/>
+	<property name="library.processing" value="${dir.libraries}/processing_core-1.5.jar"/>
+	<property name="library.slf4j.api" value="${dir.libraries}/slf4j-api-1.6.1.jar"/>
+	<property name="library.slf4j.implementation" value="${dir.libraries}/slf4j-simple-1.6.1.jar"/>
 
-  <!-- Project class path -->
-  <path id="project.class.path">
-    <fileset dir="lib">
-      <include name="**/*.jar"/>
-    </fileset>
-  </path>
+	<!-- Scala related stuff -->
+	<property environment="env" />
+	<property name="dir.scala.libraries" location="${env.SCALA_HOME}/lib"/>
+	<property name="library.scala" location="${dir.scala.libraries}/scala-library.jar"/>
+	<path id="scala.classpath">
+		<pathelement location="${dir.scala.libraries}/scala-compiler.jar"/>
+		<pathelement location="${library.scala}"/>
+	</path>
+	<taskdef resource="scala/tools/ant/antlib.xml">
+		<classpath refid="scala.classpath"/>
+	</taskdef>
 
-  <!-- Performs tasks useful to all other targets in the ant file, outputs
-       information about Ant, Java and the operation system. -->
-  <target name="initialize">
-    <!-- Create the time stamp -->
-    <tstamp/>
+	<!-- Project class path -->
+	<path id="project.class.path">
+		<fileset dir="lib">
+			<include name="**/*.jar"/>
+		</fileset>
+		<path refid="scala.classpath"/>
+	</path>
 
-    <echo>Using: ${ant.version}</echo>
-    <echo>Using: Java version ${ant.java.version} (${java.vendor})</echo>
-    <echo>Using: Java version ${preferred.java.version} to compile source files</echo>
-    <echo>Project: ${ant.project.name} (${version})</echo>
-    <echo>Project base directory: ${basedir}</echo>
-    <echo>Operating System: ${os.name} ${os.version} (${os.arch})</echo>
-  </target>
+	<!-- Performs tasks useful to all other targets in the ant file, -->
+	<!-- outputs information about Ant, Java and the operation system. -->
+	<target name="initialize">
+		<tstamp/>
+		<echo>${ant.version}</echo>
+		<echo>Java version is ${ant.java.version} (${java.vendor})</echo>
+		<echo>Target JVM version is ${preferred.java.version}</echo>
+		<echo>Scala home: ${env.SCALA_HOME}</echo>
+		<echo>Project: ${ant.project.name} (${version})</echo>
+		<echo>Project base directory: ${basedir}</echo>
+		<echo>Operating System: ${os.name} ${os.version} (${os.arch})</echo>
+	</target>
 
-  <target name="check_dependencies" depends="initialize">
-    <depend srcdir="${dir.source}" destdir="${dir.build}"
-      cache="${dir.dependency.cache}" closure="${dependency.check.closure}">
-      <include name="**/*.java" />
-    </depend>
-  </target>
+	<target name="compile" depends="initialize" description="Compiles the source files and outputs them to the 'build' directory.">
+		<mkdir dir="${dir.build}" />
+		<scalac srcdir="${dir.source}" destdir="${dir.build}"
+			target="${preferred.java.version}" classpathref="project.class.path"
+			scalacdebugging="${compilation.debug}">
+			<include name="**/*.scala"/>
+		</scalac>
+	</target>
 
-  <target name="compile" depends="check_dependencies" description="Compiles the source files and outputs them to the 'build' directory.">
-    <mkdir dir="${dir.build}" />
-    <javac srcdir="${dir.source}" destdir="${dir.build}"
-      classpathref="project.class.path" target="${preferred.java.version}"
-      source="${preferred.java.version}"
-      includeAntRuntime="${compilation.includeAntRuntime}"
-      debug="${compilation.debug}">
-    </javac>
-  </target>
+	<target name="test" depends="compile" description="Unit test the project.">
+		<mkdir dir="${dir.logfiles}" />
+		<junit printsummary="${testing.printsummary}"
+			haltonfailure="${testing.haltonfailure}">
+			<formatter type="${testing.formatter.type}" />
 
-  <target name="test" depends="compile" description="Unit test the project.">
-    <mkdir dir="${dir.logfiles}" />
-    <junit printsummary="${testing.printsummary}"
-      haltonfailure="${testing.haltonfailure}">
-      <formatter type="${testing.formatter.type}" />
+			<classpath>
+				<pathelement location="${dir.build}" />
+				<path refid="project.class.path" />
+			</classpath>
 
-      <classpath>
-        <pathelement location="${dir.build}" />
-        <path refid="project.class.path" />
-      </classpath>
+			<batchtest todir="${dir.logfiles}">
+				<fileset dir="${dir.source}">
+					<include name="${testing.java.files}" />
+				</fileset>
+			</batchtest>
+		</junit>
+	</target>
 
-      <batchtest todir="${dir.logfiles}">
-        <fileset dir="${dir.source}">
-          <include name="${testing.java.files}" />
-        </fileset>
-      </batchtest>
-    </junit>
-  </target>
+	<target name="distribution" depends="test" description="Creates a jar file from the class files in the 'build' directory and outputs it in the 'dist' directory">
+		<mkdir dir="${dir.distribution}" />
+		<manifest file="${dir.distribution}/MANIFEST.MF">
+			<attribute name="Main-Class" value="${main.class}" />
+			<attribute name="Poortjes-Version" value="${version}" />
+		</manifest>
+		<jar destfile="${distribution.file}" manifest="${dir.distribution}/MANIFEST.MF" >
+			<fileset dir="${dir.build}" includes="**/*.class"
+				excludes="${testing.class.files}" />
+			<fileset dir="${dir.source}" includes="resources/*.*"/>
+			<zipfileset src="${library.scala}"/>
+			<zipfileset src="${library.processing}"/>
+			<zipfileset src="${library.slf4j.api}"/>
+			<zipfileset src="${library.slf4j.implementation}"/>
+		</jar>
+		<delete file="${dir.distribution}/MANIFEST.MF" />
+	</target>
 
-  <target name="distribution" depends="test" description="Creates a jar file from the class files in the 'build' directory and outputs it in the 'dist' directory">
-    <mkdir dir="${dir.distribution}" />
-    <manifest file="${dir.distribution}/MANIFEST.MF">
-      <attribute name="Main-Class" value="${main.class}" />
-      <attribute name="Poortjes-Version" value="${version}" />
-    </manifest>
-    <jar destfile="${distribution.file}" manifest="${dir.distribution}/MANIFEST.MF" >
-      <fileset dir="${dir.build}" includes="**/*.class"
-        excludes="${testing.class.files}" />
-      <fileset dir="${dir.source}" includes="resources/*.*"/>
-      <zipfileset src="${library.processing}"/>
-      <zipfileset src="${library.slf4j.api}"/>
-      <zipfileset src="${library.slf4j.implementation}"/>
-    </jar>
-    <delete file="${dir.distribution}/MANIFEST.MF" />
-  </target>
+	<target name="run" depends="distribution" description="Play Poortjes">
+		<java jar="${distribution.file}" fork="true" />
+	</target>
 
-  <target name="run" depends="distribution" description="Play Poortjes">
-    <java jar="${distribution.file}" fork="true" />
-  </target>
-
-  <target name="clean" depends="initialize" description="Removes all generated files and directories.">
-    <delete dir="${dir.build}" />
-    <delete dir="${dir.distribution}" />
-    <delete dir="${dir.logfiles}" />
-    <delete dir="${dir.dependency.cache}" />
-  </target>
+	<target name="clean" depends="initialize" description="Removes all generated files and directories.">
+		<delete dir="${dir.build}" />
+		<delete dir="${dir.distribution}" />
+		<delete dir="${dir.logfiles}" />
+	</target>
 
 </project>
