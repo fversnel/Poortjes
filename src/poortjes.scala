@@ -22,5 +22,9 @@ class Poortjes extends PApplet {
 }
 
 object Poortjes extends App {
-	PApplet.main(Array("org.frankversnel.nl.poortjes.game.Poortjes"));
+	//PApplet.main(Array("org.frankversnel.nl.poortjes.game.Poortjes"));
+
+    val newPlayer = new Player(0, 0, 255, 0, 0)
+    val renderer = new Renderer
+    newPlayer.draw(renderer)
 }

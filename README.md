@@ -3,12 +3,9 @@ Contributing
 If you want to contribute, make sure you read the following information.
 
 ### Coding convention
-* Use the standard Sun Java coding convention.
 * Use tabs for indentation and make sure you view those tabs in
   your editor as four spaces.
 * Use Unix line-endings for consistency.
-* Remember that Eclipse can easily auto format your code if you configure it
-  right.
 
 ### Adding code
 1. Clone the repository or fork it.
