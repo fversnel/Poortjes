@@ -14,9 +14,9 @@ trait Drawable extends Component {
 	val color: Color
 	val position: Position
 
-    def draw(renderer: Renderer) {
-        renderer.drawCircle(color, position)
-    }
+	def draw(renderer: Renderer) {
+		renderer.drawCircle(color, position)
+	}
 }
 
 trait Collision extends Component {
@@ -24,15 +24,15 @@ trait Collision extends Component {
 }
 
 abstract class Renderer {
-    def drawCircle(color : Color, position : Position)
+	def drawCircle(color : Color, position : Position)
 }
 
 object RendererImpl extends Renderer with Logging {
-    def drawCircle(color : Color, position : Position) {
+	def drawCircle(color : Color, position : Position) {
 		logger.info("rendering color r: %d, g: %d, b: %d on position x: %f, y: %f"
-				.format( color.r, color.g, color.b, position.x, position.y))
-    }
+			.format( color.r, color.g, color.b, position.x, position.y))
+	}
 }
 
 class Player(val color: Color, val position: Position)
-        extends GameObject with Drawable with Collision
+		extends GameObject with Drawable with Collision
