@@ -1,7 +1,6 @@
 package org.frankversnel.nl.poortjes.game;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.slf4j.scala.Logging;
 
 abstract class GameObject
 
@@ -24,12 +23,10 @@ trait Drawable extends GameObject with Color with Position {
 
 trait Collision extends GameObject with Position
 
-class Renderer {
-	private val logger = LoggerFactory.getLogger(getClass);
-
+class Renderer extends Logging {
     def drawCircle(color : Color, position : Position) {
-		logger.info("rendering color r: " + color.r + ", g: " + color.g + ", b: " + color.b + 
-			" on position x: " + position.x + ", y: " + position.y)
+		logger.info("rendering color r: %d, g: %d, b: %d on position x: %f, y: %f"
+				.format( color.r, color.g, color.b, position.x, position.y))
     }
 }
 

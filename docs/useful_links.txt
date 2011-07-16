@@ -1,0 +1,3 @@
+http://lambdor.net/?p=171 - About component based architectures vs object inheritance, but also
+about how functional reactive programming is useful and can complement the component based
+architecture

@@ -1,13 +1,10 @@
 package org.frankversnel.nl.poortjes.game;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.slf4j.scala.Logging;
 
 import processing.core.PApplet;
 
-class Poortjes extends PApplet {
-	private val logger = LoggerFactory.getLogger(getClass);
-
+class Poortjes extends PApplet with Logging {
 	private val screenWithPx = 400;
 	private val screenHeightPx = 400;
 	private val backgroundClr = 0;

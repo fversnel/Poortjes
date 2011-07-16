@@ -36,8 +36,10 @@
 	<property name="dependency.check.closure" value="true" />
 
 	<property name="library.processing" value="${dir.libraries}/processing_core-1.5.1.jar"/>
-	<property name="library.slf4j.api" value="${dir.libraries}/slf4j-api-1.6.1.jar"/>
-	<property name="library.slf4j.implementation" value="${dir.libraries}/slf4j-simple-1.6.1.jar"/>
+	<property name="library.slf4j.api" value="${dir.libraries}/slf4j-api-1.6.2-SNAPSHOT.jar"/>
+	<property name="library.slf4j.scala.api" value="${dir.libraries}/slf4j-scala-api-1.6.2-SNAPSHOT.jar"/>
+	<property name="library.slf4j.implementation"
+		value="${dir.libraries}/slf4j-simple-1.6.2-SNAPSHOT.jar"/>
 
 	<!-- Scala related stuff -->
 	<property environment="env" />
@@ -113,6 +115,7 @@
 			<zipfileset src="${library.scala}"/>
 			<zipfileset src="${library.processing}"/>
 			<zipfileset src="${library.slf4j.api}"/>
+			<zipfileset src="${library.slf4j.scala.api}"/>
 			<zipfileset src="${library.slf4j.implementation}"/>
 		</jar>
 		<delete file="${dir.distribution}/MANIFEST.MF" />
