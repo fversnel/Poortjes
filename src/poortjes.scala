@@ -21,7 +21,7 @@ class Poortjes extends PApplet with Logging {
 object Poortjes extends App {
 	//PApplet.main(Array("org.frankversnel.nl.poortjes.game.Poortjes"));
 
-    val newPlayer = new Player(0, 0, 255, 0, 0)
-    val renderer = new Renderer
+    val newPlayer = new Player(new Color(255, 0, 0), new Position(0, 0))
+    val renderer = RendererImpl
     newPlayer.draw(renderer)
 }
