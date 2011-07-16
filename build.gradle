@@ -1,0 +1,43 @@
+apply plugin: 'scala'
+apply plugin: 'java'
+
+// Properties
+sourceCompatibility = 1.5
+version = '1.0-SNAPSHOT'
+mainClass='org.frankversnel.nl.poortjes.game.Poortjes'
+env = System.getenv()
+scalaHome = env['SCALA_HOME']
+
+defaultTasks 'clean', 'compileScala'
+
+dependencies {
+	scalaTools fileTree(dir: "$scalaHome/lib").matching { include '*.jar' }
+
+	compile fileTree(dir: "$scalaHome/lib").matching { include 'scala-library.jar' }
+	compile files(fileTree(dir: 'lib', includes: ['*.jar'])) 
+
+	runtime fileTree(dir: "$scalaHome/lib").matching { include 'scala-library.jar' }
+	runtime files(fileTree(dir: 'lib', includes: ['*.jar'])) 
+}
+
+sourceSets {
+    main {
+        scala {
+            srcDir 'src/'
+        }
+    }
+}
+
+compileScala {
+	println("Compiling Poortjes version " + version)
+}
+
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'Poortjes', 'Implementation-Version': version
+        attributes 'Main-Class': mainClass
+    }
+    dependsOn configurations.runtime
+    from { configurations.runtime.collect { it.isDirectory() ? it : zipTree(it) } }
+}
+
