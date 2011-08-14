@@ -12,9 +12,9 @@ class Poortjes extends PApplet with Logging {
 	override def setup = {
 		logger.info("initializing poortjes")
 
-		size(screenWithPx, screenHeightPx);
-		background(backgroundClr);
-		smooth();
+		size(screenWithPx, screenHeightPx)
+		background(backgroundClr)
+		smooth()
 	}
 }
 
