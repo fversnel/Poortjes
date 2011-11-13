@@ -1,8 +1,11 @@
 package org.frankversnel.poortjes.rendering
 
-import org.frankversnel.poortjes.Color
-import org.frankversnel.poortjes.Position
+import org.frankversnel.poortjes._
 
 trait Renderer {
-	def drawCircle(color : Color, position : Position)
+	def drawRectangle(color: Color, transform:  Transform)
+	def drawCircle(color : Color, transform : Transform)
+	def drawShape(shapeId: String, transform: Transform)
+
+	def clearScreen
 }

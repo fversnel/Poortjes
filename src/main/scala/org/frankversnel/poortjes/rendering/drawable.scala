@@ -1,11 +1,10 @@
 package org.frankversnel.poortjes.rendering
 
-import org.frankversnel.poortjes.Color
-import org.frankversnel.poortjes.Position
+import org.frankversnel.poortjes._
 
 trait Drawable {
 	var color: Color
-	var position: Position
+	var transform: Transform
 
 	def draw(renderer: Renderer): Unit
 }

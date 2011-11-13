@@ -15,12 +15,10 @@ abstract class ResourceLoader[T] {
 	 *
 	 * @param filePath the resource's location
 	 */
-	def addResource(filePath: String): T = {
+	def addResource(filePath: String) {
         if(!resources.contains(filePath)) {
             resources += filePath -> loadResource(filePath)
         }
-
-        return getResource(filePath)
 	}
 
 	/**
@@ -32,10 +30,10 @@ abstract class ResourceLoader[T] {
 	def getResource(filePath: String): T = {
 		val resource = resources.get(filePath);
 
-    resource match {
-        case Some(x) => return x
-        case None => throw new Exception // TODO Throw nice exception
-    }
+		resource match {
+			case Some(x) => return x
+			case None => throw new Exception // TODO Throw nice exception
+		}
 	}
 
 	/**
