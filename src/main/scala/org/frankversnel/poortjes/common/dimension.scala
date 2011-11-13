@@ -1,3 +1,3 @@
 package org.frankversnel.poortjes;
 
-class Dimension(val width: Int, val height: Int)
+case class Dimension(width: Int, height: Int)

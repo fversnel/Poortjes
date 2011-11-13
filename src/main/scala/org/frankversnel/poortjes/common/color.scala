@@ -1,3 +1,8 @@
 package org.frankversnel.poortjes
 
-class Color(val r: Int, val g: Int, val b: Int)
+case class Color(r: Int, g: Int, b: Int)
+object Color {
+	val red = Color(255, 0, 0)
+	val green = Color(0, 255, 0)
+	val blue = Color(0, 0, 255)
+}
