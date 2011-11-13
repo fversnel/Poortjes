@@ -10,10 +10,14 @@ abstract class ComponentManager[T] extends Actor {
     def receive = {
         case Register(c) => components += c.asInstanceOf[T]
         case Unregister(c) => components -= c.asInstanceOf[T]
-        case Process => components.foreach(processComponent _)
+        case Process => processComponents
     }
 
-    def processComponent(component: T): Unit
+    protected def processComponents: Unit = {
+        components.foreach(processComponent _)
+    }
+
+    protected def processComponent(component: T)
 
     protected def allComponents = components.readOnly
 }
