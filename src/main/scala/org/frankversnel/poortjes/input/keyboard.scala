@@ -8,37 +8,38 @@ import java.awt.event.KeyListener;
 import org.frankversnel.poortjes._;
 
 trait Keyboard extends Component with KeyListener with Logging {
-    val mapping: KeyboardMapping
+	val mapping: KeyboardMapping
 
-    val FullSpeed = 1
-    val NoSpeed = 0
+	val FullSpeed = 1
+	val NoSpeed = 0
 
-    var speed: Speed
+	var speed: Speed
 
-    override def keyPressed(event: KeyEvent) {
-        //logger.info("receiving key pressed event: " + event.getKeyChar)
+	override def keyPressed(event: KeyEvent) {
+		//logger.info("receiving key pressed event: " + event.getKeyChar)
 
-        setSpeed(event.getKeyChar, FullSpeed)
-    }
+		setSpeed(event.getKeyChar, FullSpeed)
+	}
 
-    override def keyReleased(event: KeyEvent) {
-        //logger.info("receiving key released event: " + event.getKeyChar)
+	override def keyReleased(event: KeyEvent) {
+		//logger.info("receiving key released event: " + event.getKeyChar)
 
-        setSpeed(event.getKeyChar, NoSpeed)
-    }
+		setSpeed(event.getKeyChar, NoSpeed)
+	}
 
-    override def keyTyped(event: KeyEvent) {
+	override def keyTyped(event: KeyEvent) {
 		// We don't care about what happens when this event is triggered,
 		// we don't need it to move our objects.
-    }
+	}
 
-    private def setSpeed(keyPressed: Char, speedAmount: Int) = {
-        if(keyPressed.equals(mapping.keyForward)) speed.move(speedAmount)
-        else if(keyPressed.equals(mapping.keyBackward)) speed.move(-speedAmount)
-        else if(keyPressed.equals(mapping.keyLeft)) speed.rotate(-speedAmount)
-        else if(keyPressed.equals(mapping.keyRight)) speed.rotate(speedAmount)
-    }
-
+	private def setSpeed(keyPressed: Char, speedAmount: Int) = {
+		keyPressed match {
+			mapping.keyForward => speed.move(speedAmount)
+			mapping.keyBackward => speed.move(-speedAmount)
+			mapping.keyLeft => speed.rotate(-speedAmount)
+			mapping.keyRight => speed.rotate(speedAmount)
+		}
 }
+
 case class KeyboardMapping(val keyForward: Char, val keyBackward: Char,
-        val keyLeft: Char, val keyRight: Char)
+	val keyLeft: Char, val keyRight: Char)

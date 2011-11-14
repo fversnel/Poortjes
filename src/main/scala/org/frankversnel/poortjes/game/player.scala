@@ -10,7 +10,7 @@ import org.frankversnel.poortjes._
 
 class Player(var color: Color, var transform: Transform, var speed: Speed,
 		val mapping: KeyboardMapping)
-        extends GameObject with Drawable with Collidable with Moveable with Keyboard {
+		extends GameObject with Drawable with Collidable with Moveable with Keyboard {
 
 	override def draw(renderer: Renderer) {
 		renderer.drawRectangle(color, transform)

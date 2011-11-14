@@ -16,9 +16,9 @@ abstract class ResourceLoader[T] {
 	 * @param filePath the resource's location
 	 */
 	def addResource(filePath: String) {
-        if(!resources.contains(filePath)) {
-            resources += filePath -> loadResource(filePath)
-        }
+		if(!resources.contains(filePath)) {
+			resources += filePath -> loadResource(filePath)
+		}
 	}
 
 	/**

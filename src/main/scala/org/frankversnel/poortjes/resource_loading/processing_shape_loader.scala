@@ -8,7 +8,7 @@ class ProcessingShapeLoader(private val pApplet: PApplet) extends ResourceLoader
 	protected def loadResource(filePath: String) : PShape = {
 		val newShape = pApplet.loadShape(filePath);
 
-    	return if(newShape != null) newShape else throw new Exception
+		return if(newShape != null) newShape else throw new Exception
 	}
 
 }
