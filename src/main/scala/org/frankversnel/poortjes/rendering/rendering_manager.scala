@@ -6,7 +6,7 @@ class RenderingManager(private val renderer: Renderer) extends ComponentManager[
 
 	protected override def processComponents = {
 		renderer.clearScreen
-		allComponents.foreach(processComponent _)
+		super.processComponents
 	}
 
 	protected def processComponent(drawable: Drawable) = drawable.draw(renderer)

@@ -34,11 +34,12 @@ trait Keyboard extends Component with KeyListener with Logging {
 
 	private def setSpeed(keyPressed: Char, speedAmount: Int) = {
 		keyPressed match {
-			mapping.keyForward => speed.move(speedAmount)
-			mapping.keyBackward => speed.move(-speedAmount)
-			mapping.keyLeft => speed.rotate(-speedAmount)
-			mapping.keyRight => speed.rotate(speedAmount)
+			case mapping.keyForward => speed.move(speedAmount)
+			case mapping.keyBackward => speed.move(-speedAmount)
+			case mapping.keyLeft => speed.rotate(-speedAmount)
+			case mapping.keyRight => speed.rotate(speedAmount)
 		}
+	}
 }
 
 case class KeyboardMapping(val keyForward: Char, val keyBackward: Char,
