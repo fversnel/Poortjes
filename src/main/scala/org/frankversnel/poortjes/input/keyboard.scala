@@ -8,8 +8,8 @@ import java.awt.event.KeyListener;
 import org.frankversnel.poortjes._;
 
 trait Keyboard extends Component with KeyListener with Logging {
-	val FullSpeed = 1
-	val NoSpeed = 0
+	private val FullSpeed = 1
+	private val NoSpeed = 0
 
 	val keybindings: KeyboardBindings
 
