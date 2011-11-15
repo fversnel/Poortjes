@@ -1,3 +1,3 @@
 package org.frankversnel.poortjes
 
-trait Component
+trait Component extends GameObject
