@@ -60,9 +60,9 @@ class Poortjes extends PApplet with Logging {
 	override def draw = {
 		newPlayer.move
 
-		// TODO The timeout is a dirty hack until we find out how to generate a valid return value
-		// for the actor message Process
-		val result = (renderingManager ? Process)(timeout = 12 millis).as[Unit]
+		// Wait for the rendering to finish, otherwise the processing draw thread and the rendering
+		// manager's thread will be too much out of sync and rendering will be full of artifacts.
+		(renderingManager ? Process).as[String]
 
 		collisionManager ! Process
 	}

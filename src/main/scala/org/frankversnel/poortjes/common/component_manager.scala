@@ -4,6 +4,8 @@ import scala.collection.mutable.ListBuffer
 import akka.actor.Actor
 
 abstract class ComponentManager[T] extends Actor {
+	private val DoneRenderingMessage = "done"
+
 	private val components = ListBuffer[T]()
 
 	import ComponentManager._
@@ -11,6 +13,7 @@ abstract class ComponentManager[T] extends Actor {
 		case Register(c) => components += c.asInstanceOf[T]
 		case Unregister(c) => components -= c.asInstanceOf[T]
 		case Process => processComponents
+				self.channel tryTell DoneRenderingMessage
 	}
 
 	protected def processComponents: Unit = {
