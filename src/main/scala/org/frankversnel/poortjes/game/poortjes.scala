@@ -11,7 +11,7 @@ import org.frankversnel.poortjes.ComponentManager._;
 import org.frankversnel.poortjes.rendering._;
 import org.frankversnel.poortjes.collision._;
 import org.frankversnel.poortjes.input._;
-import org.frankversnel.poortjes.resource_loading.ProcessingShapeLoader;
+import org.frankversnel.poortjes.resource_loading._;
 
 class Poortjes extends PApplet with Logging {
 	private val screenWithPx = 400;
@@ -23,6 +23,7 @@ class Poortjes extends PApplet with Logging {
 	private var renderer: Renderer = null
 	private var renderingManager: ActorRef = null
 	private var collisionManager: ActorRef = null
+	private var resourceLoader: ProcessingShapeLoader = null
 
 	override def setup = {
 		logger.info("initializing Poortjes")
@@ -31,23 +32,29 @@ class Poortjes extends PApplet with Logging {
 		background(backgroundClr)
 		smooth
 
-		renderer = new Processing2DRenderer(g, new ProcessingShapeLoader(this), backgroundClr)
+		resourceLoader = new ProcessingShapeLoader(this)
+
+		renderer = new Processing2DRenderer(g, resourceLoader, backgroundClr)
 		renderingManager = actorOf(new RenderingManager(renderer)).start
+
 		collisionManager = actorOf[CollisionManager].start
 
-		val playerTransform = new Transform(Dimension(50, 50))
-		playerTransform.translate(screenWithPx / 3, screenHeightPx / 3)
-		newPlayer = new Player(Color.red, playerTransform, new Speed(1f, 0.05f),
-				KeyboardMapping('w', 's', 'a', 'd'))
+		newPlayer = new Player(resourceLoader.addResource("ship.svg")) {
+			var color = Color.red
+			var transform = new Transform(Dimension(17, 25))
+			transform.translate(screenWithPx / 3, screenHeightPx / 3)
+			var speed = new Speed(7f, 0.10f)
+			val mapping = KeyboardMapping('w', 's', 'a', 'd')
+		}
 		addKeyListener(newPlayer)
 		renderingManager ! Register(newPlayer)
 		collisionManager ! Register(newPlayer)
 
-		val anotherPlayerTransform = new Transform(Dimension(50, 50))
-		anotherPlayerTransform.translate(screenWithPx / 2, screenHeightPx / 2)
-		val anotherPlayer = Player(Color.green, anotherPlayerTransform, new Speed(0.01f, 0.1f))
-		renderingManager ! Register(anotherPlayer)
-		collisionManager ! Register(anotherPlayer)
+		//val anotherPlayerTransform = new Transform(Dimension(50, 50))
+		//anotherPlayerTransform.translate(screenWithPx / 2, screenHeightPx / 2)
+		//val anotherPlayer = Player(Color.green, anotherPlayerTransform, new Speed(0.01f, 0.1f))
+		//renderingManager ! Register(anotherPlayer)
+		//collisionManager ! Register(anotherPlayer)
 	}
 
 	override def draw = {

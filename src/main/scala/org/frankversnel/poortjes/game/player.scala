@@ -8,17 +8,10 @@ import org.frankversnel.poortjes.input._
 
 import org.frankversnel.poortjes._
 
-class Player(var color: Color, var transform: Transform, var speed: Speed,
-		val mapping: KeyboardMapping)
+abstract class Player(val shapeId: String)
 		extends GameObject with Drawable with Collidable with Moveable with Keyboard {
 
 	override def draw(renderer: Renderer) {
-		renderer.drawRectangle(color, transform)
+		renderer.drawShape(shapeId, transform)
 	}
 }
-object Player {
-	def apply(color: Color, transform: Transform, speed: Speed) = {
-		new Player(color, transform, speed, KeyboardMapping(' ',' ',' ',' '))
-	}
-}
-
