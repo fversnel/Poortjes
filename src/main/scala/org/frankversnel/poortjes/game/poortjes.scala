@@ -40,21 +40,21 @@ class Poortjes extends PApplet with Logging {
 		collisionManager = actorOf[CollisionManager].start
 
 		newPlayer = new Player(resourceLoader.addResource("ship.svg")) {
-			var color = Color.red
 			var transform = new Transform(Dimension(17, 25))
 			transform.translate(screenWithPx / 3, screenHeightPx / 3)
 			var speed = new Speed(7f, 0.10f)
-			val mapping = KeyboardMapping('w', 's', 'a', 'd')
+			val keybindings = KeyboardBindings('w', 's', 'a', 'd')
 		}
 		addKeyListener(newPlayer)
 		renderingManager ! Register(newPlayer)
 		collisionManager ! Register(newPlayer)
 
-		//val anotherPlayerTransform = new Transform(Dimension(50, 50))
-		//anotherPlayerTransform.translate(screenWithPx / 2, screenHeightPx / 2)
-		//val anotherPlayer = Player(Color.green, anotherPlayerTransform, new Speed(0.01f, 0.1f))
-		//renderingManager ! Register(anotherPlayer)
-		//collisionManager ! Register(anotherPlayer)
+		val stillObject = new StillObject(Color.green) {
+			var transform = new Transform(Dimension(25, 25))
+			transform.translate(screenWithPx / 2, screenHeightPx / 2)
+		}
+		renderingManager ! Register(stillObject)
+		collisionManager ! Register(stillObject)
 	}
 
 	override def draw = {

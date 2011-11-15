@@ -9,9 +9,15 @@ import org.frankversnel.poortjes.input._
 import org.frankversnel.poortjes._
 
 abstract class Player(val shapeId: String)
-		extends GameObject with Drawable with Collidable with Moveable with Keyboard {
+		extends Drawable with Collidable with Moveable with Keyboard {
 
 	override def draw(renderer: Renderer) {
 		renderer.drawShape(shapeId, transform)
+	}
+}
+abstract class StillObject(var color: Color) extends Drawable with Collidable {
+
+	override def draw(renderer: Renderer) {
+		renderer.drawCircle(color, transform)
 	}
 }
