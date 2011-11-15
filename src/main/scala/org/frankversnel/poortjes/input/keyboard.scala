@@ -38,6 +38,7 @@ trait Keyboard extends Component with KeyListener with Logging {
 			case mapping.keyBackward => speed.move(-speedAmount)
 			case mapping.keyLeft => speed.rotate(-speedAmount)
 			case mapping.keyRight => speed.rotate(speedAmount)
+			case _ => // Do nothing
 		}
 	}
 }
