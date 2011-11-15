@@ -2,12 +2,13 @@ apply plugin: 'scala'
 apply plugin: 'java'
 
 // Properties
+title='Poortjes'
 sourceCompatibility = 1.5
 version = '1.0-SNAPSHOT'
 mainClass='org.frankversnel.poortjes.game.Poortjes'
 env = System.getenv()
 scalaHome = env['SCALA_HOME']
-libraryFolder = 'lib_managed'
+libraryFolder = 'lib'
 
 defaultTasks 'clean', 'compileScala'
 
@@ -23,7 +24,7 @@ dependencies {
 sourceSets {
     main {
         scala {
-            srcDir 'src/main/scala'
+            srcDir 'src/main/'
         }
     }
 }
@@ -34,7 +35,7 @@ compileScala {
 
 jar {
     manifest {
-        attributes 'Implementation-Title': 'Poortjes', 'Implementation-Version': version
+        attributes 'Implementation-Title': title, 'Implementation-Version': version
         attributes 'Main-Class': mainClass
     }
     dependsOn configurations.runtime
