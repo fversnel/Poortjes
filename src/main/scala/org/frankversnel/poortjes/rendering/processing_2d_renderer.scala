@@ -4,8 +4,7 @@ import org.slf4j.scala.Logging
 import processing.core.PGraphics
 
 import org.frankversnel.poortjes._
-
-import org.frankversnel.poortjes.resource_loading.ProcessingShapeLoader
+import org.frankversnel.poortjes.resource_loading._
 
 class Processing2DRenderer(
 	private val graphics: PGraphics,
@@ -24,9 +23,9 @@ class Processing2DRenderer(
 		}
 	}
 
-	def drawShape(shapeId: String, transform: Transform) {
+	def drawShape(resourceId: ResourceId, transform: Transform) {
 		drawTransform(transform) {
-			graphics.shape(shapeLoader.getResource(shapeId),
+			graphics.shape(shapeLoader.getResource(resourceId),
 					0, 0, transform.width, transform.height)
 		}
 	}

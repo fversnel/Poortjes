@@ -7,7 +7,7 @@ package org.frankversnel.poortjes.resource_loading
  * {@link ResourceLoader#addResource(String)} is called.
  */
 abstract class ResourceLoader[T] {
-	private var resources = Map[String, T]()
+	private var resources = Map[ResourceId, T]()
 
 	/**
 	 * Loads the resource into memory, but only if it isn't loaded already.
@@ -15,12 +15,14 @@ abstract class ResourceLoader[T] {
 	 *
 	 * @param filePath the resource's location
 	 */
-	def addResource(filePath: String): String = {
-		if(!resources.contains(filePath)) {
-			resources += filePath -> loadResource(filePath)
+	def addResource(filePath: String): ResourceId = {
+		val resourceId = ResourceId(filePath)
+
+		if(!resources.contains(resourceId)) {
+			resources += resourceId -> loadResource(filePath)
 		}
 
-		return filePath
+		return resourceId
 	}
 
 	/**
@@ -29,7 +31,7 @@ abstract class ResourceLoader[T] {
 	 *
 	 * @param filePath the resource's location
 	 */
-	def getResource(id: String): T = {
+	def getResource(id: ResourceId): T = {
 		val resource = resources.get(id);
 
 		resource match {
