@@ -10,10 +10,11 @@ import org.frankversnel.poortjes.moving.Speed;
 
 trait Keyboard extends Component with KeyListener with Logging {
 	speed: Speed =>
-	val mapping: KeyboardMapping
 
 	val FullSpeed = 1
 	val NoSpeed = 0
+
+	val keybindings: KeyboardBindings
 
 	override def keyPressed(event: KeyEvent) {
 		//logger.info("receiving key pressed event: " + event.getKeyChar)
@@ -34,14 +35,14 @@ trait Keyboard extends Component with KeyListener with Logging {
 
 	private def setSpeed(keyPressed: Char, speedAmount: Int) = {
 		keyPressed match {
-			case mapping.keyForward => speed.moveSpeed(speedAmount)
-			case mapping.keyBackward => speed.moveSpeed(-speedAmount)
-			case mapping.keyLeft => speed.rotationSpeed(-speedAmount)
-			case mapping.keyRight => speed.rotationSpeed(speedAmount)
+			case keybindings.keyForward => speed.moveSpeed(speedAmount)
+			case keybindings.keyBackward => speed.moveSpeed(-speedAmount)
+			case keybindings.keyLeft => speed.rotationSpeed(-speedAmount)
+			case keybindings.keyRight => speed.rotationSpeed(speedAmount)
 			case _ => // Do nothing
 		}
 	}
 }
 
-case class KeyboardMapping(val keyForward: Char, val keyBackward: Char,
-	val keyLeft: Char, val keyRight: Char)
+case class KeyboardBindings(val keyForward: Char, val keyBackward: Char,
+		val keyLeft: Char, val keyRight: Char)

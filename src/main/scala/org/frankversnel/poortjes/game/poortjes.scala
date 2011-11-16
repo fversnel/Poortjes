@@ -46,26 +46,28 @@ class Poortjes extends PApplet with Logging {
 			val distanceInMs = 7f
 			val rotationInMs = 0.10f
 
-			val mapping = KeyboardMapping('w', 's', 'a', 'd')
+			val keybindings = KeyboardBindings('w', 's', 'a', 'd')
 		}
 		newPlayer.translate(screenWithPx / 3, screenHeightPx / 3)
 		addKeyListener(newPlayer)
 		renderingManager ! Register(newPlayer)
 		collisionManager ! Register(newPlayer)
 
-		//val anotherPlayerTransform = new Transform(Dimension(50, 50))
-		//anotherPlayerTransform.translate(screenWithPx / 2, screenHeightPx / 2)
-		//val anotherPlayer = Player(Color.green, anotherPlayerTransform, new Speed(0.01f, 0.1f))
-		//renderingManager ! Register(anotherPlayer)
-		//collisionManager ! Register(anotherPlayer)
+		val stillObject = new StillObject {
+			val color = ColorValue.green
+			val dimension = Dimension(25, 25)
+		}
+		stillObject.translate(screenWithPx / 2, screenHeightPx / 2)
+		renderingManager ! Register(stillObject)
+		collisionManager ! Register(stillObject)
 	}
 
 	override def draw = {
 		newPlayer.move
 
-		// TODO The timeout is a dirty hack until we find out how to generate a valid return value
-		// for the actor message Process
-		val result = (renderingManager ? Process)(timeout = 12 millis).as[Unit]
+		// Wait for the rendering to finish, otherwise the processing draw thread and the rendering
+		// manager's thread will be too much out of sync and rendering will be full of artifacts.
+		(renderingManager ? Process).as[String]
 
 		collisionManager ! Process
 	}
