@@ -6,7 +6,8 @@ import processing.core.PMatrix2D;
 
 import org.frankversnel.poortjes._;
 
-class Transform(private val dimension: Dimension) {
+trait Transform extends Component {
+	val dimension: Dimension
 
 	private val matrix = new PMatrix2D;
 
@@ -39,5 +40,4 @@ class Transform(private val dimension: Dimension) {
 	}
 
 	def processingMatrix = matrix
-
 }

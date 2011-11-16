@@ -1,15 +1,19 @@
-package org.frankversnel.poortjes
+package org.frankversnel.poortjes.moving
 
-class Speed(val distanceInMs: Float, val rotationInMs: Float) {
+import org.frankversnel.poortjes._
+
+trait Speed extends Component {
+	val distanceInMs: Float
+	val rotationInMs: Float
 
 	private var currentDistance = 0f
 	private var currentRotation = 0f
 
-	def move(amount: Float) {
+	def moveSpeed(amount: Float) {
 		currentDistance = distanceInMs * amount;
 	}
 
-	def rotate(amount: Float) {
+	def rotationSpeed(amount: Float) {
 		currentRotation = rotationInMs * amount;
 	}
 

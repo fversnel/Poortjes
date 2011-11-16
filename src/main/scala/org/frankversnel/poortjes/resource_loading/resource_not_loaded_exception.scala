@@ -1,5 +1,4 @@
 package org.frankversnel.poortjes.resource_loading
 
-class ResourceNotLoadedException(id: String) extends Exception {
-	//super("Resource with " + id + " could not be loaded.")
-}
+case class ResourceNotLoadedException(id: String) extends 
+		Exception("Resource with identifier '" + id + "' could not be loaded.")

@@ -6,12 +6,11 @@ import org.slf4j.scala.Logging;
 
 import org.frankversnel.poortjes._
 
-trait Collidable extends Component with Logging {
-	var transform: Transform
+trait Collidable extends Transform with Logging {
 
 	def checkCollision(otherCollidable: Collidable) {
-		val ourBoundingBox = createBoundingBox(transform)
-		val theirBoundingBox = createBoundingBox(otherCollidable.transform)
+		val ourBoundingBox = createBoundingBox(this)
+		val theirBoundingBox = createBoundingBox(otherCollidable)
 
 		val collision = ourBoundingBox.intersects(theirBoundingBox.getBounds2D)
 
