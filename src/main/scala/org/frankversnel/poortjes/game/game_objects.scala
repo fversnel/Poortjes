@@ -8,9 +8,16 @@ import org.frankversnel.poortjes.resource_loading._
 
 import org.frankversnel.poortjes._
 
+class PlayerParent extends GameObject with Transform {
+	val dimension = Dimension(50, 50)
+	translate(200, 200)
+	rotate(1)
+}
+
 abstract class Player(val ship: ResourceId)
-		extends GameObject with Drawable with Collidable with Moveable 
+		extends GameObject with Drawable with Collidable with Moveable
 		with Keyboard with Speed {
+	override val parent = Some(new PlayerParent)
 
 	override def draw(renderer: Renderer) {
 		renderer.drawShape(ship, this)
