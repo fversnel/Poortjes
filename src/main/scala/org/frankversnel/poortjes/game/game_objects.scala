@@ -29,3 +29,44 @@ abstract class StillObject extends Drawable with Collidable with Color {
 		renderer.drawCircle(this)
 	}
 }
+
+
+class Gate extends Transform {
+    val dimension = Dimension(0, 0)
+}
+class GateEnd(private val resourceLoader: ProcessingShapeLoader, private val _parent: GameObject)
+        extends Drawable with Collidable {
+    val dimension = Dimension(30, 30)
+
+    override val parent = Some(_parent)
+    private val end = resourceLoader.addResource("gate-end.svg")
+
+    override def draw(renderer: Renderer) {
+        renderer.drawShape(end, this)
+    }
+}
+class GateConnector(private val resourceLoader: ProcessingShapeLoader, private val _parent: GameObject)
+        extends Drawable with Collidable {
+    val dimension = Dimension(10, 50)
+
+    override val parent = Some(_parent)
+    private val connector = resourceLoader.addResource("gate-connector.svg")
+
+    override def draw(renderer: Renderer) {
+        renderer.drawShape(connector, this)
+    }
+}
+object Gate {
+    def build(resourceLoader: ProcessingShapeLoader): List[GameObject] = {
+        val gate = new Gate
+        gate.translate(300, 200)
+
+        val gateEndBottom = new GateEnd(resourceLoader, gate)
+        gateEndBottom.translate(0, 50)
+        val gateEndTop = new GateEnd(resourceLoader, gate)
+        gateEndBottom.translate(0, -50)
+        val gateConnector = new GateConnector(resourceLoader, gate)
+
+        List(gateEndBottom, gateEndTop, gateConnector)
+    }
+}

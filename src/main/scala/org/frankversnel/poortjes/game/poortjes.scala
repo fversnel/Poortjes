@@ -21,9 +21,8 @@ class Poortjes extends PApplet with Logging {
 	private var newPlayer: Player = null
 
 	private var renderer: Renderer = null
-	private var renderingManager: ActorRef = null
-	private var collisionManager: ActorRef = null
 	private var resourceLoader: ProcessingShapeLoader = null
+	private var entityManager: EntityManager = null
 
 	override def setup = {
 		logger.info("initializing Poortjes")
@@ -33,11 +32,8 @@ class Poortjes extends PApplet with Logging {
 		smooth
 
 		resourceLoader = new ProcessingShapeLoader(this)
-
 		renderer = new Processing2DRenderer(g, resourceLoader, backgroundClr)
-		renderingManager = actorOf(new RenderingManager(renderer)).start
-
-		collisionManager = actorOf[CollisionManager].start
+		entityManager = new EntityManager(renderer)
 
 		newPlayer = new Player(resourceLoader.addResource("ship.svg")) {
 			val dimension = Dimension(17, 25)
@@ -50,26 +46,22 @@ class Poortjes extends PApplet with Logging {
 		}
 		newPlayer.translate(screenWithPx / 3, screenHeightPx / 3)
 		addKeyListener(newPlayer)
-		renderingManager ! Register(newPlayer)
-		collisionManager ! Register(newPlayer)
+		entityManager.spawn(newPlayer)
 
 		val stillObject = new StillObject {
 			val color = ColorValue.green
 			val dimension = Dimension(25, 25)
 		}
 		stillObject.translate(screenWithPx / 2, screenHeightPx / 2)
-		renderingManager ! Register(stillObject)
-		collisionManager ! Register(stillObject)
+		entityManager.spawn(stillObject)
+
+        Gate.build(resourceLoader).foreach(entityManager.spawn(_))
 	}
 
 	override def draw = {
 		newPlayer.move
 
-		// Wait for the rendering to finish, otherwise the processing draw thread and the rendering
-		// manager's thread will be too much out of sync and rendering will be full of artifacts.
-		(renderingManager ? Process).as[String]
-
-		collisionManager ! Process
+		entityManager.process
 	}
 }
 
