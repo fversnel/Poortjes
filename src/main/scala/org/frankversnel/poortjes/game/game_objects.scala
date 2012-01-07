@@ -8,20 +8,10 @@ import org.frankversnel.poortjes.resource_loading._
 
 import org.frankversnel.poortjes._
 
-class PlayerParent extends GameObject with Transform {
-	val dimension = Dimension(50, 50)
-	translate(200, 200)
-	rotate(1)
-}
-
-abstract class Player(val ship: ResourceId)
-		extends GameObject with Drawable with Collidable with Moveable
+abstract class Player(protected val resourceLoader: ResourceLoader)
+		extends GameObject with DrawableShape with Collidable with Moveable
 		with Keyboard with Speed {
-	override val parent = Some(new PlayerParent)
-
-	override def draw(renderer: Renderer) {
-		renderer.drawShape(ship, this)
-	}
+    protected val shape = resourceLoader.addResource("ship-red.svg")
 }
 abstract class StillObject extends Drawable with Collidable with Color {
 
@@ -34,38 +24,34 @@ abstract class StillObject extends Drawable with Collidable with Color {
 class Gate extends Transform {
     val dimension = Dimension(0, 0)
 }
-class GateEnd(private val resourceLoader: ProcessingShapeLoader, private val _parent: GameObject)
-        extends Drawable with Collidable {
-    val dimension = Dimension(30, 30)
+abstract class GateComponent(private val _parent: Gate)
+        extends DrawableShape with Collidable {
 
     override val parent = Some(_parent)
-    private val end = resourceLoader.addResource("gate-end.svg")
-
-    override def draw(renderer: Renderer) {
-        renderer.drawShape(end, this)
-    }
 }
-class GateConnector(private val resourceLoader: ProcessingShapeLoader, private val _parent: GameObject)
-        extends Drawable with Collidable {
-    val dimension = Dimension(10, 50)
+class GateEnd(protected val resourceLoader: ResourceLoader, private val _parent: Gate)
+        extends GateComponent(_parent) {
+    val dimension = Dimension(20, 20)
 
-    override val parent = Some(_parent)
-    private val connector = resourceLoader.addResource("gate-connector.svg")
+    protected val shape = resourceLoader.addResource("gate-end.svg")
+}
+class GateConnector(protected val resourceLoader: ResourceLoader, private val _parent: Gate)
+        extends GateComponent(_parent) {
+    val dimension = Dimension(4, 30)
 
-    override def draw(renderer: Renderer) {
-        renderer.drawShape(connector, this)
-    }
+    protected val shape = resourceLoader.addResource("gate-connector.svg")
 }
 object Gate {
-    def build(resourceLoader: ProcessingShapeLoader): List[GameObject] = {
+    def build(resourceLoader: ResourceLoader): List[GameObject] = {
         val gate = new Gate
         gate.translate(300, 200)
 
+        val gateEndTop = new GateEnd(resourceLoader, gate)
+        gateEndTop.translate(0, 0)
+        val gateConnector = new GateConnector(resourceLoader, gate)
+        gateConnector.translate(8, 20)
         val gateEndBottom = new GateEnd(resourceLoader, gate)
         gateEndBottom.translate(0, 50)
-        val gateEndTop = new GateEnd(resourceLoader, gate)
-        gateEndBottom.translate(0, -50)
-        val gateConnector = new GateConnector(resourceLoader, gate)
 
         List(gateEndBottom, gateEndTop, gateConnector)
     }

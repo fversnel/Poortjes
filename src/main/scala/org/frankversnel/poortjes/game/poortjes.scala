@@ -35,7 +35,7 @@ class Poortjes extends PApplet with Logging {
 		renderer = new Processing2DRenderer(g, resourceLoader, backgroundClr)
 		entityManager = new EntityManager(renderer)
 
-		newPlayer = new Player(resourceLoader.addResource("ship.svg")) {
+		newPlayer = new Player(resourceLoader) {
 			val dimension = Dimension(17, 25)
 
 			//speed

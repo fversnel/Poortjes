@@ -6,7 +6,9 @@ package org.frankversnel.poortjes.resource_loading
  * since it will only be added the first time
  * {@link ResourceLoader#addResource(String)} is called.
  */
-abstract class ResourceLoader[T] {
+abstract class ResourceLoader {
+    type T
+
 	private var resources = Map[ResourceId, T]()
 
 	/**
