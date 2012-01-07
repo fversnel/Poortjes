@@ -48,8 +48,7 @@ class Poortjes extends PApplet with Logging {
 		addKeyListener(newPlayer)
 		entityManager.spawn(newPlayer)
 
-		val stillObject = new StillObject {
-			val color = ColorValue.green
+		val stillObject = new StillObject(resourceLoader) {
 			val dimension = Dimension(25, 25)
 		}
 		stillObject.translate(screenWithPx / 2, screenHeightPx / 2)

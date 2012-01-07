@@ -1,5 +1,7 @@
 package org.frankversnel.poortjes.game
 
+import scala.math._
+
 import org.frankversnel.poortjes.rendering._
 import org.frankversnel.poortjes.collision._
 import org.frankversnel.poortjes.moving._
@@ -13,11 +15,9 @@ abstract class Player(protected val resourceLoader: ResourceLoader)
 		with Keyboard with Speed {
     protected val shape = resourceLoader.addResource("ship-red.svg")
 }
-abstract class StillObject extends Drawable with Collidable with Color {
-
-	override def draw(renderer: Renderer) {
-		renderer.drawCircle(this)
-	}
+abstract class StillObject(protected val resourceLoader: ResourceLoader)
+        extends DrawableShape with Collidable {
+    protected val shape = resourceLoader.addResource("shepherd.svg")
 }
 
 
@@ -37,7 +37,7 @@ class GateEnd(protected val resourceLoader: ResourceLoader, private val _parent:
 }
 class GateConnector(protected val resourceLoader: ResourceLoader, private val _parent: Gate)
         extends GateComponent(_parent) {
-    val dimension = Dimension(4, 30)
+    val dimension = Dimension(4, 50)
 
     protected val shape = resourceLoader.addResource("gate-connector.svg")
 }
@@ -47,11 +47,14 @@ object Gate {
         gate.translate(300, 200)
 
         val gateEndTop = new GateEnd(resourceLoader, gate)
-        gateEndTop.translate(0, 0)
+        gateEndTop.rotate((Pi / 2).toFloat)
         val gateConnector = new GateConnector(resourceLoader, gate)
         gateConnector.translate(8, 20)
         val gateEndBottom = new GateEnd(resourceLoader, gate)
-        gateEndBottom.translate(0, 50)
+        gateEndBottom.translate(0, 70)
+        gateEndBottom.rotate((Pi + (Pi / 2)).toFloat)
+
+        gate.rotate(0.5f)
 
         List(gateEndBottom, gateEndTop, gateConnector)
     }

@@ -3,7 +3,9 @@ package org.frankversnel.poortjes;
 import scala.collection.mutable.ListBuffer
 import akka.actor.Actor
 
-abstract class ComponentManager[T] extends Actor {
+abstract class ComponentManager extends Actor {
+    type T
+
 	private val DoneMessage = "done"
 
 	private val components = ListBuffer[T]()
@@ -16,7 +18,7 @@ abstract class ComponentManager[T] extends Actor {
 				self.channel tryTell DoneMessage
 	}
 
-	protected def processComponents: Unit = {
+	protected def processComponents {
 		components.foreach(processComponent _)
 	}
 

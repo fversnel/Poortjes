@@ -1,22 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
-<svg
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   version="1.1"
-   width="487.46738"
-   height="490.7713"
-   id="svg2">
-  <defs
-     id="defs4" />
-  <g
-     transform="translate(-6.8183162,-558.06034)"
-     id="layer1">
-    <path
-       d="M 400,117.14285 292.30511,267.62107 355.2116,441.64594 178.81876,385.72235 32.750447,499.32661 31.428561,314.28571 -121.75311,210.47214 53.822759,152.03417 105.21959,-25.730413 215.05333,123.19383 400,117.14285 z"
-       transform="matrix(0.93428747,0,0,0.93470097,120.57072,582.11058)"
-       id="path2818"
-       style="fill:#008080" />
-  </g>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 14.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 43363)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="83px" height="83.011px" viewBox="0 0 83 83.011" enable-background="new 0 0 83 83.011" xml:space="preserve">
+<g>
+	<rect x="15.5" y="67.511" fill="#97BF0D" width="52" height="15.5"/>
+	<rect x="15.5" fill="#97BF0D" width="52" height="15.5"/>
+	<rect y="15.5" fill="#97BF0D" width="15.5" height="52.011"/>
+	<rect x="67.5" y="15.5" fill="#97BF0D" width="15.5" height="52.011"/>
+</g>
 </svg>
