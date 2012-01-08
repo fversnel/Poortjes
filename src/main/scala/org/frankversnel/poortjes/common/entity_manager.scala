@@ -9,45 +9,40 @@ import org.frankversnel.poortjes.rendering._;
 import org.frankversnel.poortjes.collision._
 import ComponentManager._
 
-class EntityManager (val renderer: Renderer) extends Logging {
+class EntityManager private(val renderer: Renderer) extends Logging {
 
-	private val renderingManager = actorOf(new RenderingManager(renderer)).start
-	private val collisionManager = actorOf(new CollisionManager).start
-	private val componentManagers = List(renderingManager, collisionManager)
-	private val otherComponentManagers = componentManagers.filterNot(_.equals(renderingManager))
+    private val renderingManager = actorOf(new RenderingManager(renderer)).start
+    private val collisionManager = actorOf(new CollisionManager).start
+    private val componentManagers = List(renderingManager, collisionManager)
+    private val otherComponentManagers = componentManagers.filterNot(_.equals(renderingManager))
 
-	private val gameObjects = Ref(List[GameObject]())
+    private val gameObjects = Ref(List[GameObject]())
 
     def spawn(gameObject: GameObject) {
         // add game object
-		gameObjects alter (gameObject :: _)
+        gameObjects alter (gameObject :: _)
 
-		gameObject.as[Drawable] match {
-			case Some(d) => renderingManager ! Register(d)
-			case _ =>
-		}
-		gameObject.as[Collidable] match {
-			case Some(c) => collisionManager ! Register(c)
-			case _ =>
-		}
-	}
+        componentManagers.foreach { componentManager =>
+        componentManager ! Register(gameObject.as[Component].get)
+    }
+}
 
-	def destroy(gameObject: GameObject) {
+    def destroy(gameObject: GameObject) {
         // remove game object
         gameObjects alter (_.filterNot(_.equals(gameObject)))
 
         componentManagers.foreach { componentManager =>
-            componentManager ! Unregister(gameObject.as[Component].get)
-        }
+       		componentManager ! Unregister(gameObject.as[Component].get)
+		}
     }
 
-	def process {
-		// Wait for the rendering to finish, otherwise the processing draw thread and the rendering
-		// manager's thread will be too much out of sync and rendering will be full of artifacts.
-		(renderingManager ? Process).as[String]
+    def process {
+        // Wait for the rendering to finish, otherwise the processing draw thread and the rendering
+        // manager's thread will be too much out of sync and rendering will be full of artifacts.
+        (renderingManager ? Process).as[String]
 
         otherComponentManagers.foreach(_ ! Process)
-	}
+    }
 }
 object EntityManager {
     var entityManager: Option[EntityManager] = None
@@ -55,7 +50,7 @@ object EntityManager {
         entityManager = Some(new EntityManager(renderer))
     }
 
-    def apply {
+    def apply() = {
         require(entityManager.isDefined, "Entity manager must be initialized first")
         entityManager.get
     }

@@ -22,7 +22,6 @@ class Poortjes extends PApplet with Logging {
 
 	private var renderer: Renderer = null
 	private var resourceLoader: ProcessingShapeLoader = null
-	private var entityManager: EntityManager = null
 
 	override def setup = {
 		logger.info("initializing Poortjes")
@@ -33,34 +32,31 @@ class Poortjes extends PApplet with Logging {
 
 		resourceLoader = new ProcessingShapeLoader(this)
 		renderer = new Processing2DRenderer(g, resourceLoader, backgroundClr)
-		entityManager = new EntityManager(renderer)
+        EntityManager.initialize(renderer)
 
 		newPlayer = new Player(resourceLoader) {
-			val dimension = Dimension(17, 25)
 
 			//speed
-			val distanceInMs = 7f
+			val distanceInMs = 3f
 			val rotationInMs = 0.10f
 
 			val keybindings = KeyboardBindings('w', 's', 'a', 'd')
 		}
 		newPlayer.translate(screenWithPx / 3, screenHeightPx / 3)
 		addKeyListener(newPlayer)
-		entityManager.spawn(newPlayer)
+		EntityManager().spawn(newPlayer)
 
-		val stillObject = new StillObject(resourceLoader) {
-			val dimension = Dimension(25, 25)
-		}
-		stillObject.translate(screenWithPx / 2, screenHeightPx / 2)
-		entityManager.spawn(stillObject)
+		val shepherd = new Shepherd(resourceLoader)
+		shepherd.translate(screenWithPx / 2, screenHeightPx / 2)
+		EntityManager().spawn(shepherd)
 
-        Gate.build(resourceLoader).foreach(entityManager.spawn(_))
+        Gate.build(resourceLoader).foreach(EntityManager().spawn(_))
 	}
 
 	override def draw = {
 		newPlayer.move
 
-		entityManager.process
+        EntityManager().process
 	}
 }
 

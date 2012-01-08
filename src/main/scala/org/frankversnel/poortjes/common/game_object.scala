@@ -5,10 +5,14 @@ abstract class GameObject {
 	val parent: Option[GameObject] = None
 
 	def as[A: Manifest] : Option[A] = {
-		if (Manifest.singleType(this) <:< manifest[A]) {
+		if (is[A]) {
 			Some(this.asInstanceOf[A])
 		} else {
 			None
 		}
 	}
+
+	def is[A: Manifest] : Boolean = {
+		Manifest.singleType(this) <:< manifest[A]
+    }
 }

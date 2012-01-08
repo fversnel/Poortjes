@@ -8,15 +8,17 @@ import org.frankversnel.poortjes._
 
 trait Collidable extends Transform with Logging {
 
-	def checkCollision(otherCollidable: Collidable) {
+	def collidesWith(otherCollidable: Collidable): Boolean = {
 		val ourBoundingBox = createBoundingBox(this)
 		val theirBoundingBox = createBoundingBox(otherCollidable)
 
 		val collision = ourBoundingBox.intersects(theirBoundingBox.getBounds2D)
 
 		if(collision) {
-			logger.info("collision")
+			//logger.info("collision")
 		}
+
+        return collision
 	}
 
 	private def createBoundingBox(transform: Transform): Area = {

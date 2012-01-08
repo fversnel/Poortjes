@@ -14,48 +14,60 @@ abstract class Player(protected val resourceLoader: ResourceLoader)
 		extends GameObject with DrawableShape with Collidable with Moveable
 		with Keyboard with Speed {
     protected val shape = resourceLoader.addResource("ship-red.svg")
+
+	override val dimension = Dimension(9, 13)
 }
-abstract class StillObject(protected val resourceLoader: ResourceLoader)
+class Shepherd(protected val resourceLoader: ResourceLoader)
         extends DrawableShape with Collidable {
     protected val shape = resourceLoader.addResource("shepherd.svg")
+
+	override val dimension = Dimension(10, 10)
 }
 
 
 class Gate extends Transform {
-    val dimension = Dimension(0, 0)
+	val dimension = Dimension(0, 0)
 }
 abstract class GateComponent(private val _parent: Gate)
-        extends DrawableShape with Collidable {
+		extends DrawableShape with Collidable {
 
-    override val parent = Some(_parent)
+	override val parent = Some(_parent)
 }
 class GateEnd(protected val resourceLoader: ResourceLoader, private val _parent: Gate)
         extends GateComponent(_parent) {
-    val dimension = Dimension(20, 20)
+	val dimension = Dimension(10, 10)
 
-    protected val shape = resourceLoader.addResource("gate-end.svg")
+	protected val shape = resourceLoader.addResource("gate-end.svg")
+
+	override def collidesWith(otherCollidable: Collidable): Boolean = {
+		val collision = super.collidesWith(otherCollidable)
+			if(collision && otherCollidable.is[Player]) {
+			EntityManager().destroy(otherCollidable)
+		}
+		collision
+	}
 }
 class GateConnector(protected val resourceLoader: ResourceLoader, private val _parent: Gate)
         extends GateComponent(_parent) {
-    val dimension = Dimension(4, 50)
+	val dimension = Dimension(2, 50)
 
-    protected val shape = resourceLoader.addResource("gate-connector.svg")
+	protected val shape = resourceLoader.addResource("gate-connector.svg")
 }
 object Gate {
-    def build(resourceLoader: ResourceLoader): List[GameObject] = {
-        val gate = new Gate
-        gate.translate(300, 200)
+	def build(resourceLoader: ResourceLoader): List[GameObject] = {
+		val gate = new Gate
+		gate.translate(300, 200)
 
-        val gateEndTop = new GateEnd(resourceLoader, gate)
-        gateEndTop.rotate((Pi / 2).toFloat)
-        val gateConnector = new GateConnector(resourceLoader, gate)
-        gateConnector.translate(8, 20)
-        val gateEndBottom = new GateEnd(resourceLoader, gate)
-        gateEndBottom.translate(0, 70)
-        gateEndBottom.rotate((Pi + (Pi / 2)).toFloat)
+		val gateEndTop = new GateEnd(resourceLoader, gate)
+		gateEndTop.rotate((Pi / 2).toFloat)
+		val gateConnector = new GateConnector(resourceLoader, gate)
+		gateConnector.translate(4, 10)
+		val gateEndBottom = new GateEnd(resourceLoader, gate)
+		gateEndBottom.translate(0, 60)
+		gateEndBottom.rotate((Pi + (Pi / 2)).toFloat)
 
-        gate.rotate(0.5f)
+		gate.rotate(0.5f)
 
-        List(gateEndBottom, gateEndTop, gateConnector)
-    }
+		List(gateEndBottom, gateEndTop, gateConnector)
+	}
 }

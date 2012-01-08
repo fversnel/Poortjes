@@ -12,11 +12,19 @@ abstract class ComponentManager extends Actor {
 
 	import ComponentManager._
 	def receive = {
-		case Register(c) => components += c.asInstanceOf[T]
-		case Unregister(c) => components -= c.asInstanceOf[T]
+		case Register(c) => forComponent(c) (components += _.asInstanceOf[T])
+		case Unregister(c) => forComponent(c) (components -= _.asInstanceOf[T])
 		case Process => processComponents
 				self.channel tryTell DoneMessage
 	}
+
+    // Only processes the component if it is of type T
+    private def forComponent[T: Manifest](component: Component) (onComponent: Component => Unit) {
+        val isRightComponentType = manifest[T] <:< Manifest.singleType(component)
+        if(isRightComponentType) {
+            onComponent(component)
+        }
+    }
 
 	protected def processComponents {
 		components.foreach(processComponent _)
