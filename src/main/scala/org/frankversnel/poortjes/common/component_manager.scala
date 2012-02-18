@@ -20,11 +20,13 @@ abstract class ComponentManager extends Actor {
 
     // Only processes the component if it is of type T
     private def forComponent[T: Manifest](component: Component) (onComponent: Component => Unit) {
-        val isRightComponentType = manifest[T] <:< Manifest.singleType(component)
-        if(isRightComponentType) {
+        val castedComponent = component.as[T]
+        if(isCorrectType(component)) {
             onComponent(component)
         }
     }
+
+	protected def isCorrectType(component: Component): Boolean
 
 	protected def processComponents {
 		components.foreach(processComponent _)

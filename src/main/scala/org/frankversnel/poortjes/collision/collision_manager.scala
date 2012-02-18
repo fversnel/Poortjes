@@ -12,4 +12,6 @@ class CollisionManager extends ComponentManager {
 			collidable collidesWith otherCollidable
 		}
 	}
+
+	protected def isCorrectType(component: Component) = component.isInstanceOf[Collidable]
 }

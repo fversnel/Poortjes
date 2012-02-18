@@ -8,9 +8,9 @@ trait Moveable extends Component with Logging {
 	self: Speed with Transform =>
 
 	def move {
-		//logger.info("Speeding at: " + speed.getDistance + ", " + speed.getRotation)
+		//logger.info("Speeding at: " + self.distanceSpeed + ", " + self.rotationSpeed)
 
-		self.rotate(self.getRotation);
-		self.translate(0, -self.getDistance);
+		self.rotate(self.rotationSpeed);
+		self.translate(0, -self.distanceSpeed);
 	}
 }

@@ -17,7 +17,7 @@ trait Speed extends Component {
 	    currentRotation = rotationInMs * amount
 	}
 
-	def getDistance = currentDistance
-	def getRotation = currentRotation
+	def distanceSpeed = currentDistance
+	def rotationSpeed = currentRotation
 }
 

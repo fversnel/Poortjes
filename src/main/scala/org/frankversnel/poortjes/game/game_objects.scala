@@ -25,8 +25,18 @@ class Shepherd(protected val resourceLoader: ResourceLoader)
 }
 
 
-class Gate extends Transform {
-	val dimension = Dimension(0, 0)
+class Gate extends Transform with Speed with Moveable {
+	val dimension = Dimension(10, 70)
+
+	val distanceInMs = 0.3f
+	val rotationInMs = 0.01f
+
+	override def move {
+		moveSpeed(math.random.toFloat)
+		rotationSpeed(1f)
+
+		super.move
+	}
 }
 abstract class GateComponent(private val _parent: Gate)
 		extends DrawableShape with Collidable {
@@ -68,6 +78,6 @@ object Gate {
 
 		gate.rotate(0.5f)
 
-		List(gateEndBottom, gateEndTop, gateConnector)
+		List(gate, gateEndBottom, gateEndTop, gateConnector)
 	}
 }

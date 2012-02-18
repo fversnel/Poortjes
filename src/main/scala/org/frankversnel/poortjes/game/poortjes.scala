@@ -5,6 +5,8 @@ import akka.actor.ActorRef
 import akka.util.duration._
 import org.slf4j.scala.Logging;
 import processing.core.PApplet;
+import processing.core.PConstants._;
+import processing.opengl._;
 
 import org.frankversnel.poortjes._;
 import org.frankversnel.poortjes.ComponentManager._;
@@ -19,6 +21,8 @@ class Poortjes extends PApplet with Logging {
 	private val backgroundClr = 0;
 
 	private var newPlayer: Player = null
+	private var playerTwo: Player = null
+	private var gate: Gate = null
 
 	private var renderer: Renderer = null
 	private var resourceLoader: ProcessingShapeLoader = null
@@ -26,16 +30,16 @@ class Poortjes extends PApplet with Logging {
 	override def setup = {
 		logger.info("initializing Poortjes")
 
-		size(screenWithPx, screenHeightPx)
+		//size(screenWithPx, screenHeightPx, OPENGL)
+		size(1600, 1080, OPENGL )
+    	hint( ENABLE_OPENGL_4X_SMOOTH )
 		background(backgroundClr)
-		smooth
 
 		resourceLoader = new ProcessingShapeLoader(this)
 		renderer = new Processing2DRenderer(g, resourceLoader, backgroundClr)
         EntityManager.initialize(renderer)
 
 		newPlayer = new Player(resourceLoader) {
-
 			//speed
 			val distanceInMs = 3f
 			val rotationInMs = 0.10f
@@ -46,17 +50,37 @@ class Poortjes extends PApplet with Logging {
 		addKeyListener(newPlayer)
 		EntityManager().spawn(newPlayer)
 
-		val shepherd = new Shepherd(resourceLoader)
-		shepherd.translate(screenWithPx / 2, screenHeightPx / 2)
-		EntityManager().spawn(shepherd)
+        //playerTwo = new Player(resourceLoader) {
+		//	//speed
+		//	val distanceInMs = 3f
+		//	val rotationInMs = 0.10f
 
-        Gate.build(resourceLoader).foreach(EntityManager().spawn(_))
+		//	val keybindings = KeyboardBindings('i', 'k', 'j', 'l')
+        //}
+		//addKeyListener(playerTwo)
+		//EntityManager().spawn(playerTwo)
+
+		//val shepherd = new Shepherd(resourceLoader)
+		//shepherd.translate(screenWithPx / 2, screenHeightPx / 2)
+		//EntityManager().spawn(shepherd)
+
+        //val newGate = Gate.build(resourceLoader)
+        //newGate.foreach(EntityManager().spawn(_))
+        //gate = newGate.head.asInstanceOf[Gate]
 	}
 
 	override def draw = {
-		newPlayer.move
+		renderer.drawCircle(new Transform with Color {
+			val dimension = Dimension(50,50)
+			val color = ColorValue.red
+			translate(50,50)
+		})
+		newPlayer.draw(renderer)
+		//newPlayer.move
+		//playerTwo.move
+        //gate.move
 
-        EntityManager().process
+        //EntityManager().process
 	}
 }
 

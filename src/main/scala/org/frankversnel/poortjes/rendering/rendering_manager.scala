@@ -10,5 +10,7 @@ class RenderingManager(private val renderer: Renderer) extends ComponentManager 
 		super.processComponents
 	}
 
+	protected def isCorrectType(component: Component) = component.isInstanceOf[Drawable]
+
 	protected def processComponent(drawable: T) = drawable.draw(renderer)
 }

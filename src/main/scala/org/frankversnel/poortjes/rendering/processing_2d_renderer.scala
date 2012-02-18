@@ -38,6 +38,7 @@ class Processing2DRenderer(
 	}
 
 	private def drawTransform(transform: Transform) (drawFunction: => Unit) {
+		graphics.ellipse(200,200, transform.width, transform.height)
 		graphics.setMatrix(transform.processingMatrix)
 		graphics.pushMatrix
 

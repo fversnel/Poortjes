@@ -23,7 +23,7 @@ class EntityManager private(val renderer: Renderer) extends Logging {
         gameObjects alter (gameObject :: _)
 
         componentManagers.foreach { componentManager =>
-        componentManager ! Register(gameObject.as[Component].get)
+        componentManager ! Register(gameObject.asInstanceOf[Component])
     }
 }
 
@@ -32,7 +32,7 @@ class EntityManager private(val renderer: Renderer) extends Logging {
         gameObjects alter (_.filterNot(_.equals(gameObject)))
 
         componentManagers.foreach { componentManager =>
-       		componentManager ! Unregister(gameObject.as[Component].get)
+       		componentManager ! Unregister(gameObject.asInstanceOf[Component])
 		}
     }
 
