@@ -12,9 +12,22 @@ trait Transform extends Component {
 	protected val dimension: Dimension
 
 	private val matrixRef = Ref(new PMatrix2D)
+	private var angle = 0f;
 
 	def width = dimension.width
 	def height = dimension.height
+	def positionX = matrix.m02
+	def positionY = matrix.m12
+	def scaleX = matrix.m00
+	def scaleY = matrix.m11
+	def rotationAngle: Float = {
+		return if(parent.isDefined) {
+			angle + parent.get.asInstanceOf[Transform].rotationAngle
+		} else {
+			angle
+		}
+	}
+	def rotationAngleInDegrees: Float = scala.math.toDegrees(rotationAngle.toDouble).toFloat
 
 	def translate(x: Float, y: Float) = atomic {
 		alterMatrix(_.translate(x, y))
@@ -23,13 +36,14 @@ trait Transform extends Component {
 		alterMatrix(_.scale(x, y))
 	}
 	def rotate(theta: Float) = atomic {
-		alterMatrix { matrix =>
-			// To rotate around its own axis we need to put it in local space then rotate and put it
-			// back in global space.
-			matrix.translate(dimension.width / 2, dimension.height / 2)
-			matrix.rotate(theta)
-			matrix.translate(-(dimension.width / 2), -(dimension.height / 2))
-		}
+		angle = theta % (2 * scala.math.Pi).toFloat;
+		//alterMatrix { matrix =>
+		//	// To rotate around its own axis we need to put it in local space then rotate and put it
+		//	// back in global space.
+		//	matrix.translate(dimension.width / 2, dimension.height / 2)
+		//	matrix.rotate(angle)
+		//	matrix.translate(-(dimension.width / 2), -(dimension.height / 2))
+		//}
 	}
 
 	def processingMatrix: PMatrix2D = matrix
@@ -55,4 +69,5 @@ trait Transform extends Component {
 			newMatrix
 		}
 	}
+
 }

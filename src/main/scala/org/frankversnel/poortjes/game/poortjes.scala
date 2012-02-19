@@ -5,8 +5,6 @@ import akka.actor.ActorRef
 import akka.util.duration._
 import org.slf4j.scala.Logging;
 import processing.core.PApplet;
-import processing.core.PConstants._;
-import processing.opengl._;
 
 import org.frankversnel.poortjes._;
 import org.frankversnel.poortjes.ComponentManager._;
@@ -30,9 +28,7 @@ class Poortjes extends PApplet with Logging {
 	override def setup = {
 		logger.info("initializing Poortjes")
 
-		//size(screenWithPx, screenHeightPx, OPENGL)
-		size(1600, 1080, OPENGL )
-    	hint( ENABLE_OPENGL_4X_SMOOTH )
+		size(screenWithPx, screenHeightPx)
 		background(backgroundClr)
 
 		resourceLoader = new ProcessingShapeLoader(this)

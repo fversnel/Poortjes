@@ -5,7 +5,7 @@ apply plugin: 'java'
 title='Poortjes'
 sourceCompatibility = 1.5
 version = '1.0-SNAPSHOT'
-mainClass='org.frankversnel.poortjes.game.Poortjes'
+mainClass='org.frankversnel.poortjes.game.PoortjesSlick'
 env = System.getenv()
 scalaHome = env['SCALA_HOME']
 libraryFolder = 'lib'
