@@ -3,7 +3,7 @@ package org.frankversnel.poortjes.resource_loading
 import org.newdawn.slick.svg.Diagram
 import org.newdawn.slick.svg.InkscapeLoader
 
-class SlickShapeLoader extends ResourceLoader {
+class SlickSvgLoader extends ResourceLoader {
     type T = Diagram
 
 	protected def loadResource(filePath: String) : T = {

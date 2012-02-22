@@ -1,14 +1,13 @@
 package org.frankversnel.poortjes.rendering
 
 import org.newdawn.slick.Graphics
-import org.newdawn.slick.svg.SimpleDiagramRenderer
 
 import org.frankversnel.poortjes._
 import org.frankversnel.poortjes.resource_loading._
 
 class Slick2DRenderer(
 		private val graphics: Graphics,
-		private val shapeLoader: SlickShapeLoader) extends Renderer {
+		private val shapeLoader: SlickImageLoader) extends Renderer {
 
 	def drawRectangle(component: Transform with Color) {
 		draw(component) {
@@ -24,7 +23,10 @@ class Slick2DRenderer(
 
 	def drawShape(resourceId: ResourceId, transform: Transform) {
 		drawTransform(transform) {
-			SimpleDiagramRenderer.render(graphics, shapeLoader.getResource(resourceId))
+			// load image
+			graphics.drawImage(shapeLoader.getResource(resourceId), 0, 0)
+			// load svg
+			//SimpleDiagramRenderer.render(graphics, shapeLoader.getResource(resourceId))
 		}
 	}
 
