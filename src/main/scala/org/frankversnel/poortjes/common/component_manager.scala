@@ -1,44 +1,31 @@
-package org.frankversnel.poortjes;
+package org.frankversnel.poortjes
 
 import scala.collection.mutable.ListBuffer
-import akka.actor.Actor
 
-abstract class ComponentManager extends Actor {
-    type T
+abstract class ComponentManager {
+	type T
 
-	private val DoneMessage = "done"
+	private var components = ListBuffer[T]()
 
-	private val components = ListBuffer[T]()
-
-	import ComponentManager._
-	def receive = {
-		case Register(c) => forComponent(c) (components += _.asInstanceOf[T])
-		case Unregister(c) => forComponent(c) (components -= _.asInstanceOf[T])
-		case Process => processComponents
-				self.channel tryTell DoneMessage
+	def addComponent(component: Component) {
+		forComponent(component) (components += _.asInstanceOf[T])
 	}
+	def removeComponent(component: Component) {
+		forComponent(component) (components -= _.asInstanceOf[T])
+	}
+	def processComponents {
+		components.foreach(processComponent _)
+	}
+
+	protected def isCorrectType(component: Component): Boolean
+	protected def processComponent(component: T): Unit
+
+	protected def allComponents = components.readOnly
 
     // Only processes the component if it is of type T
     private def forComponent[T: Manifest](component: Component) (onComponent: Component => Unit) {
-        val castedComponent = component.as[T]
         if(isCorrectType(component)) {
             onComponent(component)
         }
     }
-
-	protected def isCorrectType(component: Component): Boolean
-
-	protected def processComponents {
-		components.foreach(processComponent _)
-	}
-
-	protected def processComponent(component: T)
-
-	protected def allComponents = components.readOnly
-}
-object ComponentManager {
-	sealed trait Action
-	case class Register(component: Component) extends Action
-	case class Unregister(component: Component) extends Action
-	case object Process extends Action
 }

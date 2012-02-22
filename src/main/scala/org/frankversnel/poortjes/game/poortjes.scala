@@ -7,7 +7,6 @@ import org.slf4j.scala.Logging;
 import processing.core.PApplet;
 
 import org.frankversnel.poortjes._;
-import org.frankversnel.poortjes.ComponentManager._;
 import org.frankversnel.poortjes.rendering._;
 import org.frankversnel.poortjes.collision._;
 import org.frankversnel.poortjes.input._;

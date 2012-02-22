@@ -5,7 +5,7 @@ import org.frankversnel.poortjes._
 class RenderingManager(private val renderer: Renderer) extends ComponentManager {
     type T = Drawable
 
-	protected override def processComponents = {
+	override def processComponents = {
 		renderer.clearScreen
 		super.processComponents
 	}

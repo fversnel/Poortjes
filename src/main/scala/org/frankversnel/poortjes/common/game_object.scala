@@ -4,7 +4,9 @@ abstract class GameObject {
 	// By default a game object has no parent
 	val parent: Option[GameObject] = None
 
-	def as[A: Manifest] : Option[A] = {
+	var isDestroyed = false
+
+	def as[A: Manifest]: Option[A] = {
 		if (is[A]) {
 			Some(this.asInstanceOf[A])
 		} else {
@@ -12,7 +14,7 @@ abstract class GameObject {
 		}
 	}
 
-	def is[A: Manifest] : Boolean = {
+	def is[A: Manifest]: Boolean = {
 		Manifest.singleType(this) <:< manifest[A]
     }
 }

@@ -2,7 +2,7 @@ package org.frankversnel.poortjes.collision
 
 import org.frankversnel.poortjes._
 
-class CollisionManager extends ComponentManager {
+class CollisionManager extends ConcurrentComponentManager {
     type T = Collidable
 
 	protected def processComponent(collidable: T) {

@@ -7,7 +7,6 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 
 import org.frankversnel.poortjes._;
-import org.frankversnel.poortjes.ComponentManager._;
 import org.frankversnel.poortjes.rendering._;
 import org.frankversnel.poortjes.resource_loading._;
 import org.frankversnel.poortjes.input._;
@@ -40,12 +39,16 @@ class PoortjesSlick extends BasicGame("Poortjes") {
 		newPlayer.translate(150, 150)
 		EntityManager().spawn(newPlayer)
 
-		renderable = new GameObject with Transform with Color {
+		renderable = new GameObject with Drawable with Transform with Color {
 			val dimension = Dimension(50,50)
 			val color = ColorValue.red
 			translate(200, 200)
 			rotate(20f)
 			scale(2, 2)
+
+			override def draw(renderer: Renderer) {
+				renderer.drawCircle(this)
+			}
 		}
 		EntityManager().spawn(renderable)
     }
@@ -54,8 +57,7 @@ class PoortjesSlick extends BasicGame("Poortjes") {
 	}
 
     override def render(container: GameContainer, g: Graphics) {
-		newPlayer.draw(renderer)
-		renderer.drawCircle(renderable)
+		EntityManager().process
 	}
 
 }
