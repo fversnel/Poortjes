@@ -1,10 +1,6 @@
 package org.frankversnel.poortjes;
 
-// This should actually be a trait
-// So concurrent behaviour can be slapped on to the component manager
-// syntax should look like this:
-// class XComponentManager extends ComponentManager with ConcurrentComponentProcessing
-abstract class ConcurrentComponentManager extends ComponentManager {
+trait ConcurrentProcessing extends ComponentManager {
 	private sealed trait Action
 	private case class Register(component: Component) extends Action
 	private case class Unregister(component: Component) extends Action
@@ -15,19 +11,19 @@ abstract class ConcurrentComponentManager extends ComponentManager {
 	import akka.actor.ActorRef
 	private val componentActor = actorOf(new Actor {
 		def receive = {
-			case Register(c) => ConcurrentComponentManager.super.addComponent(c)
-			case Unregister(c) => ConcurrentComponentManager.super.removeComponent(c)
-			case Process => ConcurrentComponentManager.super.processComponents
+			case Register(c) => ConcurrentProcessing.super.addComponent(c)
+			case Unregister(c) => ConcurrentProcessing.super.removeComponent(c)
+			case Process => ConcurrentProcessing.super.processComponents
 		}
 	}).start
 
-	override def addComponent(component: Component) {
+	abstract override def addComponent(component: Component) {
 		componentActor ! Register(component)
 	}
-	override def removeComponent(component: Component) {
+	abstract override def removeComponent(component: Component) {
 		componentActor ! Unregister(component)
 	}
-	override def processComponents {
+	abstract override def processComponents {
 		componentActor ! Process
 	}
 

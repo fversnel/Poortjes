@@ -9,7 +9,7 @@ import org.frankversnel.poortjes.resource_loading._
 import org.frankversnel.poortjes._
 
 class PlayerParent extends GameObject with Transform {
-	val dimension = Dimension(50, 50)
+	val dimension = (50, 50)
 	translate(200, 200)
 	rotate(1)
 }
@@ -32,11 +32,11 @@ abstract class StillObject extends Drawable with Collidable with Color {
 
 
 class Gate extends Transform {
-    val dimension = Dimension(0, 0)
+    val dimension = (0, 0)
 }
 class GateEnd(private val resourceLoader: ProcessingShapeLoader, private val _parent: GameObject)
         extends Drawable with Collidable {
-    val dimension = Dimension(20, 20)
+    val dimension = (20, 20)
 
     override val parent = Some(_parent)
     private val end = resourceLoader.addResource("gate-end.svg")
@@ -47,7 +47,7 @@ class GateEnd(private val resourceLoader: ProcessingShapeLoader, private val _pa
 }
 class GateConnector(private val resourceLoader: ProcessingShapeLoader, private val _parent: GameObject)
         extends Drawable with Collidable {
-    val dimension = Dimension(10, 50)
+    val dimension = (10, 50)
 
     override val parent = Some(_parent)
     private val connector = resourceLoader.addResource("gate-connector.svg")

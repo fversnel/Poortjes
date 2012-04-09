@@ -3,16 +3,14 @@ package org.frankversnel.poortjes
 import org.frankversnel.poortjes._
 
 trait Color extends Component {
-	val color: ColorValue
+	val color: (Int, Int, Int)
 
-	def r = color.r
-	def g = color.g
-	def b = color.b
+	def r = color._1
+	def g = color._2
+	def b = color._3
 }
-
-case class ColorValue(r: Int, g: Int, b: Int)
-object ColorValue {
-	val red = ColorValue(255, 0, 0)
-	val green = ColorValue(0, 255, 0)
-	val blue = ColorValue(0, 0, 255)
+object Color {
+	val red = (255, 0, 0)
+	val green = (0, 255, 0)
+	val blue = (0, 0, 255)
 }

@@ -6,7 +6,7 @@ import org.slf4j.scala.Logging;
 
 import org.frankversnel.poortjes._
 
-trait Collidable extends Transform with Logging {
+trait Collidable extends Transform with Dimension with Logging {
 
 	def collidesWith(otherCollidable: Collidable): Boolean = {
 		val ourBoundingBox = createBoundingBox(this)
@@ -15,15 +15,15 @@ trait Collidable extends Transform with Logging {
 		val collision = ourBoundingBox.intersects(theirBoundingBox.getBounds2D)
 
 		if(collision) {
-			//logger.info("collision")
+			logger.info("collision")
 		}
 
         return collision
 	}
 
-	private def createBoundingBox(transform: Transform): Area = {
-		val boundingBox = new Area(new Rectangle2D.Float(0, 0, transform.width, transform.height));
-		boundingBox.transform(transform.affineTransform);
+	private def createBoundingBox(collidable: Collidable): Area = {
+		val boundingBox = new Area(new Rectangle2D.Float(0, 0, collidable.width, collidable.height));
+		boundingBox.transform(Transform.java(collidable));
 		return boundingBox;
 	}
 }

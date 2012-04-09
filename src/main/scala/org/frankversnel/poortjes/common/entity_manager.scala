@@ -9,7 +9,7 @@ import org.frankversnel.poortjes.collision._
 class EntityManager private(val renderer: Renderer) extends Logging {
 
 	private val componentManagers = List(
-			new CollisionManager, 
+			new CollisionManager,
 			new RenderingManager(renderer)
 		)
 

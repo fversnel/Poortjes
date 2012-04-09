@@ -18,7 +18,7 @@ class PoortjesSlick extends BasicGame("Poortjes") {
 	private var renderable: Transform with Color = null
 
 	private var resourceLoader: SlickImageLoader = null
-	private var newPlayer: Player = null
+	private var newPlayer: Player with SlickKeyboardAdapter = null
 
     override def init(container: GameContainer) {
 		container.getGraphics().setBackground(org.newdawn.slick.Color.black);
@@ -28,35 +28,36 @@ class PoortjesSlick extends BasicGame("Poortjes") {
         EntityManager.initialize(renderer)
 
 		val newPlayerResource = resourceLoader.addResource("ship-red.png")
-		newPlayer = new Player(newPlayerResource) {
-			val dimension = Dimension(20, 20)
+		newPlayer = new Player(newPlayerResource) with SlickKeyboardAdapter {
+			val dimension = (20, 20)
 			//speed
-			val distanceInMs = 3f
-			val rotationInMs = 0.10f
+			val distanceInMs = 0.09f
+			val rotationInMs = 0.010f
 
 			val keybindings = KeyboardBindings('w', 's', 'a', 'd')
 		}
 		newPlayer.translate(150, 150)
+		container.getInput().addKeyListener(newPlayer)
 		EntityManager().spawn(newPlayer)
 
-		renderable = new GameObject with Drawable with Transform with Color {
-			val dimension = Dimension(50,50)
-			val color = ColorValue.red
+		renderable = new GameObject with Drawable with Color with Collidable {
+			val dimension = (50, 50)
+			val color = Color.red
 			translate(200, 200)
 			rotate(20f)
-			scale(2, 2)
 
-			override def draw(renderer: Renderer) {
+			def draw(renderer: Renderer): Unit = {
 				renderer.drawCircle(this)
 			}
 		}
 		EntityManager().spawn(renderable)
     }
 
-    override def update(container: GameContainer, delta: Int) {
+    override def update(container: GameContainer, delta: Int): Unit = {
+		newPlayer.move
 	}
 
-    override def render(container: GameContainer, g: Graphics) {
+    override def render(container: GameContainer, g: Graphics): Unit = {
 		EntityManager().process
 	}
 

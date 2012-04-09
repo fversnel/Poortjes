@@ -1,3 +1,8 @@
 package org.frankversnel.poortjes;
 
-case class Dimension(width: Int, height: Int)
+trait Dimension extends Component {
+	val dimension: (Int, Int)
+
+	def width = dimension._1
+	def height = dimension._2
+}

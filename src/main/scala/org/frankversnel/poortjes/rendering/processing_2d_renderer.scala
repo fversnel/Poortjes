@@ -11,42 +11,39 @@ class Processing2DRenderer(
 	private val shapeLoader: ProcessingShapeLoader,
 	private val backgroundColor: Int) extends Renderer {
 
-	def drawRectangle(component: Transform with Color) {
+	def drawRectangle(component: Drawable with Color) {
 		draw(component) {
 			graphics.rect(0, 0, component.width, component.height)
 		}
 	}
 
-	def drawCircle(component: Transform with Color) {
+	def drawCircle(component: Drawable with Color) {
 		draw(component) {
 			graphics.ellipse(0, 0, component.width, component.height)
 		}
 	}
 
-	def drawShape(resourceId: ResourceId, transform: Transform) {
-		drawTransform(transform) {
+	def drawShape(resourceId: ResourceId, component: Drawable) {
+		drawTransform(component) {
 			graphics.shape(shapeLoader.getResource(resourceId),
-					0, 0, transform.width, transform.height)
+					0, 0, component.width, component.height)
 		}
 	}
 
 	def clearScreen = graphics.background(backgroundColor)
 
-	private def draw(component: Transform with Color) (drawFunction: => Unit) {
-		fill(component)
+	private def draw(component: Drawable with Color) (drawFunction: => Unit) {
+		graphics.fill(component.r, component.g, component.b)
 		drawTransform(component)(drawFunction)
 	}
 
 	private def drawTransform(transform: Transform) (drawFunction: => Unit) {
-		graphics.ellipse(200,200, transform.width, transform.height)
-		graphics.setMatrix(transform.processingMatrix)
+		graphics.setMatrix(Transform.processing(transform))
 		graphics.pushMatrix
 
 		drawFunction
 
 		graphics.popMatrix
 	}
-
-	private def fill(c: Color) = graphics.fill(c.r, c.g, c.b)
 
 }

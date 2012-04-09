@@ -36,7 +36,7 @@ class Poortjes extends PApplet with Logging {
 
 		val newPlayerResource = resourceLoader.addResource("ship-red.svg")
 		newPlayer = new Player(newPlayerResource) {
-			val dimension = Dimension(20, 20)
+			val dimension = (20, 20)
 			//speed
 			val distanceInMs = 3f
 			val rotationInMs = 0.10f
@@ -67,11 +67,6 @@ class Poortjes extends PApplet with Logging {
 	}
 
 	override def draw = {
-		renderer.drawCircle(new Transform with Color {
-			val dimension = Dimension(50,50)
-			val color = ColorValue.red
-			translate(50,50)
-		})
 		newPlayer.draw(renderer)
 		//newPlayer.move
 		//playerTwo.move
