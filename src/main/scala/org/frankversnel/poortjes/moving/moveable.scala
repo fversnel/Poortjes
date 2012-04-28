@@ -7,6 +7,11 @@ import org.frankversnel.poortjes._
 trait Moveable extends Component with Logging {
 	self: Speed with Transform =>
 
+	abstract override def process {
+		super.process
+		move
+	}
+
 	def move {
 		//logger.info("Speeding at: " + self.distanceSpeed + ", " + self.rotationSpeed)
 

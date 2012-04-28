@@ -58,11 +58,8 @@ class Poortjes extends PApplet with Logging {
 	}
 
 	override def draw = {
-		newPlayer.move
-		playerTwo.move
-		gate.move
-
         EntityManager().process
+        EntityManager().cleanUp
 	}
 }
 

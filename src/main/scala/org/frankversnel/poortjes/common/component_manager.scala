@@ -13,6 +13,9 @@ abstract class ComponentManager {
 	def removeComponent(component: Component) {
 		forComponent(component) (components -= _.asInstanceOf[T])
 	}
+	def removeComponents(components: List[Component]) {
+		components.foreach(removeComponent _)
+	}
 	def processComponents {
 		components.foreach(processComponent _)
 	}

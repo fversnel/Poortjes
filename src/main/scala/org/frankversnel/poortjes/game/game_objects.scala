@@ -41,7 +41,8 @@ class Gate extends Transform with Speed with Moveable {
 abstract class GateComponent(private val _parent: Gate)
 		extends DrawableShape with Collidable {
 
-	override val parent = Some(_parent)
+	setParent(_parent)
+
 }
 class GateEnd(protected val resourceLoader: ResourceLoader, private val _parent: Gate)
         extends GateComponent(_parent) {
@@ -52,7 +53,7 @@ class GateEnd(protected val resourceLoader: ResourceLoader, private val _parent:
 	override def collidesWith(otherCollidable: Collidable): Boolean = {
 		val collision = super.collidesWith(otherCollidable)
 		if(collision && otherCollidable.is[Player]) {
-			//otherCollidable.destroy()
+			otherCollidable.destroy
 		}
 		collision
 	}
