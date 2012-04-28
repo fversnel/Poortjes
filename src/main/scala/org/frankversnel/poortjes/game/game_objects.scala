@@ -21,7 +21,12 @@ class Shepherd(protected val resourceLoader: ResourceLoader)
         extends DrawableShape with PlayerKiller {
     protected val shape = resourceLoader.addResource("shepherd.svg")
 
-	override val dimension = (10, 10)
+	override val dimension = (5, 5)
+}
+class Candy(protected val resourceLoader: ResourceLoader) extends DrawableShape {
+	protected val shape = resourceLoader.addResource("candy.svg")
+
+	override val dimension = (3, 3)
 }
 
 trait PlayerKiller extends Collidable {

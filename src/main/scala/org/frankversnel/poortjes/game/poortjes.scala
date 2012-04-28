@@ -49,6 +49,10 @@ class Poortjes extends PApplet with Logging {
 		enemy.translate(100, 50)
 		EntityManager().spawn(enemy)
 
+		val candy = new Candy(resourceLoader)
+		candy.translate(50, 50)
+		EntityManager().spawn(candy)
+
         val gate = Gate.build(resourceLoader)
 		EntityManager().spawn(gate)
 
