@@ -27,9 +27,7 @@ class PoortjesSlick extends BasicGame("Poortjes") {
 
         EntityManager.initialize(renderer)
 
-		val newPlayerResource = resourceLoader.addResource("ship-red.png")
-		newPlayer = new Player(newPlayerResource) with SlickKeyboardAdapter {
-			val dimension = (20, 20)
+		newPlayer = new Player(resourceLoader) with SlickKeyboardAdapter {
 			//speed
 			val distanceInMs = 0.09f
 			val rotationInMs = 0.010f

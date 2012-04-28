@@ -1,5 +1,7 @@
 package org.frankversnel.poortjes.game
 
+import scala.math._
+
 import org.frankversnel.poortjes.rendering._
 import org.frankversnel.poortjes.collision._
 import org.frankversnel.poortjes.moving._
@@ -8,65 +10,74 @@ import org.frankversnel.poortjes.resource_loading._
 
 import org.frankversnel.poortjes._
 
-class PlayerParent extends GameObject with Transform {
-	val dimension = (50, 50)
-	translate(200, 200)
-	rotate(1)
-}
-
-abstract class Player(val ship: ResourceId)
-		extends GameObject with Drawable with Collidable with Moveable
+abstract class Player(protected val resourceLoader: ResourceLoader)
+		extends GameObject with DrawableShape with Collidable with Moveable
 		with Keyboard with Speed {
-	override val parent = Some(new PlayerParent)
+    protected val shape = resourceLoader.addResource("ship-red.svg")
 
-	override def draw(renderer: Renderer) {
-		renderer.drawShape(ship, this)
+	override val dimension = (9, 13)
+}
+class Shepherd(protected val resourceLoader: ResourceLoader)
+        extends DrawableShape with Collidable {
+    protected val shape = resourceLoader.addResource("shepherd.svg")
+
+	override val dimension = (10, 10)
+}
+
+
+class Gate extends Transform with Speed with Moveable {
+	val dimension = (10, 70)
+
+	val distanceInMs = 0.3f
+	val rotationInMs = 0.01f
+
+	override def move {
+		moveSpeed(math.random.toFloat)
+		rotationSpeed(1f)
+
+		super.move
 	}
 }
-abstract class StillObject extends Drawable with Collidable with Color {
+abstract class GateComponent(private val _parent: Gate)
+		extends DrawableShape with Collidable {
 
-	override def draw(renderer: Renderer) {
-		renderer.drawCircle(this)
+	override val parent = Some(_parent)
+}
+class GateEnd(protected val resourceLoader: ResourceLoader, private val _parent: Gate)
+        extends GateComponent(_parent) {
+	val dimension = (10, 10)
+
+	protected val shape = resourceLoader.addResource("gate-end.svg")
+
+	override def collidesWith(otherCollidable: Collidable): Boolean = {
+		val collision = super.collidesWith(otherCollidable)
+		if(collision && otherCollidable.is[Player]) {
+			//otherCollidable.destroy()
+		}
+		collision
 	}
 }
+class GateConnector(protected val resourceLoader: ResourceLoader, private val _parent: Gate)
+        extends GateComponent(_parent) {
+	val dimension = (2, 50)
 
-
-class Gate extends Transform {
-    val dimension = (0, 0)
-}
-class GateEnd(private val resourceLoader: ProcessingShapeLoader, private val _parent: GameObject)
-        extends Drawable with Collidable {
-    val dimension = (20, 20)
-
-    override val parent = Some(_parent)
-    private val end = resourceLoader.addResource("gate-end.svg")
-
-    override def draw(renderer: Renderer) {
-        renderer.drawShape(end, this)
-    }
-}
-class GateConnector(private val resourceLoader: ProcessingShapeLoader, private val _parent: GameObject)
-        extends Drawable with Collidable {
-    val dimension = (10, 50)
-
-    override val parent = Some(_parent)
-    private val connector = resourceLoader.addResource("gate-connector.svg")
-
-    override def draw(renderer: Renderer) {
-        renderer.drawShape(connector, this)
-    }
+	protected val shape = resourceLoader.addResource("gate-connector.svg")
 }
 object Gate {
-    def build(resourceLoader: ProcessingShapeLoader): List[GameObject] = {
-        val gate = new Gate
-        gate.translate(300, 200)
+	def build(resourceLoader: ResourceLoader): List[GameObject] = {
+		val gate = new Gate
+		gate.translate(300, 200)
 
-        val gateEndBottom = new GateEnd(resourceLoader, gate)
-        gateEndBottom.translate(0, 50)
-        val gateEndTop = new GateEnd(resourceLoader, gate)
-        gateEndTop.translate(0, -50)
-        val gateConnector = new GateConnector(resourceLoader, gate)
+		val gateEndTop = new GateEnd(resourceLoader, gate)
+		gateEndTop.rotate((Pi / 2).toFloat)
+		val gateConnector = new GateConnector(resourceLoader, gate)
+		gateConnector.translate(4, 10)
+		val gateEndBottom = new GateEnd(resourceLoader, gate)
+		gateEndBottom.translate(0, 60)
+		gateEndBottom.rotate((Pi + (Pi / 2)).toFloat)
 
-        List(gateEndBottom, gateEndTop, gateConnector)
-    }
+		gate.rotate(0.5f)
+
+		List(gate, gateEndBottom, gateEndTop, gateConnector)
+	}
 }

@@ -1,10 +1,11 @@
 apply plugin: 'scala'
 apply plugin: 'java'
+apply plugin: 'application'
 
 // Properties
 sourceCompatibility = 1.5
 version = "1.0-SNAPSHOT"
-ext.mainClass='org.frankversnel.poortjes.game.Poortjes'
+mainClassName='org.frankversnel.poortjes.game.Poortjes'
 ext.env = System.getenv()
 ext.scalaHome = env['SCALA_HOME']
 ext.title='Poortjes'
@@ -36,7 +37,7 @@ sourceSets {
 jar {
 	manifest {
 		attributes 'Implementation-Title': title, 'Implementation-Version': version
-		attributes 'Main-Class': mainClass
+		attributes 'Main-Class': mainClassName
 	}
 	dependsOn configurations.runtime
 	from { configurations.runtime.collect { it.isDirectory() ? it : zipTree(it) } }

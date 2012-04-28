@@ -31,9 +31,7 @@ class Poortjes extends PApplet with Logging {
 		renderer = new Processing2DRenderer(g, resourceLoader, backgroundClr)
         EntityManager.initialize(renderer)
 
-		val newPlayerResource = resourceLoader.addResource("ship-red.svg")
-		newPlayer = new Player(newPlayerResource) {
-			val dimension = (20, 20)
+		newPlayer = new Player(resourceLoader) {
 			//speed
 			val distanceInMs = 3f
 			val rotationInMs = 0.10f
@@ -44,8 +42,7 @@ class Poortjes extends PApplet with Logging {
 		addKeyListener(newPlayer)
 		EntityManager().spawn(newPlayer)
 
-        playerTwo = new Player(newPlayerResource) {
-			val dimension = (20, 20)
+        playerTwo = new Player(resourceLoader) {
 			//speed
 			val distanceInMs = 3f
 			val rotationInMs = 0.10f
