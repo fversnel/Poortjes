@@ -54,11 +54,13 @@ class Poortjes extends PApplet with Logging {
 
         val newGate = Gate.build(resourceLoader)
         newGate.foreach(EntityManager().spawn(_))
+		gate = newGate(0).asInstanceOf[Gate]
 	}
 
 	override def draw = {
 		newPlayer.move
 		playerTwo.move
+		gate.move
 
         EntityManager().process
 	}
