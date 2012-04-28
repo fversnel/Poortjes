@@ -65,7 +65,7 @@ class GateConnector(protected val resourceLoader: ResourceLoader, private val _p
 	protected val shape = resourceLoader.addResource("gate-connector.svg")
 }
 object Gate {
-	def build(resourceLoader: ResourceLoader): List[GameObject] = {
+	def build(resourceLoader: ResourceLoader): Gate = {
 		val gate = new Gate
 		gate.translate(300, 200)
 
@@ -79,6 +79,6 @@ object Gate {
 
 		gate.rotate(0.5f)
 
-		List(gate, gateEndBottom, gateEndTop, gateConnector)
+		gate
 	}
 }

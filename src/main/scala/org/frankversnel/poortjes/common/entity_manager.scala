@@ -16,10 +16,10 @@ class EntityManager private(val renderer: Renderer) extends Logging {
 			new ComponentProcessingManager
 		)
 
-    def spawn(gameObject: GameObject) {
-		gameObjects += gameObject
+    def spawn(newGameObject: GameObject) {
+		gameObjects += newGameObject
 
-		onGameObjectAndChildren(gameObject) { gameObject =>
+		onGameObjectAndChildren(newGameObject) { gameObject =>
 			val component = gameObject.asInstanceOf[Component]
 			componentManagers.foreach(_.addComponent(component))
 		}
@@ -42,7 +42,10 @@ class EntityManager private(val renderer: Renderer) extends Logging {
 
 	private def onGameObjectAndChildren(gameObject: GameObject)(apply: GameObject => Unit) {
 		apply(gameObject)
-		gameObject.children.foreach(onGameObjectAndChildren _)
+		logger.info(gameObject + " with children " + gameObject.children)
+		gameObject.children.foreach { childGameObject =>
+			onGameObjectAndChildren(childGameObject)(apply)
+		}
 	}
 }
 object EntityManager {

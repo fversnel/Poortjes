@@ -52,9 +52,8 @@ class Poortjes extends PApplet with Logging {
 		addKeyListener(playerTwo)
 		EntityManager().spawn(playerTwo)
 
-        val newGate = Gate.build(resourceLoader)
-        newGate.foreach(EntityManager().spawn(_))
-		gate = newGate(0).asInstanceOf[Gate]
+        gate = Gate.build(resourceLoader)
+		EntityManager().spawn(gate)
 	}
 
 	override def draw = {
