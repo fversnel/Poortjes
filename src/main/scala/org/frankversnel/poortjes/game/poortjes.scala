@@ -14,24 +14,17 @@ class Poortjes extends PApplet with Logging {
 	private val screenHeightPx = 400;
 	private val backgroundClr = 0;
 
-	private var newPlayer: Player = null
-	private var playerTwo: Player = null
-	private var gate: Gate = null
-
-	private var renderer: Renderer = null
-	private var resourceLoader: ProcessingShapeLoader = null
-
 	override def setup = {
-		logger.info("initializing Poortjes")
+		logger.info("initializing Poortjes...")
 
 		size(screenWithPx, screenHeightPx)
 		background(backgroundClr)
 
-		resourceLoader = new ProcessingShapeLoader(this)
-		renderer = new Processing2DRenderer(g, resourceLoader, backgroundClr)
+		val resourceLoader = new ProcessingShapeLoader(this)
+		val renderer = new Processing2DRenderer(g, resourceLoader, backgroundClr)
         EntityManager.initialize(renderer)
 
-		newPlayer = new Player(resourceLoader) {
+		val newPlayer = new Player(resourceLoader) {
 			//speed
 			val distanceInMs = 3f
 			val rotationInMs = 0.10f
@@ -42,7 +35,7 @@ class Poortjes extends PApplet with Logging {
 		addKeyListener(newPlayer)
 		EntityManager().spawn(newPlayer)
 
-        playerTwo = new Player(resourceLoader) {
+        val playerTwo = new Player(resourceLoader) {
 			//speed
 			val distanceInMs = 3f
 			val rotationInMs = 0.10f
@@ -52,8 +45,16 @@ class Poortjes extends PApplet with Logging {
 		addKeyListener(playerTwo)
 		EntityManager().spawn(playerTwo)
 
-        gate = Gate.build(resourceLoader)
+		val enemy = new Shepherd(resourceLoader)
+		enemy.translate(100, 50)
+		EntityManager().spawn(enemy)
+
+        val gate = Gate.build(resourceLoader)
 		EntityManager().spawn(gate)
+
+		val newGate = Gate.build(resourceLoader)
+		newGate.translate(-100, -200)
+		EntityManager().spawn(newGate)
 	}
 
 	override def draw = {

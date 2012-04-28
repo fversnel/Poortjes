@@ -11,17 +11,27 @@ import org.frankversnel.poortjes.resource_loading._
 import org.frankversnel.poortjes._
 
 abstract class Player(protected val resourceLoader: ResourceLoader)
-		extends GameObject with DrawableShape with Collidable with Moveable
+		extends DrawableShape with Collidable with Moveable
 		with Keyboard with Speed {
     protected val shape = resourceLoader.addResource("ship-red.svg")
 
 	override val dimension = (9, 13)
 }
 class Shepherd(protected val resourceLoader: ResourceLoader)
-        extends DrawableShape with Collidable {
+        extends DrawableShape with PlayerKiller {
     protected val shape = resourceLoader.addResource("shepherd.svg")
 
 	override val dimension = (10, 10)
+}
+
+trait PlayerKiller extends Collidable {
+	override def collidesWith(otherCollidable: Collidable): Boolean = {
+		val collision = super.collidesWith(otherCollidable)
+		if(collision && otherCollidable.is[Player]) {
+			otherCollidable.destroy
+		}
+		collision
+	}
 }
 
 
@@ -45,18 +55,10 @@ abstract class GateComponent(private val _parent: Gate)
 
 }
 class GateEnd(protected val resourceLoader: ResourceLoader, private val _parent: Gate)
-        extends GateComponent(_parent) {
+        extends GateComponent(_parent) with PlayerKiller {
 	val dimension = (10, 10)
 
 	protected val shape = resourceLoader.addResource("gate-end.svg")
-
-	override def collidesWith(otherCollidable: Collidable): Boolean = {
-		val collision = super.collidesWith(otherCollidable)
-		if(collision && otherCollidable.is[Player]) {
-			otherCollidable.destroy
-		}
-		collision
-	}
 }
 class GateConnector(protected val resourceLoader: ResourceLoader, private val _parent: Gate)
         extends GateComponent(_parent) {
