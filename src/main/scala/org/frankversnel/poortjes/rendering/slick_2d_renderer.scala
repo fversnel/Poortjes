@@ -39,7 +39,7 @@ class Slick2DRenderer(
 	}
 
 	private def drawShape(shape: Shape, component: Transform) (drawFunction: Shape => Unit) {
-		val transformedShape = shape.transform(Transform.slick(component))
+		val transformedShape = shape.transform(Transform.slickMatrix(component))
 		drawFunction(transformedShape)
 	}
 

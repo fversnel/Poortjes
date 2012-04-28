@@ -23,7 +23,7 @@ trait Collidable extends Transform with Dimension with Logging {
 
 	private def createBoundingBox(collidable: Collidable): Area = {
 		val boundingBox = new Area(new Rectangle2D.Float(0, 0, collidable.width, collidable.height));
-		boundingBox.transform(Transform.java(collidable));
+		boundingBox.transform(Transform.javaMatrix(collidable));
 		return boundingBox;
 	}
 }

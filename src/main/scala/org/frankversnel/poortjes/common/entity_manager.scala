@@ -1,6 +1,5 @@
 package org.frankversnel.poortjes
 
-import akka.stm._
 import org.slf4j.scala.Logging;
 
 import org.frankversnel.poortjes.rendering._;
@@ -13,12 +12,7 @@ class EntityManager private(val renderer: Renderer) extends Logging {
 			new RenderingManager(renderer)
 		)
 
-    private val gameObjects = Ref(List[GameObject]())
-
     def spawn(gameObject: GameObject) {
-        // add game object
-        gameObjects alter (gameObject :: _)
-
 		val component = gameObject.asInstanceOf[Component]
 		componentManagers.foreach(_.addComponent(component))
 	}

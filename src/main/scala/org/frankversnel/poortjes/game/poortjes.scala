@@ -1,8 +1,5 @@
 package org.frankversnel.poortjes.game;
 
-import akka.actor.Actor._
-import akka.actor.ActorRef
-import akka.util.duration._
 import org.slf4j.scala.Logging;
 import processing.core.PApplet;
 
@@ -47,32 +44,26 @@ class Poortjes extends PApplet with Logging {
 		addKeyListener(newPlayer)
 		EntityManager().spawn(newPlayer)
 
-        //playerTwo = new Player(resourceLoader) {
-		//	//speed
-		//	val distanceInMs = 3f
-		//	val rotationInMs = 0.10f
+        playerTwo = new Player(newPlayerResource) {
+			val dimension = (20, 20)
+			//speed
+			val distanceInMs = 3f
+			val rotationInMs = 0.10f
 
-		//	val keybindings = KeyboardBindings('i', 'k', 'j', 'l')
-        //}
-		//addKeyListener(playerTwo)
-		//EntityManager().spawn(playerTwo)
+			val keybindings = KeyboardBindings('i', 'k', 'j', 'l')
+        }
+		addKeyListener(playerTwo)
+		EntityManager().spawn(playerTwo)
 
-		//val shepherd = new Shepherd(resourceLoader)
-		//shepherd.translate(screenWithPx / 2, screenHeightPx / 2)
-		//EntityManager().spawn(shepherd)
-
-        //val newGate = Gate.build(resourceLoader)
-        //newGate.foreach(EntityManager().spawn(_))
-        //gate = newGate.head.asInstanceOf[Gate]
+        val newGate = Gate.build(resourceLoader)
+        newGate.foreach(EntityManager().spawn(_))
 	}
 
 	override def draw = {
-		newPlayer.draw(renderer)
-		//newPlayer.move
-		//playerTwo.move
-        //gate.move
+		newPlayer.move
+		playerTwo.move
 
-        //EntityManager().process
+        EntityManager().process
 	}
 }
 

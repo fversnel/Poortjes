@@ -2,43 +2,43 @@ apply plugin: 'scala'
 apply plugin: 'java'
 
 // Properties
-title='Poortjes'
 sourceCompatibility = 1.5
-version = '1.0-SNAPSHOT'
-mainClass='org.frankversnel.poortjes.game.PoortjesSlick'
-env = System.getenv()
-scalaHome = env['SCALA_HOME']
-libraryFolder = 'lib'
+version = "1.0-SNAPSHOT"
+ext.mainClass='org.frankversnel.poortjes.game.Poortjes'
+ext.env = System.getenv()
+ext.scalaHome = env['SCALA_HOME']
+ext.title='Poortjes'
+ext.libraryFolder = 'lib'
 
 defaultTasks 'clean', 'compileScala'
 
 dependencies {
 	scalaTools fileTree(dir: "$scalaHome/lib").matching { include '*.jar' }
-
+	
 	compile fileTree(dir: "$scalaHome/lib").matching { include 'scala-library.jar' }
 	compile files(fileTree(dir: libraryFolder, includes: ['*.jar'])) 
-
+	
 	runtime files(fileTree(dir: libraryFolder, includes: ['*.jar'])) 
+}
+
+compileScala {
+	//scalaCompileOptions.useCompileDaemon = true
 }
 
 sourceSets {
     main {
         scala {
-            srcDir 'src/main/'
+            srcDir 'src/main/scala'
         }
     }
 }
 
-compileScala {
-  //scalaCompileOptions.useCompileDaemon = true
-}
-
 jar {
-    manifest {
-        attributes 'Implementation-Title': title, 'Implementation-Version': version
-        attributes 'Main-Class': mainClass
-    }
-    dependsOn configurations.runtime
-    from { configurations.runtime.collect { it.isDirectory() ? it : zipTree(it) } }
+	manifest {
+		attributes 'Implementation-Title': title, 'Implementation-Version': version
+		attributes 'Main-Class': mainClass
+	}
+	dependsOn configurations.runtime
+	from { configurations.runtime.collect { it.isDirectory() ? it : zipTree(it) } }
 }
 

@@ -38,7 +38,7 @@ class Processing2DRenderer(
 	}
 
 	private def drawTransform(transform: Transform) (drawFunction: => Unit) {
-		graphics.setMatrix(Transform.processing(transform))
+		graphics.setMatrix(Transform.processingMatrix(transform))
 		graphics.pushMatrix
 
 		drawFunction
