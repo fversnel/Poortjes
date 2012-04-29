@@ -13,22 +13,19 @@ abstract class ComponentManager {
 	def removeComponent(component: Component) {
 		forComponent(component) (components -= _.asInstanceOf[T])
 	}
-	def removeComponents(components: List[Component]) {
-		components.foreach(removeComponent _)
-	}
 	def processComponents {
-		components.foreach(processComponent _)
+		components.toList.foreach(processComponent _)
 	}
 
 	protected def isCorrectType(component: Component): Boolean
 	protected def processComponent(component: T): Unit
 
-	protected def allComponents = components.readOnly
+	protected def allComponents = components.toList
 
     // Only processes the component if it is of type T
-    private def forComponent[T: Manifest](component: Component) (onComponent: Component => Unit) {
-        if(isCorrectType(component)) {
-            onComponent(component)
+    private def forComponent[T: Manifest](c: Component) (onComponent: Component => Unit) {
+        if(isCorrectType(c)) {
+            onComponent(c)
         }
     }
 }
