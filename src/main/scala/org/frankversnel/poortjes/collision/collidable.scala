@@ -15,7 +15,7 @@ trait Collidable extends Transform with Dimension with Logging {
 		val collision = ourBoundingBox.intersects(theirBoundingBox.getBounds2D)
 
 		if(collision) {
-			logger.info("collision")
+			//logger.info("collision")
 		}
 
         return collision

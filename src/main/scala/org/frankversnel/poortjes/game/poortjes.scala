@@ -24,7 +24,7 @@ class Poortjes extends PApplet with Logging {
 		val renderer = new Processing2DRenderer(g, resourceLoader, backgroundClr)
         EntityManager.initialize(renderer)
 
-		val newPlayer = new Player(resourceLoader) {
+		val newPlayer = new Player(resourceLoader) with Gamepad {
 			//speed
 			val distanceInMs = 3f
 			val rotationInMs = 0.10f
@@ -67,6 +67,6 @@ class Poortjes extends PApplet with Logging {
 	}
 }
 
-object Poortjes extends App {
+object Poortjes extends App with Logging {
 	PApplet.main(Array("org.frankversnel.poortjes.game.Poortjes"));
 }

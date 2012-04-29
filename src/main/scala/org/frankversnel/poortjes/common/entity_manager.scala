@@ -42,7 +42,6 @@ class EntityManager private(val renderer: Renderer) extends Logging {
 
 	private def onGameObjectAndChildren(gameObject: GameObject)(apply: GameObject => Unit) {
 		apply(gameObject)
-		logger.info(gameObject + " with children " + gameObject.children)
 		gameObject.children.foreach { childGameObject =>
 			onGameObjectAndChildren(childGameObject)(apply)
 		}
