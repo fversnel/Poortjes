@@ -16,6 +16,14 @@ abstract class Player(protected val resourceLoader: ResourceLoader)
     protected val shape = resourceLoader.addResource("ship-red.svg")
 
 	override val dimension = (9, 13)
+
+	override def collidesWith(otherCollidable: Collidable) = {
+		val collision = super.collidesWith(otherCollidable)
+		if(collision && otherCollidable.is[Candy]) {
+			otherCollidable.destroy
+		}
+		collision
+	}
 }
 class Shepherd(protected val resourceLoader: ResourceLoader)
         extends DrawableShape with PlayerKiller {
@@ -23,7 +31,7 @@ class Shepherd(protected val resourceLoader: ResourceLoader)
 
 	override val dimension = (5, 5)
 }
-class Candy(protected val resourceLoader: ResourceLoader) extends DrawableShape {
+class Candy(protected val resourceLoader: ResourceLoader) extends DrawableShape with Collidable {
 	protected val shape = resourceLoader.addResource("candy.svg")
 
 	override val dimension = (3, 3)
@@ -70,6 +78,15 @@ class GateConnector(protected val resourceLoader: ResourceLoader, private val _p
 	val dimension = (2, 50)
 
 	protected val shape = resourceLoader.addResource("gate-connector.svg")
+
+	override def collidesWith(otherCollidable: Collidable): Boolean = {
+		val collision = super.collidesWith(otherCollidable)
+		if(collision && otherCollidable.is[Player]) {
+			// TODO Spawn explosion
+			parent.get.destroy
+		}
+		collision
+	}
 }
 object Gate {
 	def build(resourceLoader: ResourceLoader): Gate = {
