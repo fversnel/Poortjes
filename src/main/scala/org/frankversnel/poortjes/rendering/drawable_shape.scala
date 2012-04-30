@@ -4,7 +4,7 @@ import org.frankversnel.poortjes.resource_loading._
 
 import org.frankversnel.poortjes._
 
-trait DrawableShape extends Drawable with Transform {
+trait DrawableShape extends Drawable {
     protected val resourceLoader: ResourceLoader
     protected val shape: ResourceId
 

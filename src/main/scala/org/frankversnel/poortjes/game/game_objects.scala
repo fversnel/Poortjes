@@ -13,7 +13,7 @@ import org.frankversnel.poortjes._
 abstract class Player(protected val resourceLoader: ResourceLoader)
 		extends DrawableShape with Collidable with Moveable
 		with Keyboard with Speed {
-    protected val shape = resourceLoader.addResource("ship-red.svg")
+    protected val shape = resourceLoader.addResource("ship-green.svg")
 
 	override val dimension = (9, 13)
 
