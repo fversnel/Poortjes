@@ -1,7 +1,5 @@
 package org.frankversnel.poortjes
 
-import org.frankversnel.poortjes._
-
 trait Color extends Component {
 	val color: (Int, Int, Int)
 

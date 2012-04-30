@@ -7,7 +7,7 @@ package org.frankversnel.poortjes.resource_loading
  * {@link ResourceLoader#addResource(String)} is called.
  */
 abstract class ResourceLoader {
-    type T
+	type T
 
 	private var resources = Map[ResourceId, T]()
 

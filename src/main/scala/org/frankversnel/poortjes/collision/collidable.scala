@@ -18,7 +18,7 @@ trait Collidable extends Transform with Dimension with Logging {
 			//logger.info("collision")
 		}
 
-        return collision
+		return collision
 	}
 
 	private def createBoundingBox(collidable: Collidable): Area = {

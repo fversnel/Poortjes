@@ -1,7 +1,7 @@
 package org.frankversnel.poortjes
 
 class ComponentProcessingManager extends ComponentManager {
-    type T = Component
+	type T = Component
 
 	protected def isCorrectType(component: Component) = component.isInstanceOf[Component]
 

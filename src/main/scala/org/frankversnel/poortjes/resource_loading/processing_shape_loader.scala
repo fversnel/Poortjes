@@ -4,7 +4,7 @@ import processing.core.PApplet;
 import processing.core.PShape;
 
 class ProcessingShapeLoader(private val pApplet: PApplet) extends ResourceLoader {
-    type T = PShape
+	type T = PShape
 
 	protected def loadResource(filePath: String) : T = {
 		val newShape = pApplet.loadShape(filePath);

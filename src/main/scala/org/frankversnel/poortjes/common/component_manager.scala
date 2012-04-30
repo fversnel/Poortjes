@@ -22,10 +22,10 @@ abstract class ComponentManager {
 
 	protected def allComponents = components.toList
 
-    // Only processes the component if it is of type T
-    private def forComponent[T: Manifest](c: Component) (onComponent: Component => Unit) {
-        if(isCorrectType(c)) {
-            onComponent(c)
-        }
-    }
+	// Only processes the component if it is of type T
+	private def forComponent[T: Manifest](c: Component) (onComponent: Component => Unit) {
+		if(isCorrectType(c)) {
+			onComponent(c)
+		}
+	}
 }

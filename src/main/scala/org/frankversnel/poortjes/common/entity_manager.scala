@@ -48,13 +48,13 @@ class EntityManager private(val renderer: Renderer) extends Logging {
 	}
 }
 object EntityManager {
-    var entityManager: Option[EntityManager] = None
-    def initialize(renderer: Renderer) {
-        entityManager = Some(new EntityManager(renderer))
-    }
+	var entityManager: Option[EntityManager] = None
+	def initialize(renderer: Renderer) {
+		entityManager = Some(new EntityManager(renderer))
+	}
 
-    def apply() = {
-        require(entityManager.isDefined, "Entity manager must be initialized first")
-        entityManager.get
-    }
+	def apply() = {
+		require(entityManager.isDefined, "Entity manager must be initialized first")
+		entityManager.get
+	}
 }

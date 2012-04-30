@@ -26,8 +26,8 @@ abstract class Player(protected val resourceLoader: ResourceLoader)
 	}
 }
 class Shepherd(protected val resourceLoader: ResourceLoader)
-        extends DrawableShape with PlayerKiller {
-    protected val shape = resourceLoader.addResource("shepherd.svg")
+		extends DrawableShape with PlayerKiller {
+	protected val shape = resourceLoader.addResource("shepherd.svg")
 
 	override val dimension = (5, 5)
 }
