@@ -6,7 +6,7 @@ import org.newdawn.slick.svg.InkscapeLoader
 class SlickSvgLoader extends ResourceLoader {
 	type T = Diagram
 
-	protected def loadResource(filePath: String) : T = {
+	protected def loadResource(filePath: String): T = {
 		try {
 			return InkscapeLoader.load(filePath)
 		} catch {

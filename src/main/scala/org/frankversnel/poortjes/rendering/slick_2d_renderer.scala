@@ -9,8 +9,8 @@ import org.frankversnel.poortjes._
 import org.frankversnel.poortjes.resource_loading._
 
 class Slick2DRenderer(
-		private val graphics: Graphics,
-		private val shapeLoader: SlickImageLoader) extends Renderer {
+	private val graphics: Graphics,
+	private val shapeLoader: SlickImageLoader) extends Renderer {
 
 	def drawRectangle(component: Drawable with Color) {
 		drawShapeWithColor(new Rectangle(0, 0, component.width, component.height), component)

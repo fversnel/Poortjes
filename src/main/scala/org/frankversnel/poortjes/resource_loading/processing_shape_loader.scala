@@ -6,13 +6,13 @@ import processing.core.PShape;
 class ProcessingShapeLoader(private val pApplet: PApplet) extends ResourceLoader {
 	type T = PShape
 
-	protected def loadResource(filePath: String) : T = {
+	protected def loadResource(filePath: String): T = {
 		val newShape = pApplet.loadShape(filePath);
 
 		return if(newShape != null) {
 			newShape
 		} else {
-            throw new ResourceNotFoundException(filePath)
+			throw new ResourceNotFoundException(filePath)
 		}
 	}
 

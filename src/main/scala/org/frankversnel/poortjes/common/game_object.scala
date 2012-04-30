@@ -5,8 +5,9 @@ abstract class GameObject {
 	private var _parent: Option[GameObject] = None
 	private var _children: List[GameObject] = Nil
 
-	var isDestroyed = false
-	def destroy = isDestroyed = true
+	private var _isDestroyed = false
+	def destroy = _isDestroyed = true
+	def isDestroyed = _isDestroyed
 
 	def as[A: Manifest]: Option[A] = {
 		if (is[A]) {
@@ -18,7 +19,7 @@ abstract class GameObject {
 
 	def is[A: Manifest]: Boolean = {
 		Manifest.singleType(this) <:< manifest[A]
-    }
+	}
 
 	def parent = _parent
 	protected def setParent(newParent: GameObject) {
