@@ -24,7 +24,7 @@ abstract class ResourceLoader {
 			resources += resourceId -> loadResource(filePath)
 		}
 
-		return resourceId
+		resourceId
 	}
 
 	/**
@@ -35,11 +35,7 @@ abstract class ResourceLoader {
 	 */
 	def getResource(id: ResourceId): T = {
 		val resource = resources.get(id);
-
-		resource match {
-			case Some(x) => return x
-			case None => throw new ResourceNotLoadedException(id)
-		}
+		resource.getOrElse(throw new ResourceNotLoadedException(id))
 	}
 
 	/**
