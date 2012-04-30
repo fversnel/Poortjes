@@ -41,10 +41,10 @@ trait Keyboard extends Component with KeyListener with Logging {
 
 	private def setSpeed(keyPressed: Char, speedAmount: Int) = {
 		keyPressed match {
-			case keybindings.keyForward => speed.moveSpeed(speedAmount)
-			case keybindings.keyBackward => speed.moveSpeed(-speedAmount)
-			case keybindings.keyLeft => speed.rotationSpeed(-speedAmount)
-			case keybindings.keyRight => speed.rotationSpeed(speedAmount)
+			case keybindings.keyForward => speed.moveSpeed = (0, speedAmount)
+			case keybindings.keyBackward => speed.moveSpeed = (0, -speedAmount)
+			case keybindings.keyLeft => speed.rotationSpeed = -speedAmount
+			case keybindings.keyRight => speed.rotationSpeed = speedAmount
 			case _ => // Do nothing
 		}
 	}

@@ -47,8 +47,8 @@ class Gate extends Transform with Speed with Moveable {
 	val rotationInMs = 0.01f
 
 	override def move {
-		moveSpeed(math.random.toFloat)
-		rotationSpeed(1f)
+		moveSpeed = (math.random.toFloat, math.random.toFloat)
+		rotationSpeed = 1f
 
 		super.move
 	}

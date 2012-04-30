@@ -7,7 +7,7 @@ import org.frankversnel.poortjes._
 trait Moveable extends Component with Logging {
 	self: Speed with Transform =>
 
-	abstract override def process {
+	override def process {
 		super.process
 		move
 	}
@@ -16,6 +16,6 @@ trait Moveable extends Component with Logging {
 		//logger.info("Speeding at: " + self.distanceSpeed + ", " + self.rotationSpeed)
 
 		self.rotate(self.rotationSpeed);
-		self.translate(0, -self.distanceSpeed);
+		self.translate(self.moveSpeed.getX, -self.moveSpeed.getY);
 	}
 }

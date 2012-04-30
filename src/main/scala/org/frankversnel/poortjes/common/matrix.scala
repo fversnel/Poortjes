@@ -15,6 +15,7 @@ class Matrix2D private(private val matrix: AffineTransform) {
 	val m11 = flatMatrix(3)
 	val m02 = flatMatrix(4)
 	val m12 = flatMatrix(5)
+	val translation = (m02, m12)
 
 	def translate(x: Float, y: Float): Matrix2D = newMatrix(AffineTransform.getTranslateInstance(x, y))
 	def rotate(theta: Float): Matrix2D = newMatrix(AffineTransform.getRotateInstance(theta))
