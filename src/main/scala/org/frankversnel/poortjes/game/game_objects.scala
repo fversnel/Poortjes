@@ -94,7 +94,6 @@ class GateConnector(protected val resourceLoader: ResourceLoader, private val _p
 object Gate {
 	def build(resourceLoader: ResourceLoader): Gate = {
 		val gate = new Gate
-		gate.translate(300, 200)
 
 		val gateEndTop = new GateEnd(resourceLoader, gate)
 		gateEndTop.rotate((Pi / 2).toFloat)
@@ -103,8 +102,6 @@ object Gate {
 		val gateEndBottom = new GateEnd(resourceLoader, gate)
 		gateEndBottom.translate(0, 60)
 		gateEndBottom.rotate((Pi + (Pi / 2)).toFloat)
-
-		gate.rotate(0.5f)
 
 		gate
 	}
@@ -121,7 +118,18 @@ class Explosion(val x: Float, val y:Float) extends Drawable with Color with Coll
 		super.process
 
 		val elapsedTime = (System.currentTimeMillis - spawnTime).toInt
-		scale(1.01f, 1.01f)
+		if(elapsedTime > 1000) {
+			this.destroy
+		}
+		scale(1.06f, 1.06f)
+	}
+
+	override def collidesWith(otherCollidable: Collidable): Boolean = {
+		val collision = super.collidesWith(otherCollidable)
+		if(collision && otherCollidable.is[Shepherd]) {
+			otherCollidable.destroy
+		}
+		collision
 	}
 
 	override def draw(renderer: Renderer) {

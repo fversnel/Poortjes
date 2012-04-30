@@ -56,9 +56,13 @@ class Poortjes extends PApplet with Logging {
 
         val gate = Gate.build(resourceLoader)
 		EntityManager().spawn(gate)
+		gate.translate(300, 200)
+		val newEnemy = new Shepherd(resourceLoader)
+		newEnemy.translate(300, 200)
+		EntityManager().spawn(newEnemy)
 
 		val newGate = Gate.build(resourceLoader)
-		newGate.translate(-100, -200)
+		newGate.translate(100, 200)
 		EntityManager().spawn(newGate)
 	}
 
