@@ -83,6 +83,9 @@ class GateConnector(protected val resourceLoader: ResourceLoader, private val _p
 		val collision = super.collidesWith(otherCollidable)
 		if(collision && otherCollidable.is[Player]) {
 			// TODO Spawn explosion
+			val explosionX = matrixStack.translation._1
+			val explosionY = matrixStack.translation._2
+			EntityManager().spawn(new Explosion(explosionX, explosionY))
 			parent.get.destroy
 		}
 		collision
@@ -104,5 +107,24 @@ object Gate {
 		gate.rotate(0.5f)
 
 		gate
+	}
+}
+
+class Explosion(val x: Float, val y:Float) extends Drawable with Color with Collidable {
+	val color = Color.red
+	val dimension = (5, 5)
+	translate(x,y)
+
+	val spawnTime = System.currentTimeMillis
+
+	override def process {
+		super.process
+
+		val elapsedTime = (System.currentTimeMillis - spawnTime).toInt
+		scale(1.01f, 1.01f)
+	}
+
+	override def draw(renderer: Renderer) {
+		renderer.drawCircle(this)
 	}
 }
