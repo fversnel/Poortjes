@@ -20,6 +20,9 @@ class Matrix2D private(private val matrix: AffineTransform) {
 	def translate(x: Float, y: Float): Matrix2D = newMatrix(AffineTransform.getTranslateInstance(x, y))
 	def rotate(theta: Float): Matrix2D = newMatrix(AffineTransform.getRotateInstance(theta))
 	def scale(x: Float, y: Float): Matrix2D = newMatrix(AffineTransform.getScaleInstance(x, y))
+	def setToScale(x: Float, y: Float): Matrix2D = {
+		newMatrix(AffineTransform.getScaleInstance(x, y))
+	}
 	def concatenate(otherMatrix: Matrix2D): Matrix2D = newMatrix(otherMatrix.matrix)
 
 	private def newMatrix(transformation: => AffineTransform): Matrix2D = {

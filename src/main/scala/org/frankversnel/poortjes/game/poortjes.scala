@@ -36,7 +36,7 @@ class Poortjes extends PApplet with Logging {
 		addKeyListener(newPlayer)
 		EntityManager().spawn(newPlayer)
 
-        val playerTwo = new Player(resourceLoader) with Gamepad {
+        val playerTwo = new Player(resourceLoader) {
 			//speed
 			val distanceInMs = 3f
 			val rotationInMs = 0.10f

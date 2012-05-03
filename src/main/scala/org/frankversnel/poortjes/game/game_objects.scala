@@ -1,12 +1,14 @@
 package org.frankversnel.poortjes.game
 
 import scala.math._
+import org.slf4j.scala.Logging;
 
 import org.frankversnel.poortjes.rendering._
 import org.frankversnel.poortjes.collision._
 import org.frankversnel.poortjes.moving._
 import org.frankversnel.poortjes.input._
 import org.frankversnel.poortjes.resource_loading._
+import org.frankversnel.poortjes.util.DeltaTime
 
 import org.frankversnel.poortjes._
 
@@ -54,12 +56,8 @@ class Gate extends Transform with Speed with Moveable {
 	val distanceInMs = 0.3f
 	val rotationInMs = 0.01f
 
-	override def move {
-		moveSpeed = (math.random.toFloat, math.random.toFloat)
-		rotationSpeed = 1f
-
-		super.move
-	}
+	moveSpeed = (math.random.toFloat, math.random.toFloat)
+	rotationSpeed = math.random.toFloat
 }
 abstract class GateComponent(private val _parent: Gate)
 		extends DrawableShape with Collidable {
@@ -82,7 +80,6 @@ class GateConnector(protected val resourceLoader: ResourceLoader, private val _p
 	override def collidesWith(otherCollidable: Collidable): Boolean = {
 		val collision = super.collidesWith(otherCollidable)
 		if(collision && otherCollidable.is[Player]) {
-			// TODO Spawn explosion
 			val explosionX = matrixStack.translation._1
 			val explosionY = matrixStack.translation._2
 			EntityManager().spawn(new Explosion(explosionX, explosionY))
@@ -107,21 +104,22 @@ object Gate {
 	}
 }
 
-class Explosion(val x: Float, val y:Float) extends Drawable with Color with Collidable {
+class Explosion(private val x: Float, private val y:Float) extends Drawable with Color with Collidable 
+		with TimeBasedLife with Logging {
 	val color = Color.red
-	val dimension = (5, 5)
+	val dimension = (1, 1)
+
+	protected val maxTimeAliveMillis = 500
+	private val targetRadius = 100f
+
 	translate(x,y)
 
-	val spawnTime = System.currentTimeMillis
+	override def process(deltaTime: DeltaTime) {
+		super.process(deltaTime)
 
-	override def process {
-		super.process
-
-		val elapsedTime = (System.currentTimeMillis - spawnTime).toInt
-		if(elapsedTime > 1000) {
-			this.destroy
-		}
-		scale(1.06f, 1.06f)
+		val actualRadius = targetRadius * timeToLive
+		logger.info("radius " + actualRadius)
+		setToScale(actualRadius, actualRadius)
 	}
 
 	override def collidesWith(otherCollidable: Collidable): Boolean = {

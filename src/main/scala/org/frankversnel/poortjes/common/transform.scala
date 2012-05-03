@@ -5,6 +5,7 @@ trait Transform extends Dimension {
 
 	def translate(x: Float, y: Float): Unit = matrix = matrix.translate(x, y)
 	def scale(x: Float, y: Float): Unit = matrix = matrix.scale(x, y)
+	def setToScale(x: Float, y: Float): Unit = matrix = matrix.setToScale(x, y)
 	def rotate(theta: Float): Unit = {
 		// To rotate around its own axis we need to put it in local space then rotate and put it
 		// back in global space.
