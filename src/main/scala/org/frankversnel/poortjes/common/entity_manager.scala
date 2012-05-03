@@ -5,6 +5,7 @@ import org.slf4j.scala.Logging;
 
 import org.frankversnel.poortjes.rendering._;
 import org.frankversnel.poortjes.collision._
+import org.frankversnel.poortjes.util.DeltaTime
 
 class EntityManager private(val renderer: Renderer) extends Logging {
 
@@ -25,8 +26,8 @@ class EntityManager private(val renderer: Renderer) extends Logging {
 		}
 	}
 
-    def process {
-		componentManagers.foreach(_.processComponents)
+    def process(deltaTime: DeltaTime) {
+		componentManagers.foreach(_.processComponents(deltaTime))
     }
 
 	def cleanUp {

@@ -2,6 +2,8 @@ package org.frankversnel.poortjes
 
 import scala.collection.mutable.ListBuffer
 
+import org.frankversnel.poortjes.util.DeltaTime
+
 abstract class ComponentManager {
 	type T
 
@@ -13,12 +15,12 @@ abstract class ComponentManager {
 	def removeComponent(component: Component) {
 		forComponent(component) (components -= _.asInstanceOf[T])
 	}
-	def processComponents {
-		components.toList.foreach(processComponent _)
+	def processComponents(deltaTime: DeltaTime) {
+		components.toList.foreach(processComponent(_, deltaTime))
 	}
 
 	protected def isCorrectType(component: Component): Boolean
-	protected def processComponent(component: T): Unit
+	protected def processComponent(component: T, deltaTime: DeltaTime): Unit
 
 	protected def allComponents = components.toList
 

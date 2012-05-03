@@ -8,6 +8,7 @@ import org.frankversnel.poortjes.rendering._;
 import org.frankversnel.poortjes.collision._;
 import org.frankversnel.poortjes.input._;
 import org.frankversnel.poortjes.resource_loading._;
+import org.frankversnel.poortjes.util._;
 
 class Poortjes extends PApplet with Logging {
 	private val screenWithPx = 400;
@@ -66,8 +67,13 @@ class Poortjes extends PApplet with Logging {
 		EntityManager().spawn(newGate)
 	}
 
+	var oldTime = 0
 	override def draw = {
-        EntityManager().process
+		val newTime = millis
+		val deltaMillis = (newTime - oldTime)
+		oldTime = newTime
+
+        EntityManager().process(DeltaTime(deltaMillis))
         EntityManager().cleanUp
 	}
 }

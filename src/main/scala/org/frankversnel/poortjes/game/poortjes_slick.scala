@@ -56,7 +56,7 @@ class PoortjesSlick extends BasicGame("Poortjes") {
 	}
 
     override def render(container: GameContainer, g: Graphics): Unit = {
-		EntityManager().process
+		//EntityManager().process
 	}
 
 }
