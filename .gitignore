@@ -1,9 +1,3 @@
-dist/
-bin/
 build/
 .gradle/
-depcache/
-log/
 *.swp
-*.class
-*.log
