@@ -22,9 +22,9 @@ abstract class GameObject {
 	}
 
 	def parent = _parent
-	protected def setParent(newParent: GameObject) {
-		_parent = Option(newParent)
-		newParent.addChild(this)
+	def parent_= (value: GameObject): Unit = {
+		_parent = Option(value)
+		_parent.get.addChild(this)
 	}
 
 	def children = _children

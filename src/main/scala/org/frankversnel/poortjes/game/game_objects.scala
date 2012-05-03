@@ -57,12 +57,12 @@ class Gate extends Transform with Speed with Moveable {
 	val rotationInMs = 0.01f
 
 	moveSpeed = (math.random.toFloat, math.random.toFloat)
-	rotationSpeed = math.random.toFloat
+	rotationSpeed = 1f
 }
 abstract class GateComponent(private val _parent: Gate)
 		extends DrawableShape with Collidable {
 
-	setParent(_parent)
+	parent = _parent
 
 }
 class GateEnd(protected val resourceLoader: ResourceLoader, private val _parent: Gate)
@@ -107,7 +107,7 @@ object Gate {
 class Explosion(private val x: Float, private val y:Float) extends Drawable with Color with Collidable 
 		with TimeBasedLife with Logging {
 	val color = Color.red
-	val dimension = (1, 1)
+	val dimension = (100, 100)
 
 	protected val maxTimeAliveMillis = 500
 	private val targetRadius = 100f
@@ -119,7 +119,7 @@ class Explosion(private val x: Float, private val y:Float) extends Drawable with
 
 		val actualRadius = targetRadius * timeToLive
 		logger.info("radius " + actualRadius)
-		setToScale(actualRadius, actualRadius)
+		//setToScale(actualRadius, actualRadius)
 	}
 
 	override def collidesWith(otherCollidable: Collidable): Boolean = {
