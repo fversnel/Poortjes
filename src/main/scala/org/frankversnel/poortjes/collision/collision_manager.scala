@@ -10,6 +10,8 @@ class CollisionManager extends ComponentManager {
 		val otherComponents = allComponents.filterNot(_ equals collidable)
 
 		otherComponents.foreach { otherCollidable =>
+			// TODO Check which components the collidable collides with
+			// collidable.checkCollidesWith
 			collidable collidesWith otherCollidable
 		}
 	}

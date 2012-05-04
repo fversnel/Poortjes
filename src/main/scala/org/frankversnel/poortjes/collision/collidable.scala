@@ -16,10 +16,13 @@ trait Collidable extends Transform with Dimension with Logging {
 
 		if(collision) {
 			//logger.info("collision")
+			onCollision(otherCollidable)
 		}
 
 		return collision
 	}
+
+	protected def onCollision(collider: GameObject): Unit
 
 	private def createBoundingBox(collidable: Collidable): Area = {
 		val boundingBox = new Area(new Rectangle2D.Float(0, 0, collidable.width, collidable.height));

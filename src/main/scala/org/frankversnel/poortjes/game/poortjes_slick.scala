@@ -37,18 +37,6 @@ class PoortjesSlick extends BasicGame("Poortjes") {
 		newPlayer.translate(150, 150)
 		container.getInput().addKeyListener(newPlayer)
 		EntityManager().spawn(newPlayer)
-
-		renderable = new GameObject with Drawable with Color with Collidable {
-			val dimension = (50, 50)
-			val color = Color.red
-			translate(200, 200)
-			rotate(20f)
-
-			def draw(renderer: Renderer): Unit = {
-				renderer.drawCircle(this)
-			}
-		}
-		EntityManager().spawn(renderable)
     }
 
     override def update(container: GameContainer, delta: Int): Unit = {

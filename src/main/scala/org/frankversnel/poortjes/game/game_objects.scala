@@ -19,12 +19,10 @@ abstract class Player(protected val resourceLoader: ResourceLoader)
 
 	override val dimension = (9, 13)
 
-	override def collidesWith(otherCollidable: Collidable) = {
-		val collision = super.collidesWith(otherCollidable)
-		if(collision && otherCollidable.is[Candy]) {
-			otherCollidable.destroy
+	def onCollision(collider: GameObject) {
+		if(collider.is[Candy]) {
+			collider.destroy
 		}
-		collision
 	}
 }
 class Shepherd(protected val resourceLoader: ResourceLoader)
@@ -37,15 +35,17 @@ class Candy(protected val resourceLoader: ResourceLoader) extends DrawableShape 
 	protected val shape = resourceLoader.addResource("candy.svg")
 
 	override val dimension = (3, 3)
+
+	def onCollision(collider: GameObject) {
+		// Do nothing
+	}
 }
 
 trait PlayerKiller extends Collidable {
-	override def collidesWith(otherCollidable: Collidable): Boolean = {
-		val collision = super.collidesWith(otherCollidable)
-		if(collision && otherCollidable.is[Player]) {
-			otherCollidable.destroy
+	def onCollision(collider: GameObject) {
+		if(collider.is[Player]) {
+			collider.destroy
 		}
-		collision
 	}
 }
 
@@ -63,7 +63,6 @@ abstract class GateComponent(private val _parent: Gate)
 		extends DrawableShape with Collidable {
 
 	parent = _parent
-
 }
 class GateEnd(protected val resourceLoader: ResourceLoader, private val _parent: Gate)
         extends GateComponent(_parent) with PlayerKiller {
@@ -77,15 +76,13 @@ class GateConnector(protected val resourceLoader: ResourceLoader, private val _p
 
 	protected val shape = resourceLoader.addResource("gate-connector.svg")
 
-	override def collidesWith(otherCollidable: Collidable): Boolean = {
-		val collision = super.collidesWith(otherCollidable)
-		if(collision && otherCollidable.is[Player]) {
+	def onCollision(collider: GameObject) {
+		if(collider.is[Player]) {
 			val explosionX = matrixStack.translation._1
 			val explosionY = matrixStack.translation._2
 			EntityManager().spawn(new Explosion(explosionX, explosionY))
 			parent.get.destroy
 		}
-		collision
 	}
 }
 object Gate {
@@ -104,7 +101,7 @@ object Gate {
 	}
 }
 
-class Explosion(private val x: Float, private val y:Float) extends Drawable with Color with Collidable 
+class Explosion(private val translation: Tuple2[Float, Float]) extends Drawable with Color with Collidable 
 		with TimeBasedLife with Logging {
 	val color = Color.red
 	val dimension = (100, 100)
@@ -112,7 +109,7 @@ class Explosion(private val x: Float, private val y:Float) extends Drawable with
 	protected val maxTimeAliveMillis = 500
 	private val targetRadius = 100f
 
-	translate(x,y)
+	translate(translation._1,translation._2)
 
 	override def process(deltaTime: DeltaTime) {
 		super.process(deltaTime)
@@ -122,12 +119,10 @@ class Explosion(private val x: Float, private val y:Float) extends Drawable with
 		//setToScale(actualRadius, actualRadius)
 	}
 
-	override def collidesWith(otherCollidable: Collidable): Boolean = {
-		val collision = super.collidesWith(otherCollidable)
-		if(collision && otherCollidable.is[Shepherd]) {
-			otherCollidable.destroy
+	def onCollision(collider: GameObject) {
+		if(collider.is[Shepherd]) {
+			collider.destroy
 		}
-		collision
 	}
 
 	override def draw(renderer: Renderer) {
