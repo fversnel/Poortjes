@@ -4,7 +4,7 @@ import org.frankversnel.poortjes.Component
 import org.frankversnel.poortjes.util.DeltaTime
 
 /**
- * When this component is attached to a game object that game object will surely die in exactly
+ * When this component is attached to a game object that game object will surely die in
  * the specified maxTimeAliveMillis length.
  */
 trait TimeBasedLife extends Component {

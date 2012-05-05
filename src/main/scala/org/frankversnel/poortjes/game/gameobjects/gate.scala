@@ -20,13 +20,13 @@ class Gate extends Transform with Speed with Moveable {
 	rotationSpeed = 1f
 }
 class GateEnd(protected val resourceLoader: ResourceLoader)
-        extends DrawableShape with PlayerKiller {
+		extends DrawableShape with PlayerKiller {
 	var dimension = (10, 10)
 
 	protected val shape = resourceLoader.addResource("gate-end.svg")
 }
 class GateConnector(protected val resourceLoader: ResourceLoader)
-        extends DrawableShape with Collidable {
+		extends DrawableShape with Collidable {
 	var dimension = (2, 50)
 
 	protected val shape = resourceLoader.addResource("gate-connector.svg")

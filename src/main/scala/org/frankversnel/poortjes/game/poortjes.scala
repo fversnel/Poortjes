@@ -24,7 +24,7 @@ class Poortjes extends PApplet with Logging {
 
 		val resourceLoader = new ProcessingShapeLoader(this)
 		val renderer = new Processing2DRenderer(g, resourceLoader, backgroundClr)
-        EntityManager.initialize(renderer)
+		EntityManager.initialize(renderer)
 
 		val newPlayer = new Player(resourceLoader) with Keyboard {
 			val keybindings = KeyboardBindings('w', 's', 'a', 'd')
@@ -33,9 +33,9 @@ class Poortjes extends PApplet with Logging {
 		addKeyListener(newPlayer)
 		EntityManager().spawn(newPlayer)
 
-        val playerTwo = new Player(resourceLoader) with Keyboard {
+		val playerTwo = new Player(resourceLoader) with Keyboard {
 			val keybindings = KeyboardBindings('i', 'k', 'j', 'l')
-        }
+		}
 		playerTwo.translate(screenWithPx / 2, screenHeightPx / 2)
 		addKeyListener(playerTwo)
 		//EntityManager().spawn(playerTwo)
@@ -48,7 +48,7 @@ class Poortjes extends PApplet with Logging {
 		candy.translate(50, 50)
 		EntityManager().spawn(candy)
 
-        val gate = Gate.build(resourceLoader)
+		val gate = Gate.build(resourceLoader)
 		EntityManager().spawn(gate)
 		gate.translate(300, 200)
 		val newEnemy = new Shepherd(resourceLoader)
@@ -66,8 +66,8 @@ class Poortjes extends PApplet with Logging {
 		val deltaMillis = (newTime - oldTime)
 		oldTime = newTime
 
-        EntityManager().process(DeltaTime(deltaMillis))
-        EntityManager().cleanUp
+		EntityManager().process(DeltaTime(deltaMillis))
+		EntityManager().cleanUp
 	}
 }
 

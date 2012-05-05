@@ -14,7 +14,7 @@ abstract class Player(protected val resourceLoader: ResourceLoader)
 	val distanceInMs = 3f
 	val rotationInMs = 0.10f
 
-    protected val shape = resourceLoader.addResource("ship-green.svg")
+	protected val shape = resourceLoader.addResource("ship-green.svg")
 
 	var dimension = (9, 13)
 
