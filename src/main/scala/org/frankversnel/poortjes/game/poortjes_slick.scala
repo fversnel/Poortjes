@@ -1,16 +1,17 @@
 package org.frankversnel.poortjes.game
 
-import org.slf4j.scala.Logging;
-import org.newdawn.slick.BasicGame;
-import org.newdawn.slick.AppGameContainer;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
+import org.slf4j.scala.Logging
+import org.newdawn.slick.BasicGame
+import org.newdawn.slick.AppGameContainer
+import org.newdawn.slick.GameContainer
+import org.newdawn.slick.Graphics
 
-import org.frankversnel.poortjes._;
-import org.frankversnel.poortjes.rendering._;
-import org.frankversnel.poortjes.resource_loading._;
-import org.frankversnel.poortjes.input._;
-import org.frankversnel.poortjes.collision._;
+import org.frankversnel.poortjes._
+import org.frankversnel.poortjes.rendering._
+import org.frankversnel.poortjes.resource_loading._
+import org.frankversnel.poortjes.input._
+import org.frankversnel.poortjes.collision._
+import org.frankversnel.poortjes.game.gameobjects._
 
 class PoortjesSlick extends BasicGame("Poortjes") {
 

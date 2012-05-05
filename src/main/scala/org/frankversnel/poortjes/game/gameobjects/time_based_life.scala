@@ -1,10 +1,10 @@
-package org.frankversnel.poortjes.game
+package org.frankversnel.poortjes.game.gameobjects
 
 import org.frankversnel.poortjes.Component
 import org.frankversnel.poortjes.util.DeltaTime
 
 /**
- * When this component is attached to a game object that game object will surely die in exactly 
+ * When this component is attached to a game object that game object will surely die in exactly
  * the specified maxTimeAliveMillis length.
  */
 trait TimeBasedLife extends Component {
@@ -26,5 +26,3 @@ trait TimeBasedLife extends Component {
 	protected def timeToLive: Float = timeAliveMillis.toFloat / maxTimeAliveMillis.toFloat
 
 }
-
-// vim: set ts=4
