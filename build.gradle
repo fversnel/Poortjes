@@ -36,5 +36,6 @@ jar {
 }
 
 run {
-	systemProperties['java.library.path'] = './lib/natives/linux'
+	def os = System.getProperty("os.name").toLowerCase()
+	systemProperties['java.library.path'] = './lib/natives/' + os
 }
