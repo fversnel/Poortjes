@@ -34,6 +34,7 @@ class Shepherd(protected val resourceLoader: ResourceLoader)
 	//speed
 	val distanceInMs = 1f
 	val rotationInMs = 0.10f
+	moveSpeed = (1, 0)
 
 	protected val shape = resourceLoader.addResource("shepherd.svg")
 
@@ -50,12 +51,15 @@ class Shepherd(protected val resourceLoader: ResourceLoader)
 		if (playerToFollow.isDefined) {
 			val playerTranslation = playerToFollow.get.as[Transform].get.translation
 			val angleToTarget = atan2(playerTranslation._2 - translation._2, playerTranslation._1 -	translation._1)
-			logger.info("angle to target " + angleToTarget)
-			rotationSpeed = angleToTarget.toFloat
+			logger.info("angle to target: " + angleToTarget)
+			val rotationAngle = angleToTarget - angle
+			logger.info("rotation angle: " + angleToTarget)
+			rotationSpeed = rotationAngle
 		}
 	}
 
 	private implicit def floatToDouble(x: Float): Double = x.toDouble
+	private implicit def doubleToFloat(x: Double): Float = x.toFloat
 }
 class Candy(protected val resourceLoader: ResourceLoader) extends DrawableShape with Collidable {
 	protected val shape = resourceLoader.addResource("candy.svg")

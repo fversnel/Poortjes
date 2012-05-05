@@ -1,12 +1,18 @@
 package org.frankversnel.poortjes
 
+import scala.math.Pi
+
 trait Transform extends Dimension {
 	private var matrix = Matrix2D()
+
+	private var _angle = 0f
+	def angle = _angle
 
 	def translate(x: Float, y: Float): Unit = matrix = matrix.translate(x, y)
 	def translation = matrix.translation
 	def scale(x: Float, y: Float): Unit = matrix = matrix.scale(x, y)
 	def rotate(theta: Float): Unit = {
+		_angle += theta % (2 * Pi).toFloat
 		// To rotate around its own axis we need to put it in local space then rotate and put it
 		// back in global space.
 		matrix = matrix.translate(width / 2, height / 2)

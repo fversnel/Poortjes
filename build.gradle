@@ -26,14 +26,6 @@ compileScala {
 	//scalaCompileOptions.useCompileDaemon = true
 }
 
-sourceSets {
-    main {
-        scala {
-            srcDir 'src/main/scala'
-        }
-    }
-}
-
 jar {
 	manifest {
 		attributes 'Implementation-Title': title, 'Implementation-Version': version
