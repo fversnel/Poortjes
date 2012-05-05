@@ -26,11 +26,11 @@ class Poortjes extends PApplet with Logging {
 		val renderer = new Processing2DRenderer(g, resourceLoader, backgroundClr)
 		EntityManager.initialize(renderer)
 
-		val newPlayer = new Player(resourceLoader) with Keyboard {
-			val keybindings = KeyboardBindings('w', 's', 'a', 'd')
+		val newPlayer = new Player(resourceLoader) with Gamepad {
+			//val keybindings = KeyboardBindings('w', 's', 'a', 'd')
 		}
 		newPlayer.translate(screenWithPx / 3, screenHeightPx / 3)
-		addKeyListener(newPlayer)
+		//addKeyListener(newPlayer)
 		EntityManager().spawn(newPlayer)
 
 		val playerTwo = new Player(resourceLoader) with Keyboard {
