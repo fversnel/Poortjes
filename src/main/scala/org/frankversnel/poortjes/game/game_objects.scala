@@ -17,7 +17,7 @@ abstract class Player(protected val resourceLoader: ResourceLoader)
 		with Keyboard with Speed {
     protected val shape = resourceLoader.addResource("ship-green.svg")
 
-	override val dimension = (9, 13)
+	var dimension = (9, 13)
 
 	def onCollision(collider: GameObject) {
 		if(collider.is[Candy]) {
@@ -29,12 +29,12 @@ class Shepherd(protected val resourceLoader: ResourceLoader)
 		extends DrawableShape with PlayerKiller {
 	protected val shape = resourceLoader.addResource("shepherd.svg")
 
-	override val dimension = (5, 5)
+	var dimension = (5, 5)
 }
 class Candy(protected val resourceLoader: ResourceLoader) extends DrawableShape with Collidable {
 	protected val shape = resourceLoader.addResource("candy.svg")
 
-	override val dimension = (3, 3)
+	var dimension = (3, 3)
 
 	def onCollision(collider: GameObject) {
 		// Do nothing
@@ -51,7 +51,7 @@ trait PlayerKiller extends Collidable {
 
 
 class Gate extends Transform with Speed with Moveable {
-	val dimension = (10, 70)
+	var dimension = (10, 70)
 
 	val distanceInMs = 0.3f
 	val rotationInMs = 0.01f
@@ -66,13 +66,13 @@ abstract class GateComponent(private val _parent: Gate)
 }
 class GateEnd(protected val resourceLoader: ResourceLoader, private val _parent: Gate)
         extends GateComponent(_parent) with PlayerKiller {
-	val dimension = (10, 10)
+	var dimension = (10, 10)
 
 	protected val shape = resourceLoader.addResource("gate-end.svg")
 }
 class GateConnector(protected val resourceLoader: ResourceLoader, private val _parent: Gate)
         extends GateComponent(_parent) {
-	val dimension = (2, 50)
+	var dimension = (2, 50)
 
 	protected val shape = resourceLoader.addResource("gate-connector.svg")
 
@@ -101,13 +101,13 @@ object Gate {
 	}
 }
 
-class Explosion(private val translation: Tuple2[Float, Float]) extends Drawable with Color with Collidable 
+class Explosion(private val translation: Tuple2[Float, Float]) extends Drawable with Color with Collidable
 		with TimeBasedLife with Logging {
 	val color = Color.red
-	val dimension = (100, 100)
+	var dimension = (1, 1)
 
 	protected val maxTimeAliveMillis = 500
-	private val targetRadius = 100f
+	private val targetRadius = 130f
 
 	translate(translation._1,translation._2)
 
@@ -116,7 +116,7 @@ class Explosion(private val translation: Tuple2[Float, Float]) extends Drawable 
 
 		val actualRadius = targetRadius * timeToLive
 		logger.info("radius " + actualRadius)
-		//setToScale(actualRadius, actualRadius)
+		dimension = (actualRadius.toInt, actualRadius.toInt)
 	}
 
 	def onCollision(collider: GameObject) {
