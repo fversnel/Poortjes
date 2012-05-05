@@ -9,13 +9,13 @@ class Matrix2D private(private val matrix: AffineTransform) {
 		matrix.getMatrix(flatMatrix)
 		flatMatrix
 	}
-	val m00 = flatMatrix(0)
-	val m10 = flatMatrix(1)
-	val m01 = flatMatrix(2)
-	val m11 = flatMatrix(3)
-	val m02 = flatMatrix(4)
-	val m12 = flatMatrix(5)
-	val translation = (m02.toFloat, m12.toFloat)
+	lazy val m00 = flatMatrix(0)
+	lazy val m10 = flatMatrix(1)
+	lazy val m01 = flatMatrix(2)
+	lazy val m11 = flatMatrix(3)
+	lazy val m02 = flatMatrix(4)
+	lazy val m12 = flatMatrix(5)
+	lazy val translation = (m02.toFloat, m12.toFloat)
 
 	def translate(x: Float, y: Float): Matrix2D = newMatrix(AffineTransform.getTranslateInstance(x, y))
 	def rotate(theta: Float): Matrix2D = newMatrix(AffineTransform.getRotateInstance(theta))

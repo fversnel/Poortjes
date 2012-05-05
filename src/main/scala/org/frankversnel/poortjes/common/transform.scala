@@ -4,6 +4,7 @@ trait Transform extends Dimension {
 	private var matrix = Matrix2D()
 
 	def translate(x: Float, y: Float): Unit = matrix = matrix.translate(x, y)
+	def translation = matrix.translation
 	def scale(x: Float, y: Float): Unit = matrix = matrix.scale(x, y)
 	def rotate(theta: Float): Unit = {
 		// To rotate around its own axis we need to put it in local space then rotate and put it

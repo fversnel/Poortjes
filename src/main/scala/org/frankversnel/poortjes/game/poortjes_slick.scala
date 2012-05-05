@@ -29,8 +29,8 @@ class PoortjesSlick extends BasicGame("Poortjes") {
 
 		newPlayer = new Player(resourceLoader) with SlickKeyboardAdapter {
 			//speed
-			val distanceInMs = 0.09f
-			val rotationInMs = 0.010f
+			override val distanceInMs = 0.09f
+			override val rotationInMs = 0.010f
 
 			val keybindings = KeyboardBindings('w', 's', 'a', 'd')
 		}

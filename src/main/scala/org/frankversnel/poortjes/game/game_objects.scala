@@ -15,6 +15,10 @@ import org.frankversnel.poortjes._
 abstract class Player(protected val resourceLoader: ResourceLoader)
 		extends DrawableShape with Collidable with Moveable
 		with Keyboard with Speed {
+	//speed
+	val distanceInMs = 3f
+	val rotationInMs = 0.10f
+
     protected val shape = resourceLoader.addResource("ship-green.svg")
 
 	var dimension = (9, 13)
@@ -26,15 +30,37 @@ abstract class Player(protected val resourceLoader: ResourceLoader)
 	}
 }
 class Shepherd(protected val resourceLoader: ResourceLoader)
-		extends DrawableShape with PlayerKiller {
+		extends DrawableShape with PlayerKiller with Moveable with Speed with Logging {
+	//speed
+	val distanceInMs = 1f
+	val rotationInMs = 0.10f
+
 	protected val shape = resourceLoader.addResource("shepherd.svg")
 
-	var dimension = (5, 5)
+	var dimension = (10, 10)
+
+	override def process {
+		super.process
+
+		// Extract players from the battlefield
+		val players = EntityManager().gameObjects.filter(_.is[Player])
+		// Determine which player to follow
+		val playerToFollow = players.headOption
+		// Calculate the direction in which to go
+		if (playerToFollow.isDefined) {
+			val playerTranslation = playerToFollow.get.as[Transform].get.translation
+			val angleToTarget = atan2(playerTranslation._2 - translation._2, playerTranslation._1 -	translation._1)
+			logger.info("angle to target " + angleToTarget)
+			rotationSpeed = angleToTarget.toFloat
+		}
+	}
+
+	private implicit def floatToDouble(x: Float): Double = x.toDouble
 }
 class Candy(protected val resourceLoader: ResourceLoader) extends DrawableShape with Collidable {
 	protected val shape = resourceLoader.addResource("candy.svg")
 
-	var dimension = (3, 3)
+	var dimension = (5, 5)
 
 	def onCollision(collider: GameObject) {
 		// Do nothing
@@ -101,21 +127,20 @@ object Gate {
 	}
 }
 
-class Explosion(private val translation: Tuple2[Float, Float]) extends Drawable with Color with Collidable
-		with TimeBasedLife with Logging {
+class Explosion(private val x: Float, private val y: Float) extends Drawable with Color with Collidable
+		with TimeBasedLife {
 	val color = Color.red
 	var dimension = (1, 1)
 
 	protected val maxTimeAliveMillis = 500
 	private val targetRadius = 130f
 
-	translate(translation._1,translation._2)
+	translate(x, y)
 
 	override def process(deltaTime: DeltaTime) {
 		super.process(deltaTime)
 
 		val actualRadius = targetRadius * timeToLive
-		logger.info("radius " + actualRadius)
 		dimension = (actualRadius.toInt, actualRadius.toInt)
 	}
 

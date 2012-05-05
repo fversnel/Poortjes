@@ -1,6 +1,5 @@
 package org.frankversnel.poortjes
 
-import scala.collection.mutable.ListBuffer
 import org.slf4j.scala.Logging;
 
 import org.frankversnel.poortjes.rendering._;
@@ -9,7 +8,9 @@ import org.frankversnel.poortjes.util.DeltaTime
 
 class EntityManager private(val renderer: Renderer) extends Logging {
 
-	private var gameObjects = ListBuffer[GameObject]()
+	private var _gameObjects: List[GameObject] = Nil
+	// Getter
+	def gameObjects = _gameObjects
 
 	private val componentManagers = List(
 			new CollisionManager,
@@ -18,7 +19,7 @@ class EntityManager private(val renderer: Renderer) extends Logging {
 		)
 
     def spawn(newGameObject: GameObject) {
-		gameObjects += newGameObject
+		_gameObjects ::= newGameObject
 
 		onGameObjectAndChildren(newGameObject) { gameObject =>
 			val component = gameObject.asInstanceOf[Component]
@@ -31,8 +32,9 @@ class EntityManager private(val renderer: Renderer) extends Logging {
     }
 
 	def cleanUp {
-		val destroyedGameObjects = gameObjects.filter(_.isDestroyed).readOnly
-		gameObjects --= destroyedGameObjects
+		val destroyedGameObjects = gameObjects.filter(_.isDestroyed)
+
+		_gameObjects = _gameObjects.filterNot(g => destroyedGameObjects.contains(g))
 
 		destroyedGameObjects.foreach { destroyedGameObject =>
 			onGameObjectAndChildren(destroyedGameObject) { gameObject =>
