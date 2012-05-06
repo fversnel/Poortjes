@@ -13,8 +13,8 @@ import org.frankversnel.poortjes.moving._
 class Gate extends Transform with Speed with Moveable {
 	var dimension = (10, 70)
 
-	val distanceInMs = 0.1f
-	val rotationInMs = 0.005f
+	val distanceInMs = 0.001f
+	val rotationInMs = 0.0002f
 
 	moveSpeed = (math.random.toFloat, math.random.toFloat)
 	rotationSpeed = 1f
@@ -33,9 +33,10 @@ class GateConnector(protected val resourceLoader: ResourceLoader)
 
 	def onCollision(collider: GameObject) {
 		if(collider.is[Player]) {
-			val explosionX = matrixStack.translation._1
-			val explosionY = matrixStack.translation._2
-			EntityManager().spawn(new Explosion(explosionX, explosionY))
+			val explosion = new Explosion(resourceLoader)
+			explosion.translate(matrixStack.translation._1, matrixStack.translation._2)
+			EntityManager().spawn(explosion)
+
 			parent.get.destroy
 		}
 	}

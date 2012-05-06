@@ -3,8 +3,7 @@ package org.frankversnel.poortjes
 import org.frankversnel.poortjes.util.DeltaTime
 
 trait Component extends GameObject {
-	protected def process: Unit = {}
 	def process(deltaTime: DeltaTime): Unit = {
-		process
+		// By default does nothing
 	}
 }

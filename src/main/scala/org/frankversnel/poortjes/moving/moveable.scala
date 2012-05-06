@@ -1,21 +1,16 @@
 package org.frankversnel.poortjes.moving
 
-import org.slf4j.scala.Logging;
+import org.frankversnel.poortjes.Transform
+import org.frankversnel.poortjes.Component
+import org.frankversnel.poortjes.util.DeltaTime
 
-import org.frankversnel.poortjes._
-
-trait Moveable extends Component with Logging {
+trait Moveable extends Component {
 	self: Speed with Transform =>
 
-	override def process {
-		super.process
-		move
-	}
+	override def process(deltaTime: DeltaTime) {
+		super.process(deltaTime)
 
-	def move {
-		//logger.info("Speeding at: " + self.distanceSpeed + ", " + self.rotationSpeed)
-
-		self.rotate(self.rotationSpeed);
-		self.translate(self.moveSpeed.getX, -self.moveSpeed.getY);
+		self.rotate(self.rotationSpeed * deltaTime.millis);
+		self.translate(self.moveSpeed.getX * deltaTime.millis, -self.moveSpeed.getY * deltaTime.millis);
 	}
 }

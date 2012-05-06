@@ -11,6 +11,7 @@ import org.frankversnel.poortjes.rendering._
 import org.frankversnel.poortjes.resource_loading._
 import org.frankversnel.poortjes.input._
 import org.frankversnel.poortjes.collision._
+import org.frankversnel.poortjes.util.DeltaTime
 import org.frankversnel.poortjes.game.gameobjects._
 
 class PoortjesSlick extends BasicGame("Poortjes") {
@@ -41,11 +42,11 @@ class PoortjesSlick extends BasicGame("Poortjes") {
     }
 
     override def update(container: GameContainer, delta: Int): Unit = {
-		newPlayer.move
+		EntityManager().process(DeltaTime(delta))
+		EntityManager().cleanUp
 	}
 
     override def render(container: GameContainer, g: Graphics): Unit = {
-		//EntityManager().process
 	}
 
 }

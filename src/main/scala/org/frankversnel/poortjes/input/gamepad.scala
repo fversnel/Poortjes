@@ -3,10 +3,11 @@ package org.frankversnel.poortjes.input
 import scala.math._
 import org.lwjgl.input._
 import org.newdawn.slick.geom.Vector2f
-import org.slf4j.scala.Logging;
+import org.slf4j.scala.Logging
 
-import org.frankversnel.poortjes._;
-import org.frankversnel.poortjes.moving.Speed;
+import org.frankversnel.poortjes._
+import org.frankversnel.poortjes.moving.Speed
+import org.frankversnel.poortjes.util.DeltaTime
 
 trait Gamepad extends Component with Logging {
 	self: Speed with Transform =>
@@ -17,8 +18,8 @@ trait Gamepad extends Component with Logging {
 
 	var previousVector = new Vector2f(0f, 0.001f)
 
-	override def process {
-		super.process
+	override def process(deltaTime: DeltaTime) {
+		super.process(deltaTime)
 
 		// Retrieve new input from the gamepad
 		input.poll

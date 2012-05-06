@@ -11,8 +11,8 @@ import org.frankversnel.poortjes.moving._
 abstract class Player(protected val resourceLoader: ResourceLoader)
 		extends DrawableShape with Collidable with Moveable with Speed {
 	//speed
-	val distanceInMs = 3f
-	val rotationInMs = 0.10f
+	val distanceInMs = 0.15f
+	val rotationInMs = 0.007f
 
 	protected val shape = resourceLoader.addResource("ship-green.svg")
 
