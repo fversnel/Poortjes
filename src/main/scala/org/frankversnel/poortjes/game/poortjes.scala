@@ -12,8 +12,8 @@ import org.frankversnel.poortjes.util._
 import org.frankversnel.poortjes.game.gameobjects._
 
 class Poortjes extends PApplet with Logging {
-	private val screenWithPx = 400;
-	private val screenHeightPx = 400;
+	private val screenWithPx = 800;
+	private val screenHeightPx = 500;
 	private val backgroundClr = 0;
 
 	override def setup = {

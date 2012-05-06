@@ -43,8 +43,8 @@ trait Keyboard extends Component with KeyListener with Logging {
 		keyPressed match {
 			case keybindings.keyForward => speed.moveSpeed = (0, speedAmount)
 			case keybindings.keyBackward => speed.moveSpeed = (0, -speedAmount)
-			case keybindings.keyLeft => speed.rotationSpeed = -speedAmount
-			case keybindings.keyRight => speed.rotationSpeed = speedAmount
+			case keybindings.keyLeft => speed.moveSpeed = (-speedAmount, 0)
+			case keybindings.keyRight => speed.moveSpeed = (speedAmount, 0)
 			case _ => // Do nothing
 		}
 	}

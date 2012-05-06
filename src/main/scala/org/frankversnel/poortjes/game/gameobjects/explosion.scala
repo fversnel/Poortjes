@@ -14,7 +14,7 @@ class Explosion(private val resourceLoader: ResourceLoader) extends Drawable wit
 	val color = Color.red
 	var dimension = (1, 1)
 
-	protected val maxTimeAliveMillis = 700
+	protected val maxTimeAliveMillis = 2000
 	private val targetRadius = 200f
 
 	override def process(deltaTime: DeltaTime) {

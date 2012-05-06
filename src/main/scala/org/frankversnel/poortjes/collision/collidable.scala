@@ -1,7 +1,7 @@
 package org.frankversnel.poortjes.collision
 
-import java.awt.geom.Area;
-import java.awt.geom.Rectangle2D;
+import org.newdawn.slick.geom.Shape
+import org.newdawn.slick.geom.Rectangle
 import org.slf4j.scala.Logging;
 
 import org.frankversnel.poortjes._
@@ -12,21 +12,13 @@ trait Collidable extends Transform with Dimension with Logging {
 		val ourBoundingBox = createBoundingBox(this)
 		val theirBoundingBox = createBoundingBox(otherCollidable)
 
-		val collision = ourBoundingBox.intersects(theirBoundingBox.getBounds2D)
-
-		if(collision) {
-			//logger.info("collision")
-			onCollision(otherCollidable)
-		}
-
-		return collision
+		return ourBoundingBox.intersects(theirBoundingBox)
 	}
 
-	protected def onCollision(collider: GameObject): Unit
+	def onCollision(collider: GameObject): Unit
 
-	private def createBoundingBox(collidable: Collidable): Area = {
-		val boundingBox = new Area(new Rectangle2D.Float(0, 0, collidable.width, collidable.height));
-		boundingBox.transform(Transform.javaMatrix(collidable));
-		return boundingBox;
+	private def createBoundingBox(collidable: Collidable): Shape = {
+		val boundingBox = new Rectangle(0, 0, collidable.width, collidable.height)
+		boundingBox.transform(Transform.slickMatrix(collidable))
 	}
 }
