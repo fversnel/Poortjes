@@ -15,7 +15,7 @@ class Shepherd(protected val resourceLoader: ResourceLoader)
 		extends DrawableShape with PlayerKiller with Moveable with Speed with Logging {
 	//speed
 	val distanceInMs = 1f
-	val rotationInMs = 0.10f
+	val rotationInMs = 0f
 	moveSpeed = (1, 0)
 
 	protected val shape = resourceLoader.addResource("shepherd.svg")
@@ -34,9 +34,10 @@ class Shepherd(protected val resourceLoader: ResourceLoader)
 			val playerTranslation = playerToFollow.get.as[Transform].get.translation
 			val angleToTarget = atan2(playerTranslation._2 - translation._2, playerTranslation._1 -	translation._1)
 			logger.info("angle to target: " + angleToTarget)
-			val rotationAngle = angleToTarget - angle
+			val newRotation = angleToTarget - rotationAngle
 			logger.info("rotation angle: " + angleToTarget)
-			rotationSpeed = rotationAngle
+			//rotationSpeed = rotationAngle
+			setToRotation(angleToTarget)
 		}
 	}
 

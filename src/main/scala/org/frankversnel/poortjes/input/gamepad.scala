@@ -30,7 +30,7 @@ trait Gamepad extends Component with Logging {
 		val rotation = atan2(directionVector.getY, directionVector.getX)
 		//logger.info("rotation: " + rotation)
 		//self.rotationSpeed = inputVector.getX
-		self.moveSpeed = (inputVector.getX, inputVector.getY * -1)
+		self.moveSpeed = (inputVector.getX, -inputVector.getY)
 	}
 }
 object Gamepad {
