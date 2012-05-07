@@ -26,18 +26,37 @@ class Shepherd(protected val resourceLoader: ResourceLoader)
 	override def process(deltaTime: DeltaTime) {
 		super.process(deltaTime)
 
-		// Extract players from the battlefield
-		val players = EntityManager().gameObjects.filter(_.is[Player])
 		// Determine which player to follow
-		val playerToFollow = players.headOption
+		val playerToFollow = fetchPlayerToFollow
 		// Calculate the direction in which to go
 		if (playerToFollow.isDefined) {
-			val playerTranslation = playerToFollow.get.as[Transform].get.translation
+			val playerTranslation = playerToFollow.get.asInstanceOf[Transform].translation
 			val angleToTarget = atan2(playerTranslation._2 - translation._2, playerTranslation._1 -	translation._1)
 			//logger.info("angle to target: " + angleToTarget)
 			setToRotation(angleToTarget)
 		}
 	}
+
+	private def fetchPlayerToFollow: Option[Player] = {
+		// Extract players from the battlefield
+		val players = EntityManager().gameObjects.filter(_.is[Player]).map(_.asInstanceOf[Player])
+
+		players.reduceOption(determineNearestPlayer(_, _)) 
+	}
+
+	private def determineNearestPlayer(player1: Player, player2: Player): Player = {
+		def distanceToPlayer(player: Player): Float = {
+			val xDistanceToPlayer = player.translation._1 - translation._1
+			val yDistanceToPlayer = player.translation._2 - translation._2
+
+			// pythagorean theorem
+			// a2 + b2 = c2
+			sqrt(pow(xDistanceToPlayer, 2) + pow(yDistanceToPlayer, 2))
+		}
+
+		if(distanceToPlayer(player1) < distanceToPlayer(player2)) player1 else player2
+	}
+
 
 	private implicit def floatToDouble(x: Float): Double = x.toDouble
 	private implicit def doubleToFloat(x: Double): Float = x.toFloat

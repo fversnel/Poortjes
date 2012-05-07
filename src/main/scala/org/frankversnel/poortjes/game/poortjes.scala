@@ -38,11 +38,11 @@ class Poortjes extends PApplet with Logging {
 		}
 		playerTwo.translate(screenWithPx / 2, screenHeightPx / 2)
 		addKeyListener(playerTwo)
-		//EntityManager().spawn(playerTwo)
+		EntityManager().spawn(playerTwo)
 
-		for (i <- 0 until 5) {
+		for (i <- 0 until 1) {
 			val enemy = new Shepherd(resourceLoader)
-			enemy.translate(i * 20, 50)
+			enemy.translate(i * 20, 25)
 			EntityManager().spawn(enemy)
 		}
 

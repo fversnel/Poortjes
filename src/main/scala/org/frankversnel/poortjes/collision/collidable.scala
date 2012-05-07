@@ -9,16 +9,13 @@ import org.frankversnel.poortjes._
 trait Collidable extends Transform with Dimension with Logging {
 
 	def collidesWith(otherCollidable: Collidable): Boolean = {
-		val ourBoundingBox = createBoundingBox(this)
-		val theirBoundingBox = createBoundingBox(otherCollidable)
-
-		return ourBoundingBox.intersects(theirBoundingBox)
+		boundingBox.intersects(otherCollidable.boundingBox)
 	}
 
 	def onCollision(collider: GameObject): Unit
 
-	private def createBoundingBox(collidable: Collidable): Shape = {
-		val boundingBox = new Rectangle(0, 0, collidable.width, collidable.height)
-		boundingBox.transform(Transform.slickMatrix(collidable))
+	private def boundingBox: Shape = {
+		val boundingBox = new Rectangle(0, 0, width, height)
+		boundingBox.transform(Transform.slickMatrix(this))
 	}
 }
