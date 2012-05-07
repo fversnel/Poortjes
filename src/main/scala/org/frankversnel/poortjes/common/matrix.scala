@@ -18,7 +18,9 @@ class Matrix2D private(private val matrix: AffineTransform) {
 	lazy val translation = (m02.toFloat, m12.toFloat)
 
 	def translate(x: Float, y: Float): Matrix2D = newMatrix(AffineTransform.getTranslateInstance(x, y))
-	def rotate(theta: Float): Matrix2D = newMatrix(AffineTransform.getRotateInstance(theta))
+	def rotate(theta: Float, anchorX: Float, anchorY: Float): Matrix2D = {
+		newMatrix(AffineTransform.getRotateInstance(theta, anchorX, anchorY))
+	}
 	def scale(x: Float, y: Float): Matrix2D = newMatrix(AffineTransform.getScaleInstance(x, y))
 	def concatenate(otherMatrix: Matrix2D): Matrix2D = newMatrix(otherMatrix.matrix)
 

@@ -1,6 +1,6 @@
 package org.frankversnel.poortjes
 
-import scala.math.Pi
+import scala.math._
 
 trait Transform extends Dimension {
 	private var matrix = Matrix2D()
@@ -13,17 +13,13 @@ trait Transform extends Dimension {
 	}
 
 	def translate(x: Float, y: Float): Unit = matrix = matrix.translate(x, y)
-	def translation = matrix.translation
 	def scale(x: Float, y: Float): Unit = matrix = matrix.scale(x, y)
 	def rotate(theta: Float): Unit = {
-		_rotationAngle += theta % (2 * Pi).toFloat
-		// To rotate around its own axis we need to put it in local space then rotate and put it
-		// back in global space.
-		matrix = matrix.translate(width / 2, height / 2)
-				.rotate(theta)
-				.translate(-(width / 2), -(height / 2))
+		_rotationAngle = (_rotationAngle + theta) % (2 * Pi).toFloat
+		matrix = matrix.rotate(theta, width / 2, height / 2)
 	}
 
+	def translation = matrixStack.translation
 	def matrixStack: Matrix2D = {
 		return if(parent.isDefined) {
 			val parentTransform = parent.get.asInstanceOf[Transform]
@@ -31,6 +27,20 @@ trait Transform extends Dimension {
 		} else {
 			matrix
 		}
+	}
+
+	def fetchNearest(transforms: List[Transform]): Option[Transform] = {
+		transforms.reduceOption { (t1, t2) =>
+			if(distanceTo(t1) < distanceTo(t2)) t1 else t2
+		}
+	}
+	def distanceTo(t: Transform) = {
+		val distanceX = translation._1 - t.translation._1
+		val distanceY = translation._2 - t.translation._2
+
+		// Pythagorean theorem:
+		// a2 + b2 = c2
+		sqrt(pow(distanceX.toDouble, 2) + pow(distanceY.toDouble, 2))
 	}
 }
 

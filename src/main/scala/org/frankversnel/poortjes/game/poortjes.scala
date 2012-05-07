@@ -21,6 +21,7 @@ class Poortjes extends PApplet with Logging {
 
 		size(screenWithPx, screenHeightPx)
 		background(backgroundClr)
+		smooth
 
 		val resourceLoader = new ProcessingShapeLoader(this)
 		val renderer = new Processing2DRenderer(g, resourceLoader, backgroundClr)

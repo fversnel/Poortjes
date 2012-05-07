@@ -26,35 +26,21 @@ class Shepherd(protected val resourceLoader: ResourceLoader)
 	override def process(deltaTime: DeltaTime) {
 		super.process(deltaTime)
 
-		// Determine which player to follow
 		val playerToFollow = fetchPlayerToFollow
-		// Calculate the direction in which to go
 		if (playerToFollow.isDefined) {
-			val playerTranslation = playerToFollow.get.asInstanceOf[Transform].translation
-			val angleToTarget = atan2(playerTranslation._2 - translation._2, 
+			// Calculate the direction in which to go
+			val playerTranslation = playerToFollow.get.translation
+			val angleToTarget = atan2(playerTranslation._2 - translation._2,
 					playerTranslation._1 -	translation._1).toFloat
-			//logger.info("angle to target: " + angleToTarget)
 			setToRotation(angleToTarget)
+			//logger.info("angle to target: " + angleToTarget)
 		}
 	}
 
-	private def fetchPlayerToFollow: Option[Player] = {
+	private def fetchPlayerToFollow = {
 		// Extract players from the battlefield
 		val players = EntityManager().gameObjects.filter(_.is[Player]).map(_.asInstanceOf[Player])
 
-		players.reduceOption(determineNearestPlayer(_, _)) 
-	}
-
-	private def determineNearestPlayer(player1: Player, player2: Player): Player = {
-		def distanceToPlayer(player: Player) = {
-			val xDistanceToPlayer = player.translation._1 - translation._1
-			val yDistanceToPlayer = player.translation._2 - translation._2
-
-			// pythagorean theorem
-			// a2 + b2 = c2
-			sqrt(pow(xDistanceToPlayer.toDouble, 2) + pow(yDistanceToPlayer.toDouble, 2))
-		}
-
-		if(distanceToPlayer(player1) < distanceToPlayer(player2)) player1 else player2
+		fetchNearest(players)
 	}
 }

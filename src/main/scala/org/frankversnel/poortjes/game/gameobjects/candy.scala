@@ -5,7 +5,10 @@ import org.frankversnel.poortjes.resource_loading.ResourceLoader
 import org.frankversnel.poortjes.collision.Collidable
 import org.frankversnel.poortjes.GameObject
 
-class Candy(protected val resourceLoader: ResourceLoader) extends DrawableShape with Collidable {
+class Candy(protected val resourceLoader: ResourceLoader) extends DrawableShape with Collidable
+		with TimeBasedLife {
+	protected val maxTimeAliveMillis = 10000
+
 	protected val shape = resourceLoader.addResource("candy.svg")
 
 	var dimension = (5, 5)

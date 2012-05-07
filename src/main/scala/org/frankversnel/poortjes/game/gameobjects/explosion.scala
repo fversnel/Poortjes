@@ -30,7 +30,7 @@ class Explosion(private val resourceLoader: ResourceLoader) extends Drawable wit
 
 			val shepherdTransform = collider.asInstanceOf[Transform]
 			for(i <- 0 until 2) {
-				new Spawner(50).spawn(shepherdTransform.translation._1, shepherdTransform.translation._2, new Candy(resourceLoader))
+				new Spawner(15).spawn(shepherdTransform.translation._1, shepherdTransform.translation._2, new Candy(resourceLoader))
 			}
 		}
 	}
