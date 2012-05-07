@@ -29,11 +29,15 @@ trait Transform extends Dimension {
 		}
 	}
 
-	def fetchNearest(transforms: List[Transform]): Option[Transform] = {
+	def angleTo(t: Transform) = atan2(t.translation._2 - translation._2,
+			t.translation._1 - translation._1).toFloat
+
+	def fetchNearestOf(transforms: List[Transform]): Option[Transform] = {
 		transforms.reduceOption { (t1, t2) =>
 			if(distanceTo(t1) < distanceTo(t2)) t1 else t2
 		}
 	}
+
 	def distanceTo(t: Transform) = {
 		val distanceX = translation._1 - t.translation._1
 		val distanceY = translation._2 - t.translation._2
