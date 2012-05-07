@@ -31,7 +31,8 @@ class Shepherd(protected val resourceLoader: ResourceLoader)
 		// Calculate the direction in which to go
 		if (playerToFollow.isDefined) {
 			val playerTranslation = playerToFollow.get.asInstanceOf[Transform].translation
-			val angleToTarget = atan2(playerTranslation._2 - translation._2, playerTranslation._1 -	translation._1)
+			val angleToTarget = atan2(playerTranslation._2 - translation._2, 
+					playerTranslation._1 -	translation._1).toFloat
 			//logger.info("angle to target: " + angleToTarget)
 			setToRotation(angleToTarget)
 		}
@@ -45,19 +46,15 @@ class Shepherd(protected val resourceLoader: ResourceLoader)
 	}
 
 	private def determineNearestPlayer(player1: Player, player2: Player): Player = {
-		def distanceToPlayer(player: Player): Float = {
+		def distanceToPlayer(player: Player) = {
 			val xDistanceToPlayer = player.translation._1 - translation._1
 			val yDistanceToPlayer = player.translation._2 - translation._2
 
 			// pythagorean theorem
 			// a2 + b2 = c2
-			sqrt(pow(xDistanceToPlayer, 2) + pow(yDistanceToPlayer, 2))
+			sqrt(pow(xDistanceToPlayer.toDouble, 2) + pow(yDistanceToPlayer.toDouble, 2))
 		}
 
 		if(distanceToPlayer(player1) < distanceToPlayer(player2)) player1 else player2
 	}
-
-
-	private implicit def floatToDouble(x: Float): Double = x.toDouble
-	private implicit def doubleToFloat(x: Double): Float = x.toFloat
 }

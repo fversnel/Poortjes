@@ -59,10 +59,10 @@ class Poortjes extends PApplet with Logging {
 		EntityManager().spawn(newGate)
 	}
 
-	var oldTime = 0
+	var oldTime = 0L
 	override def draw = {
 		val newTime = millis
-		val deltaMillis = (newTime - oldTime)
+		val deltaMillis = (newTime - oldTime).toInt
 		oldTime = newTime
 
 		EntityManager().process(DeltaTime(deltaMillis))
