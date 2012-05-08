@@ -31,4 +31,9 @@ abstract class GameObject {
 	private def addChild(child: GameObject) {
 		_children = child :: _children
 	}
+
+	def onGameObjectAndChildren(apply: GameObject => Unit) {
+		apply(this)
+		children.foreach(_.onGameObjectAndChildren(apply))
+	}
 }
