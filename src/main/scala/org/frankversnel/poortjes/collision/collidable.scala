@@ -15,7 +15,7 @@ trait Collidable extends Transform with Dimension with Logging {
 	def onCollision(collider: GameObject): Unit
 
 	private def boundingBox: Shape = {
-		val boundingBox = new Rectangle(0, 0, width, height)
+		val boundingBox = new Rectangle(0, 0, dimension.width, dimension.height)
 		boundingBox.transform(Transform.slickMatrix(this))
 	}
 }

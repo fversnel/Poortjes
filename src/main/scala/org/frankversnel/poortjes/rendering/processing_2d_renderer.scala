@@ -13,27 +13,27 @@ class Processing2DRenderer(
 
 	def drawRectangle(component: Drawable with Color) {
 		draw(component) {
-			graphics.rect(0, 0, component.width, component.height)
+			graphics.rect(0, 0, component.dimension.width, component.dimension.height)
 		}
 	}
 
 	def drawCircle(component: Drawable with Color) {
 		draw(component) {
-			graphics.ellipse(0, 0, component.width, component.height)
+			graphics.ellipse(0, 0, component.dimension.width, component.dimension.height)
 		}
 	}
 
 	def drawShape(resourceId: ResourceId, component: Drawable) {
 		drawTransform(component) {
 			graphics.shape(shapeLoader.getResource(resourceId),
-					0, 0, component.width, component.height)
+					0, 0, component.dimension.width, component.dimension.height)
 		}
 	}
 
 	def clearScreen = graphics.background(backgroundColor)
 
 	private def draw(component: Drawable with Color) (drawFunction: => Unit) {
-		graphics.fill(component.r, component.g, component.b)
+		graphics.fill(component.color.r, component.color.g, component.color.b, component.color.a)
 		drawTransform(component)(drawFunction)
 	}
 

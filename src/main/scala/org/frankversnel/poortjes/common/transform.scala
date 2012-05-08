@@ -18,7 +18,7 @@ trait Transform extends Dimension {
 	def scale(x: Float, y: Float): Unit = matrix = matrix.scale(x, y)
 	def rotate(theta: Float): Unit = {
 		_rotationAngle = (_rotationAngle + theta) % (2 * Pi).toFloat
-		matrix = matrix.rotate(theta, width / 2, height / 2)
+		matrix = matrix.rotate(theta, dimension.width / 2, dimension.height / 2)
 	}
 
 	def translation = matrixStack.translation

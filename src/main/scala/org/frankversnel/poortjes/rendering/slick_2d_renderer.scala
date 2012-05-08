@@ -13,15 +13,15 @@ class Slick2DRenderer(
 	private val shapeLoader: SlickImageLoader) extends Renderer {
 
 	def drawRectangle(component: Drawable with Color) {
-		drawShapeWithColor(new Rectangle(0, 0, component.width, component.height), component)
+		drawShapeWithColor(new Rectangle(0, 0, component.dimension.width, component.dimension.height), component)
 	}
 
 	def drawCircle(component: Drawable with Color) {
-		drawShapeWithColor(new Ellipse(0, 0, component.width / 2, component.height / 2), component)
+		drawShapeWithColor(new Ellipse(0, 0, component.dimension.width / 2, component.dimension.height / 2), component)
 	}
 
 	def drawShape(resourceId: ResourceId, component: Drawable) {
-		val shape = new Rectangle(0, 0, component.width, component.height)
+		val shape = new Rectangle(0, 0, component.dimension.width, component.dimension.height)
 		drawShape(shape, component) { transformedShape =>
 			val image = shapeLoader.getResource(resourceId)
 			graphics.fill(transformedShape)
@@ -32,7 +32,8 @@ class Slick2DRenderer(
 	def clearScreen = { /* No need to implement this method */ }
 
 	private def drawShapeWithColor(shape: Shape, component: Drawable with Color) {
-		graphics.setColor(new org.newdawn.slick.Color(component.r, component.g, component.b))
+		graphics.setColor(new org.newdawn.slick.Color(component.color.r, component.color.g,
+				component.color.b, component.color.a))
 		drawShape(shape, component) { transformedShape =>
 			graphics.fill(transformedShape)
 		}

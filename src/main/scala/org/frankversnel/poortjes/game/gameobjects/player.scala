@@ -2,6 +2,7 @@ package org.frankversnel.poortjes.game.gameobjects
 
 import org.frankversnel.poortjes.GameObject
 import org.frankversnel.poortjes.Transform
+import org.frankversnel.poortjes.DimensionValue
 import org.frankversnel.poortjes.rendering.DrawableShape
 import org.frankversnel.poortjes.resource_loading.ResourceLoader
 import org.frankversnel.poortjes.collision.Collidable
@@ -15,7 +16,7 @@ abstract class Player(protected val resourceLoader: ResourceLoader)
 
 	protected val shape = resourceLoader.addResource("ship-green.svg")
 
-	var dimension = (9, 13)
+	var dimension = DimensionValue().width(9).height(13)
 
 	def onCollision(collider: GameObject) {
 		if(collider.is[Candy]) {

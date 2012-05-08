@@ -2,16 +2,14 @@ package org.frankversnel.poortjes.game.gameobjects
 
 import scala.math._
 
-import org.frankversnel.poortjes.EntityManager
-import org.frankversnel.poortjes.GameObject
-import org.frankversnel.poortjes.Transform
+import org.frankversnel.poortjes._
 import org.frankversnel.poortjes.collision.Collidable
 import org.frankversnel.poortjes.rendering.DrawableShape
 import org.frankversnel.poortjes.resource_loading.ResourceLoader
 import org.frankversnel.poortjes.moving._
 
 class Gate extends Transform with Speed with Moveable {
-	var dimension = (10, 70)
+	var dimension = DimensionValue().width(10).height(70)
 
 	val distanceInMs = 0.001f
 	val rotationInMs = 0.0002f
@@ -21,19 +19,19 @@ class Gate extends Transform with Speed with Moveable {
 }
 class GateEnd(protected val resourceLoader: ResourceLoader)
 		extends DrawableShape with PlayerKiller {
-	var dimension = (10, 10)
+	var dimension = DimensionValue().width(10).height(10)
 
 	protected val shape = resourceLoader.addResource("gate-end.svg")
 }
 class GateConnector(protected val resourceLoader: ResourceLoader)
 		extends DrawableShape with Collidable {
-	var dimension = (2, 50)
+	var dimension = DimensionValue().width(2).height(50)
 
 	protected val shape = resourceLoader.addResource("gate-connector.svg")
 
 	def onCollision(collider: GameObject) {
 		if(collider.is[Player]) {
-			val explosion = new Explosion(resourceLoader)
+			val explosion = new Explosion
 			explosion.translate(matrixStack.translation._1, matrixStack.translation._2)
 			EntityManager().spawn(explosion)
 
