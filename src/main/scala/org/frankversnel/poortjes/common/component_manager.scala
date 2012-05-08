@@ -15,12 +15,12 @@ abstract class ComponentManager {
 	def removeComponent(component: Component) {
 		forComponent(component) (components -= _.asInstanceOf[T])
 	}
-	def processComponents(deltaTime: DeltaTime) {
-		components.toList.foreach(processComponent(_, deltaTime))
+	def processComponents(update: Update) {
+		components.toList.foreach(processComponent(_, update))
 	}
 
 	protected def isCorrectType(component: Component): Boolean
-	protected def processComponent(component: T, deltaTime: DeltaTime): Unit
+	protected def processComponent(component: T, update: Update): Unit
 
 	protected def allComponents = components.toList
 

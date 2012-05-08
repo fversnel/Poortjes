@@ -1,16 +1,16 @@
 package org.frankversnel.poortjes.moving
 
 import org.frankversnel.poortjes.Transform
+import org.frankversnel.poortjes.Update
 import org.frankversnel.poortjes.Component
-import org.frankversnel.poortjes.util.DeltaTime
 
 trait Moveable extends Component {
 	self: Speed with Transform =>
 
-	override def process(deltaTime: DeltaTime) {
-		super.process(deltaTime)
+	override def process(update: Update) {
+		super.process(update)
 
-		self.rotate(self.rotationSpeed * deltaTime.millis);
-		self.translate(self.moveSpeed.getX * deltaTime.millis, -self.moveSpeed.getY * deltaTime.millis);
+		self.rotate(self.rotationSpeed * update.deltaTime.millis);
+		self.translate(self.moveSpeed.getX * update.deltaTime.millis, -self.moveSpeed.getY * update.deltaTime.millis);
 	}
 }

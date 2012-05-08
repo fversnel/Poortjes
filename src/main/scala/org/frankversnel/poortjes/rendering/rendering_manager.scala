@@ -1,17 +1,16 @@
 package org.frankversnel.poortjes.rendering
 
 import org.frankversnel.poortjes._
-import org.frankversnel.poortjes.util.DeltaTime
 
 class RenderingManager(private val renderer: Renderer) extends ComponentManager {
 	type T = Drawable
 
-	override def processComponents(deltaTime: DeltaTime) = {
+	override def processComponents(update: Update) = {
 		renderer.clearScreen
-		super.processComponents(deltaTime)
+		super.processComponents(update)
 	}
 
 	protected def isCorrectType(component: Component) = component.isInstanceOf[Drawable]
 
-	protected def processComponent(drawable: T, deltaTime: DeltaTime) = drawable.draw(renderer)
+	protected def processComponent(drawable: T, update: Update) = drawable.draw(renderer)
 }

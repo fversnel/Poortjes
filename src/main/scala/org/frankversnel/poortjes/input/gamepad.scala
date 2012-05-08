@@ -18,8 +18,8 @@ trait Gamepad extends Component with Logging {
 
 	var previousVector = new Vector2f(0f, 0.001f)
 
-	override def process(deltaTime: DeltaTime) {
-		super.process(deltaTime)
+	override def process(update: Update) {
+		super.process(update)
 
 		// Retrieve new input from the gamepad
 		input.poll

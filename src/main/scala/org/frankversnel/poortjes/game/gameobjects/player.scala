@@ -1,6 +1,5 @@
 package org.frankversnel.poortjes.game.gameobjects
 
-import org.frankversnel.poortjes.EntityManager
 import org.frankversnel.poortjes.GameObject
 import org.frankversnel.poortjes.Transform
 import org.frankversnel.poortjes.rendering.DrawableShape

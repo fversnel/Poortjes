@@ -1,4 +1,4 @@
-package org.frankversnel.poortjes
+package org.frankversnel.poortjes.util
 
 import java.awt.geom.AffineTransform
 

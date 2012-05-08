@@ -28,7 +28,9 @@ class EntityManager private(val renderer: Renderer) extends Logging {
 	}
 
     def process(deltaTime: DeltaTime) {
-		componentManagers.foreach(_.processComponents(deltaTime))
+		componentManagers.foreach {
+			_.processComponents(Update(deltaTime, _gameObjects))
+		}
     }
 
 	def cleanUp {

@@ -2,11 +2,10 @@ package org.frankversnel.poortjes.game.gameobjects
 
 import org.slf4j.scala.Logging;
 
-import org.frankversnel.poortjes.EntityManager
+import org.frankversnel.poortjes.Update
 import org.frankversnel.poortjes.rendering.DrawableShape
 import org.frankversnel.poortjes.resource_loading.ResourceLoader
 import org.frankversnel.poortjes.moving._
-import org.frankversnel.poortjes.util.DeltaTime
 
 class Shepherd(protected val resourceLoader: ResourceLoader)
 		extends DrawableShape with PlayerKiller with Moveable with Speed with Logging {
@@ -19,10 +18,10 @@ class Shepherd(protected val resourceLoader: ResourceLoader)
 
 	var dimension = (8, 8)
 
-	override def process(deltaTime: DeltaTime) {
-		super.process(deltaTime)
+	override def process(update: Update) {
+		super.process(update)
 
-		val players = EntityManager().gameObjects.filter(_.is[Player]).map(_.asInstanceOf[Player])
+		val players = update.gameObjects.filter(_.is[Player]).map(_.asInstanceOf[Player])
 		val playerToFollow = this.fetchNearestOf(players)
 		if (playerToFollow.isDefined) {
 			setToRotation(this.angleTo(playerToFollow.get))

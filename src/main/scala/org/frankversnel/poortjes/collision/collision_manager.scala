@@ -1,12 +1,11 @@
 package org.frankversnel.poortjes.collision
 
 import org.frankversnel.poortjes._
-import org.frankversnel.poortjes.util.DeltaTime
 
 class CollisionManager extends ComponentManager {
 	type T = Collidable
 
-	protected def processComponent(collidable: T, deltaTime: DeltaTime) {
+	protected def processComponent(collidable: T, update: Update) {
 		val otherComponents = allComponents.filterNot(_ equals collidable)
 
 		otherComponents.foreach { otherCollidable =>

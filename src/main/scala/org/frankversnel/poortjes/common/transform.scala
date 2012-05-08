@@ -2,6 +2,8 @@ package org.frankversnel.poortjes
 
 import scala.math._
 
+import org.frankversnel.poortjes.util.Matrix2D
+
 trait Transform extends Dimension {
 	private var matrix = Matrix2D()
 

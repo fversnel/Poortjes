@@ -1,7 +1,7 @@
 package org.frankversnel.poortjes.game.gameobjects
 
 import org.frankversnel.poortjes.Component
-import org.frankversnel.poortjes.util.DeltaTime
+import org.frankversnel.poortjes.Update
 
 /**
  * When this component is attached to a game object that game object will surely die in
@@ -11,10 +11,10 @@ trait TimeBasedLife extends Component {
 	protected val maxTimeAliveMillis: Int
 	private var timeAliveMillis = 0
 
-	override def process(deltaTime: DeltaTime) {
-		super.process(deltaTime)
+	override def process(update: Update) {
+		super.process(update)
 
-		timeAliveMillis += deltaTime.millis
+		timeAliveMillis += update.deltaTime.millis
 		if(timeAliveMillis >= maxTimeAliveMillis) {
 			this.destroy
 		}

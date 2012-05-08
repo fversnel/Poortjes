@@ -1,6 +1,7 @@
 package org.frankversnel.poortjes.game.gameobjects
 
 import org.frankversnel.poortjes.GameObject
+import org.frankversnel.poortjes.Update
 import org.frankversnel.poortjes.Transform
 import org.frankversnel.poortjes.Color
 import org.frankversnel.poortjes.rendering.Drawable
@@ -17,8 +18,8 @@ class Explosion(private val resourceLoader: ResourceLoader) extends Drawable wit
 	protected val maxTimeAliveMillis = 2000
 	private val targetRadius = 200f
 
-	override def process(deltaTime: DeltaTime) {
-		super.process(deltaTime)
+	override def process(update: Update) {
+		super.process(update)
 
 		val actualRadius = targetRadius * timeToLive
 		dimension = (actualRadius.toInt, actualRadius.toInt)
