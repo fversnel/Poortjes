@@ -1,0 +1,16 @@
+Implement a state machine to provide:
+    - Time-based updates bringing new gates and sheperds to the battlefield.
+    - Transition between game-over and playing states.
+
+PoortjesState
+    state: GameOver
+        - press start to go to 'Playing' state
+
+    transition: GameOver -> Playing
+        - reset entities to starting position
+
+    state: Playing
+        - recognize when to go to GameOver state
+        - occasionally spawn new game objects
+        
+    state: Spawning
