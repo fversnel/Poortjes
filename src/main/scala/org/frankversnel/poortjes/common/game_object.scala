@@ -10,10 +10,10 @@ abstract class GameObject {
 	def isDestroyed = _isDestroyed
 
 	def as[A: Manifest]: Option[A] = {
-		if (is[A]) {
+		return if(is[A]) {
 			Some(this.asInstanceOf[A])
 		} else {
-			None
+			None 
 		}
 	}
 

@@ -6,7 +6,12 @@ import org.frankversnel.poortjes.rendering._;
 import org.frankversnel.poortjes.collision._
 import org.frankversnel.poortjes.util.DeltaTime
 
+import org.frankversnel.poortjes.game.gameobjects.Player
+
 class EntityManager private(val renderer: Renderer) extends Logging {
+
+	private var _players: List[Player] = Nil
+	def players = _players
 
 	private var _gameObjects: List[GameObject] = Nil
 	// Getter
@@ -20,6 +25,10 @@ class EntityManager private(val renderer: Renderer) extends Logging {
 
     def spawn(newGameObject: GameObject) {
 		_gameObjects ::= newGameObject
+
+		if(newGameObject.is[Player]) {
+			_players ::= newGameObject.asInstanceOf[Player]
+		}
 
 		newGameObject.onGameObjectAndChildren { gameObject =>
 			val component = gameObject.asInstanceOf[Component]
@@ -37,6 +46,7 @@ class EntityManager private(val renderer: Renderer) extends Logging {
 		val destroyedGameObjects = gameObjects.filter(_.isDestroyed)
 
 		_gameObjects = _gameObjects.filterNot(g => destroyedGameObjects.contains(g))
+		_players = _players.filterNot(g => destroyedGameObjects.contains(g))
 
 		destroyedGameObjects.foreach { destroyedGameObject =>
 			destroyedGameObject.onGameObjectAndChildren { gameObject =>

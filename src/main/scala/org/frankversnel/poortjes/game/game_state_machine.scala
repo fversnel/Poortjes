@@ -7,7 +7,7 @@ import org.frankversnel.poortjes.Component
 import org.frankversnel.poortjes.game.gameobjects.Player
 
 class GameStateMachine extends Component with Logging {
-	case class GameState
+	sealed abstract class GameState
 	case object Playing extends GameState
 	case object GameOver extends GameState
 
@@ -16,7 +16,7 @@ class GameStateMachine extends Component with Logging {
 	override def process(update: Update) {
 		currentState match {
 			case Playing => 
-				val noPlayersLeft = update.gameObjects.filter(_.is[Player]).isEmpty
+				val noPlayersLeft = update.players.isEmpty
 				if(noPlayersLeft) {
 					currentState = GameOver
 				}
