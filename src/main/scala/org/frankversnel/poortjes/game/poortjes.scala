@@ -12,8 +12,8 @@ import org.frankversnel.poortjes.util._
 import org.frankversnel.poortjes.game.gameobjects._
 
 class Poortjes extends PApplet with Logging {
-	private val screenWidthPx = 800;
-	private val screenHeightPx = 500;
+	private val screenWidthPx = 400;
+	private val screenHeightPx = 300;
 	private val backgroundClr = 0;
 
 	override def setup = {
@@ -26,7 +26,6 @@ class Poortjes extends PApplet with Logging {
 		val resourceLoader = new ProcessingShapeLoader(this)
 		val renderer = new Processing2DRenderer(g, resourceLoader, backgroundClr)
 		EntityManager.initialize(renderer)
-		EntityManager().spawn(new GameStateMachine)
 
 		val newPlayer = new Player(resourceLoader) with Keyboard {
 			val keybindings = KeyboardBindings('w', 's', 'a', 'd')
@@ -42,7 +41,7 @@ class Poortjes extends PApplet with Logging {
 		addKeyListener(playerTwo)
 		EntityManager().spawn(playerTwo)
 
-		for (i <- 0 until 1) {
+		for (i <- 0 until 7) {
 			val enemy = new Shepherd(resourceLoader)
 			enemy.translate(i * 20, 25)
 			EntityManager().spawn(enemy)

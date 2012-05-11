@@ -7,7 +7,7 @@ import org.frankversnel.poortjes.resource_loading.ResourceLoader
 
 class GateSpawner(private val spawnArea: SpawnArea,
 		private val resourceLoader: ResourceLoader) extends Component {
-	private val SpawnIntervalInSeconds = 15f
+	private val SpawnIntervalInSeconds = 3f
 	private val MaxNumberOfGates = 10
 
 	private var spawnTime = SpawnIntervalInSeconds
