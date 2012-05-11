@@ -8,7 +8,7 @@ import org.frankversnel.poortjes.DimensionValue
 
 class Candy(protected val resourceLoader: ResourceLoader) extends DrawableShape with Collidable
 		with TimeBasedLife {
-	protected val maxTimeAliveMillis = 10000
+	protected val maxTimeAliveMillis = 10000L
 
 	protected val shape = resourceLoader.addResource("candy.svg")
 

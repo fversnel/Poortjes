@@ -24,13 +24,15 @@ class GateEnd(protected val resourceLoader: ResourceLoader)
 	protected val shape = resourceLoader.addResource("gate-end.svg")
 }
 class GateConnector(protected val resourceLoader: ResourceLoader)
-		extends DrawableShape with Collidable {
+		extends DrawableShape with Collidable with SummoningSickness {
+	protected val maxSicknessDurationMillis = 3000L
+
 	var dimension = DimensionValue().width(2).height(50)
 
 	protected val shape = resourceLoader.addResource("gate-connector.svg")
 
 	def onCollision(collider: GameObject) {
-		if(collider.is[Player]) {
+		if(collider.is[Player] && !hasSummoningSickness) {
 			val explosion = new Explosion
 			explosion.translate(matrixStack.translation._1, matrixStack.translation._2)
 			EntityManager().spawn(explosion)

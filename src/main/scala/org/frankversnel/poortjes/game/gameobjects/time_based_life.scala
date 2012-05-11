@@ -8,8 +8,8 @@ import org.frankversnel.poortjes.Update
  * the specified maxTimeAliveMillis length.
  */
 trait TimeBasedLife extends Component {
-	protected val maxTimeAliveMillis: Int
-	private var timeAliveMillis = 0
+	protected val maxTimeAliveMillis: Long
+	private var timeAliveMillis = 0L
 
 	override def process(update: Update) {
 		super.process(update)
