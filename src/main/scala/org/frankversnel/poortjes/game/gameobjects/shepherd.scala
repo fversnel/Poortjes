@@ -24,10 +24,10 @@ class Shepherd(protected val resourceLoader: ResourceLoader)
 
 	override def destroy {
 		for(i <- 0 until NumberOfCandiesToSpawn) {
-            val spawnArea = new SpawnArea(EntityManager(), 
-                    Area(translation._1.toInt - 10, translation._1.toInt + 10, 
-                            translation._2.toInt - 10, translation._2.toInt + 10))
-            spawnArea.spawn(new Candy(resourceLoader))
+			val spawnArea = new SpawnArea(EntityManager(), 
+				Area(translation._1.toInt - 10, translation._1.toInt + 10, 
+					translation._2.toInt - 10, translation._2.toInt + 10))
+			spawnArea.spawn(new Candy(resourceLoader))
 		}
 
 		super.destroy
@@ -37,9 +37,9 @@ class Shepherd(protected val resourceLoader: ResourceLoader)
 		super.process(update)
 
 		val players = update.gameObjects.filter(_.is[Player]).map(_.asInstanceOf[Player])
-		val playerToFollow = this.fetchNearestOf(players)
+		val playerToFollow = fetchNearestOf(players)
 		if (playerToFollow.isDefined) {
-			setToRotation(this.angleTo(playerToFollow.get))
+			setToRotation(angleTo(playerToFollow.get))
 		}
 	}
 }
