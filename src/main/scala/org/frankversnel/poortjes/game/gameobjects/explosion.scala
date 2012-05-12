@@ -7,9 +7,8 @@ import org.frankversnel.poortjes.collision.CollidableCircle
 import org.frankversnel.poortjes.resource_loading.ResourceLoader
 import org.frankversnel.poortjes.util.DeltaTime
 
-class Explosion extends Drawable with Color with CollidableCircle
-		with TimeBasedLife {
-	val color = ColorValue().r(255).a(125)
+class Explosion extends Drawable with CollidableCircle with TimeBasedLife {
+	val color = Color.red.a(125)
 	var dimension = DimensionValue().width(0).height(0)
 
 	protected val maxTimeAliveMillis = 500L
@@ -34,6 +33,6 @@ class Explosion extends Drawable with Color with CollidableCircle
 	}
 
 	override def draw(renderer: Renderer) {
-		renderer.drawCircle(this)
+		renderer.drawCircle(this, color)
 	}
 }

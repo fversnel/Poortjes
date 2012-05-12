@@ -8,7 +8,7 @@ import org.frankversnel.poortjes.resource_loading.ResourceLoader
 class ShepherSpawner(private val spawnArea: SpawnArea,
 		private val resourceLoader: ResourceLoader) extends Component {
 	private val SpawnIntervalInSeconds = 10f
-	private val MaxNumberOfShepherds = 30
+	private val MaxNumberOfShepherds = 100
 	private val MaxNumberOfShepherdsAtOnce = 5
 
 	private var spawnTime = SpawnIntervalInSeconds

@@ -12,19 +12,21 @@ class Slick2DRenderer(
 	private val graphics: Graphics,
 	private val shapeLoader: SlickImageLoader) extends Renderer {
 
-	def drawText(text: String, color: ColorValue, x: Int, y: Int) {
+	def drawText(text: String, color: Color, x: Int, y: Int) {
 		throw new RuntimeException("TODO Implement this method")
 	}
 
-	def drawRectangle(component: Drawable with Color) {
-		drawShapeWithColor(new Rectangle(0, 0, component.dimension.width, component.dimension.height), component)
+	def drawRectangle(component: Transform, color: Color) {
+		drawShapeWithColor(new Rectangle(0, 0, component.dimension.width,
+				component.dimension.height), component, color)
 	}
 
-	def drawCircle(component: Drawable with Color) {
-		drawShapeWithColor(new Ellipse(0, 0, component.dimension.width / 2, component.dimension.height / 2), component)
+	def drawCircle(component: Transform, color: Color) {
+		drawShapeWithColor(new Ellipse(0, 0, component.dimension.width / 2,
+				component.dimension.height / 2), component, color)
 	}
 
-	def drawShape(resourceId: ResourceId, component: Drawable) {
+	def drawShape(component: Transform, resourceId: ResourceId) {
 		val shape = new Rectangle(0, 0, component.dimension.width, component.dimension.height)
 		drawShape(shape, component) { transformedShape =>
 			val image = shapeLoader.getResource(resourceId)
@@ -35,9 +37,8 @@ class Slick2DRenderer(
 
 	def clearScreen = { /* No need to implement this method */ }
 
-	private def drawShapeWithColor(shape: Shape, component: Drawable with Color) {
-		graphics.setColor(new org.newdawn.slick.Color(component.color.r, component.color.g,
-				component.color.b, component.color.a))
+	private def drawShapeWithColor(shape: Shape, component: Transform, color: Color) {
+		fill(color)
 		drawShape(shape, component) { transformedShape =>
 			graphics.fill(transformedShape)
 		}
@@ -46,6 +47,10 @@ class Slick2DRenderer(
 	private def drawShape(shape: Shape, component: Transform) (drawFunction: Shape => Unit) {
 		val transformedShape = shape.transform(Transform.slickMatrix(component))
 		drawFunction(transformedShape)
+	}
+
+	private def fill(color: Color) {
+		graphics.setColor(new org.newdawn.slick.Color(color.r, color.g,	color.b, color.a))
 	}
 
 }

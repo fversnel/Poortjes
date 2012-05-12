@@ -16,24 +16,14 @@ import org.frankversnel.poortjes.game.gameobjects._
 
 class PoortjesSlick extends BasicGame("Poortjes") {
 
-	private var renderer: Renderer = null
-	private var renderable: Transform with Color = null
-
-	private var resourceLoader: SlickImageLoader = null
-	private var newPlayer: Player with SlickKeyboardAdapter = null
-
     override def init(container: GameContainer) {
 		container.getGraphics().setBackground(org.newdawn.slick.Color.black);
-		resourceLoader = new SlickImageLoader
-		renderer = new Slick2DRenderer(container.getGraphics(), resourceLoader)
+		val resourceLoader = new SlickImageLoader
+		val renderer = new Slick2DRenderer(container.getGraphics(), resourceLoader)
 
         EntityManager.initialize(renderer)
 
-		newPlayer = new Player(resourceLoader) with SlickKeyboardAdapter {
-			//speed
-			override val distanceInMs = 0.09f
-			override val rotationInMs = 0.010f
-
+		val newPlayer = new Player(resourceLoader) with SlickKeyboardAdapter {
 			val shape = resourceLoader.addResource("ship-green.svg")
 
 			val keybindings = KeyboardBindings('w', 's', 'a', 'd')

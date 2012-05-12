@@ -9,6 +9,6 @@ trait DrawableShape extends Drawable {
 	protected val shape: ResourceId
 
 	override def draw(renderer: Renderer) {
-		renderer.drawShape(shape, this)
+		renderer.drawShape(this, shape)
 	}
 }

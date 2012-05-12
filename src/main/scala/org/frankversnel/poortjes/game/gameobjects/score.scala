@@ -4,7 +4,7 @@ import org.slf4j.scala.Logging
 
 import org.frankversnel.poortjes.Component
 import org.frankversnel.poortjes.DimensionValue
-import org.frankversnel.poortjes.ColorValue
+import org.frankversnel.poortjes.Color
 import org.frankversnel.poortjes.rendering.Drawable
 import org.frankversnel.poortjes.rendering.Renderer
 
@@ -15,7 +15,7 @@ class Score extends Component with Drawable with Logging {
 	def multiplier = _multiplier
 	def value = _value
 
-	val color = ColorValue().r(255).g(255).b(255)
+	val textColor = Color.white
 	var dimension = DimensionValue()
 
 	def incrementMultiplier = {
@@ -28,7 +28,7 @@ class Score extends Component with Drawable with Logging {
 	}
 
 	override def draw(renderer: Renderer) {
-		renderer.drawText(_value.toString, color, 10, 20)
-		renderer.drawText("x" + _multiplier, color, 10, 30)
+		renderer.drawText(_value.toString, textColor, 10, 20)
+		renderer.drawText("x" + _multiplier, textColor, 10, 30)
 	}
 }
