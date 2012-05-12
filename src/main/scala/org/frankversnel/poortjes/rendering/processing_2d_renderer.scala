@@ -13,7 +13,6 @@ class Processing2DRenderer(
 
 	def drawText(text: String, color: ColorValue, x: Int, y: Int) {
 		fill(color)
-		graphics.resetMatrix
 		graphics.text(text, x, y)
 	}
 
@@ -50,6 +49,7 @@ class Processing2DRenderer(
 		drawFunction
 
 		graphics.popMatrix
+		graphics.resetMatrix
 	}
 
 	private def fill(color: ColorValue) {

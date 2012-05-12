@@ -12,7 +12,7 @@ class Explosion extends Drawable with Color with CollidableCircle
 	val color = ColorValue().r(255).a(125)
 	var dimension = DimensionValue().width(0).height(0)
 
-	protected val maxTimeAliveMillis = 1000L
+	protected val maxTimeAliveMillis = 500L
 	private val targetRadius = 200f
 
 	override def process(update: Update) {
