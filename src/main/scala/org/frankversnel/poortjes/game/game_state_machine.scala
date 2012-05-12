@@ -2,6 +2,7 @@ package org.frankversnel.poortjes.game
 
 import org.slf4j.scala.Logging;
 
+import org.frankversnel.poortjes.EntityManager
 import org.frankversnel.poortjes.Update
 import org.frankversnel.poortjes.Component
 import org.frankversnel.poortjes.game.gameobjects.Player
@@ -15,8 +16,8 @@ class GameStateMachine extends Component with Logging {
 
 	override def process(update: Update) {
 		currentState match {
-			case Playing => 
-				val noPlayersLeft = update.players.isEmpty
+			case Playing =>
+				val noPlayersLeft = EntityManager().players.isEmpty
 				if(noPlayersLeft) {
 					currentState = GameOver
 				}

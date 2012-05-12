@@ -5,7 +5,7 @@ import org.frankversnel.poortjes._
 /**
  * Keeps track of a game object's life time
  */
-trait LifeTime extends Component {
+trait LifeTimeCounter extends Component {
 
 	private var _timeAliveMillis = 0L
 

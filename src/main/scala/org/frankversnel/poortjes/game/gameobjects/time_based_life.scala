@@ -7,7 +7,7 @@ import org.frankversnel.poortjes.Update
  * When this component is attached to a game object that game object will surely die in
  * the specified maxTimeAliveMillis length.
  */
-trait TimeBasedLife extends LifeTime {
+trait TimeBasedLife extends LifeTimeCounter {
 	protected val maxTimeAliveMillis: Long
 
 	override def process(update: Update) {

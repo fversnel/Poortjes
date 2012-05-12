@@ -24,9 +24,9 @@ class Shepherd(protected val resourceLoader: ResourceLoader)
 
 	override def destroy {
 		for(i <- 0 until NumberOfCandiesToSpawn) {
-			val spawnArea = new SpawnArea(EntityManager(), 
-				Area(translation._1.toInt - 30, translation._1.toInt + 30, 
-					translation._2.toInt - 30, translation._2.toInt + 30))
+			val spawnArea = new SpawnArea(EntityManager(),
+				Area(translation._1.toInt - 15, translation._1.toInt + 15,
+					translation._2.toInt - 15, translation._2.toInt + 15))
 			spawnArea.spawn(new Candy(resourceLoader))
 		}
 

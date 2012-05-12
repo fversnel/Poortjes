@@ -12,8 +12,8 @@ import org.frankversnel.poortjes.util._
 import org.frankversnel.poortjes.game.gameobjects._
 
 class Poortjes extends PApplet with Logging {
-	private val screenWidthPx = 400;
-	private val screenHeightPx = 300;
+	private val screenWidthPx = 800;
+	private val screenHeightPx = 500;
 	private val backgroundClr = 0;
 
 	override def setup = {
@@ -41,20 +41,13 @@ class Poortjes extends PApplet with Logging {
 		addKeyListener(playerTwo)
 		EntityManager().spawn(playerTwo)
 
-		for (i <- 0 until 7) {
-			val enemy = new Shepherd(resourceLoader)
-			enemy.translate(i * 20, 25)
-			EntityManager().spawn(enemy)
-		}
-
-		val candy = new Candy(resourceLoader)
-		candy.translate(50, 50)
-		EntityManager().spawn(candy)
-
-		val gateSpawnArea = new SpawnArea(EntityManager(), Area(0, screenWidthPx, 0,
+		val spawnArea = new SpawnArea(EntityManager(), Area(0, screenWidthPx, 0,
 				screenHeightPx))
-		val gateSpawner = new GateSpawner(gateSpawnArea, resourceLoader)
+		val gateSpawner = new GateSpawner(spawnArea, resourceLoader)
 		EntityManager().spawn(gateSpawner)
+
+		val shepherdSpawner = new ShepherSpawner(spawnArea, resourceLoader)
+		EntityManager().spawn(shepherdSpawner)
 	}
 
 	var oldTime = 0L

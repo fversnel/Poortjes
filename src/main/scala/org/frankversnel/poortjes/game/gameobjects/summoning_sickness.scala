@@ -1,6 +1,6 @@
 package org.frankversnel.poortjes.game.gameobjects
 
-trait SummoningSickness extends LifeTime {
+trait SummoningSickness extends LifeTimeCounter {
 	protected val maxSicknessDurationMillis: Long
 
 	def hasSummoningSickness = timeAliveMillis < maxSicknessDurationMillis

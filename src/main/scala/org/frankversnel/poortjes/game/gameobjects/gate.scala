@@ -25,7 +25,7 @@ class GateEnd(protected val resourceLoader: ResourceLoader)
 }
 class GateConnector(protected val resourceLoader: ResourceLoader)
 		extends DrawableShape with Collidable with SummoningSickness {
-	protected val maxSicknessDurationMillis = 3000L
+	protected val maxSicknessDurationMillis = 1000L
 
 	var dimension = DimensionValue().width(2).height(50)
 
