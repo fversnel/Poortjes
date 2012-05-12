@@ -12,10 +12,7 @@ class Score extends Component with Drawable with Logging {
 	private var _multiplier = 1
 	private var _value = 0
 
-	def multiplier = _multiplier
-	def value = _value
-
-	val textColor = Color.white
+	private val textColor = Color.white
 	var dimension = DimensionValue()
 
 	def incrementMultiplier = {
