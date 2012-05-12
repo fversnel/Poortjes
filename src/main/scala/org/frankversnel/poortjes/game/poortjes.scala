@@ -28,16 +28,18 @@ class Poortjes extends PApplet with Logging {
 		EntityManager.initialize(renderer)
 
 		val newPlayer = new Player(resourceLoader) with Keyboard {
+			val shape = resourceLoader.addResource("ship-green.svg")
 			val keybindings = KeyboardBindings('w', 's', 'a', 'd')
 		}
-		newPlayer.translate(screenWidthPx / 3, screenHeightPx / 3)
+		newPlayer.translate((screenWidthPx / 2) - 10, screenHeightPx / 2)
 		addKeyListener(newPlayer)
 		EntityManager().spawn(newPlayer)
 
 		val playerTwo = new Player(resourceLoader) with Keyboard {
+			val shape = resourceLoader.addResource("ship-purple.svg")
 			val keybindings = KeyboardBindings('i', 'k', 'j', 'l')
 		}
-		playerTwo.translate(screenWidthPx / 2, screenHeightPx / 2)
+		playerTwo.translate((screenWidthPx / 2) + 10, screenHeightPx / 2)
 		addKeyListener(playerTwo)
 		EntityManager().spawn(playerTwo)
 
@@ -48,6 +50,8 @@ class Poortjes extends PApplet with Logging {
 
 		val shepherdSpawner = new ShepherSpawner(spawnArea, resourceLoader)
 		EntityManager().spawn(shepherdSpawner)
+
+		EntityManager().spawn(new Score)
 	}
 
 	var oldTime = 0L

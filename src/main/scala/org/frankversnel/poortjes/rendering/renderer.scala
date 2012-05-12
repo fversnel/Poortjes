@@ -4,6 +4,7 @@ import org.frankversnel.poortjes._
 import org.frankversnel.poortjes.resource_loading.ResourceId
 
 trait Renderer {
+	def drawText(text: String, color: ColorValue, x: Int, y: Int)
 	def drawRectangle(component: Drawable with Color)
 	def drawCircle(component: Drawable with Color)
 	def drawShape(resourceId: ResourceId, component: Drawable)

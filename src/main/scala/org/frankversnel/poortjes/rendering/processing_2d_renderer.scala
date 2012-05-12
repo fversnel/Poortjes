@@ -11,6 +11,12 @@ class Processing2DRenderer(
 	private val shapeLoader: ProcessingShapeLoader,
 	private val backgroundColor: Int) extends Renderer {
 
+	def drawText(text: String, color: ColorValue, x: Int, y: Int) {
+		fill(color)
+		graphics.resetMatrix
+		graphics.text(text, x, y)
+	}
+
 	def drawRectangle(component: Drawable with Color) {
 		draw(component) {
 			graphics.rect(0, 0, component.dimension.width, component.dimension.height)
@@ -33,7 +39,7 @@ class Processing2DRenderer(
 	def clearScreen = graphics.background(backgroundColor)
 
 	private def draw(component: Drawable with Color) (drawFunction: => Unit) {
-		graphics.fill(component.color.r, component.color.g, component.color.b, component.color.a)
+		fill(component.color)
 		drawTransform(component)(drawFunction)
 	}
 
@@ -46,4 +52,7 @@ class Processing2DRenderer(
 		graphics.popMatrix
 	}
 
+	private def fill(color: ColorValue) {
+		graphics.fill(color.r, color.g, color.b, color.a)
+	}
 }

@@ -34,6 +34,8 @@ class PoortjesSlick extends BasicGame("Poortjes") {
 			override val distanceInMs = 0.09f
 			override val rotationInMs = 0.010f
 
+			val shape = resourceLoader.addResource("ship-green.svg")
+
 			val keybindings = KeyboardBindings('w', 's', 'a', 'd')
 		}
 		newPlayer.translate(150, 150)

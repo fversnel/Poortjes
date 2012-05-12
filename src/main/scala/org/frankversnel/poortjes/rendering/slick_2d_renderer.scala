@@ -12,6 +12,10 @@ class Slick2DRenderer(
 	private val graphics: Graphics,
 	private val shapeLoader: SlickImageLoader) extends Renderer {
 
+	def drawText(text: String, color: ColorValue, x: Int, y: Int) {
+		throw new RuntimeException("TODO Implement this method")
+	}
+
 	def drawRectangle(component: Drawable with Color) {
 		drawShapeWithColor(new Rectangle(0, 0, component.dimension.width, component.dimension.height), component)
 	}

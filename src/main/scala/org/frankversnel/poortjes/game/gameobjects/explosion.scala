@@ -12,7 +12,7 @@ class Explosion extends Drawable with Color with CollidableCircle
 	val color = ColorValue().r(255).a(125)
 	var dimension = DimensionValue().width(0).height(0)
 
-	protected val maxTimeAliveMillis = 2000L
+	protected val maxTimeAliveMillis = 1000L
 	private val targetRadius = 200f
 
 	override def process(update: Update) {
@@ -24,6 +24,11 @@ class Explosion extends Drawable with Color with CollidableCircle
 
 	def onCollision(collider: GameObject) {
 		if(collider.is[Shepherd]) {
+			val scores = EntityManager().gameObjects.map(_.as[Score]).flatten
+			if(scores.nonEmpty) {
+				scores.head.incrementScore
+			}
+
 			collider.destroy
 		}
 	}
