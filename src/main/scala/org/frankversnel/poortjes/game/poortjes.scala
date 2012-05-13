@@ -2,6 +2,8 @@ package org.frankversnel.poortjes.game;
 
 import org.slf4j.scala.Logging;
 import processing.core.PApplet;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import org.frankversnel.poortjes._
 import org.frankversnel.poortjes.rendering._
@@ -17,11 +19,19 @@ class Poortjes extends PApplet with Logging {
 	private val backgroundClr = 0;
 
 	override def setup = {
-		logger.info("initializing Poortjes...")
-
 		size(screenWidthPx, screenHeightPx)
 		background(backgroundClr)
 		smooth
+
+		addKeyListener(new KeyListener {
+			override def keyPressed(event: KeyEvent) {
+				if(event.getKeyCode == KeyEvent.VK_SPACE) {
+					setup
+				}
+			}
+			override def keyReleased(event: KeyEvent) {}
+			override def keyTyped(event: KeyEvent) {}
+		})
 
 		val resourceLoader = new ProcessingShapeLoader(this)
 		val renderer = new Processing2DRenderer(g, resourceLoader, backgroundClr)
@@ -66,5 +76,6 @@ class Poortjes extends PApplet with Logging {
 }
 
 object Poortjes extends App with Logging {
+	logger.info("initializing Poortjes...")
 	PApplet.main(Array("org.frankversnel.poortjes.game.Poortjes"));
 }
