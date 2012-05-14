@@ -15,14 +15,11 @@ abstract class ComponentManager {
 	def removeComponent(component: Component) {
 		forComponent(component) (components -= _.asInstanceOf[T])
 	}
-	def processComponents(update: Update) {
-		components.toList.foreach(processComponent(_, update))
-	}
-
-	protected def isCorrectType(component: Component): Boolean
-	protected def processComponent(component: T, update: Update): Unit
 
 	protected def allComponents = components.toList
+
+	def processComponents(update: Update): Unit
+	protected def isCorrectType(component: Component): Boolean
 
 	// Only processes the component if it is of type T
 	private def forComponent[T: Manifest](c: Component) (onComponent: Component => Unit) {

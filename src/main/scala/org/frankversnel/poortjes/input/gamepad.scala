@@ -16,7 +16,7 @@ trait Gamepad extends Component with Logging {
 	input.setDeadZone(1, 0.3f)
 	input.setDeadZone(2, 0.3f)
 
-	var previousVector = new Vector2f(0f, 0.001f)
+	var previousVector = new Vector2f(0f, 0f)
 
 	override def process(update: Update) {
 		super.process(update)

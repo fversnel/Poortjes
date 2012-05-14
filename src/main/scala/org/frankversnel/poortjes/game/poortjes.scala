@@ -31,7 +31,46 @@ class Poortjes extends PApplet with Logging {
 
 		val resourceLoader = new ProcessingShapeLoader(this)
 		val renderer = new Processing2DRenderer(g, resourceLoader, backgroundClr)
-		EntityManager.initialize(renderer)
+		EntityManager.initialize(List(
+				new RenderingManager(renderer),
+				new ComponentProcessingManager,
+				new FastCollisionManager {
+					type A = GateConnector
+					type B = Player
+
+					protected def isCorrectLhs(c: Component) = c.isInstanceOf[GateConnector]
+					protected def isCorrectRhs(c: Component) = c.isInstanceOf[Player]
+				},
+				new FastCollisionManager {
+					type A = GateEnd
+					type B = Player
+
+					protected def isCorrectLhs(c: Component) = c.isInstanceOf[GateEnd]
+					protected def isCorrectRhs(c: Component) = c.isInstanceOf[Player]
+				},
+				new FastCollisionManager {
+					type A = Shepherd
+					type B = Player
+
+					protected def isCorrectLhs(c: Component) = c.isInstanceOf[Shepherd]
+					protected def isCorrectRhs(c: Component) = c.isInstanceOf[Player]
+				},
+				new FastCollisionManager {
+					type A = Player
+					type B = Candy
+
+					protected def isCorrectLhs(c: Component) = c.isInstanceOf[Player]
+					protected def isCorrectRhs(c: Component) = c.isInstanceOf[Candy]
+				},
+				new FastCollisionManager {
+					type A = Explosion
+					type B = Shepherd
+
+					protected def isCorrectLhs(c: Component) = c.isInstanceOf[Explosion]
+					protected def isCorrectRhs(c: Component) = c.isInstanceOf[Shepherd]
+				}
+			)
+		)
 
 		val newPlayer = new Player(resourceLoader) with Keyboard {
 			val shape = resourceLoader.addResource("ship-green.svg")

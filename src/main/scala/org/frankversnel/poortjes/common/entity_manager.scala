@@ -8,7 +8,7 @@ import org.frankversnel.poortjes.util.DeltaTime
 
 import org.frankversnel.poortjes.game.gameobjects.Player
 
-class EntityManager private(val renderer: Renderer) extends Logging {
+class EntityManager private(private val componentManagers: List[ComponentManager]) extends Logging {
 
 	private var _players: List[Player] = Nil
 	def players = _players
@@ -16,12 +16,6 @@ class EntityManager private(val renderer: Renderer) extends Logging {
 	private var _gameObjects: List[GameObject] = Nil
 	// Getter
 	def gameObjects = _gameObjects
-
-	private val componentManagers = List(
-			new CollisionManager,
-			new RenderingManager(renderer),
-			new ComponentProcessingManager
-		)
 
     def spawn(newGameObject: GameObject) {
 		_gameObjects ::= newGameObject
@@ -57,8 +51,8 @@ class EntityManager private(val renderer: Renderer) extends Logging {
 }
 object EntityManager {
 	var entityManager: Option[EntityManager] = None
-	def initialize(renderer: Renderer) {
-		entityManager = Some(new EntityManager(renderer))
+	def initialize(componentManagers: List[ComponentManager]) {
+		entityManager = Some(new EntityManager(componentManagers))
 	}
 
 	def apply() = {

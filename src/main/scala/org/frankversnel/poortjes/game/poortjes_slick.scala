@@ -21,7 +21,7 @@ class PoortjesSlick extends BasicGame("Poortjes") {
 		val resourceLoader = new SlickImageLoader
 		val renderer = new Slick2DRenderer(container.getGraphics(), resourceLoader)
 
-        EntityManager.initialize(renderer)
+        EntityManager.initialize(Nil)
 
 		val newPlayer = new Player(resourceLoader) with SlickKeyboardAdapter {
 			val shape = resourceLoader.addResource("ship-green.svg")
