@@ -4,7 +4,7 @@ apply plugin: 'application'
 
 // Properties
 sourceCompatibility = 1.5
-version = "0.2-SNAPSHOT"
+version = '0.1.1'
 mainClassName='org.frankversnel.poortjes.game.Poortjes'
 ext.env = System.getenv()
 ext.scalaHome = env['SCALA_HOME']

@@ -23,15 +23,11 @@ class Poortjes extends PApplet with Logging {
 		background(backgroundClr)
 		smooth
 
-		addKeyListener(new KeyListener {
-			override def keyPressed(event: KeyEvent) {
-				if(event.getKeyCode == KeyEvent.VK_SPACE) {
-					setup
-				}
-			}
-			override def keyReleased(event: KeyEvent) {}
-			override def keyTyped(event: KeyEvent) {}
-		})
+		initialize
+	}
+
+	def initialize {
+		getKeyListeners.foreach(removeKeyListener(_))
 
 		val resourceLoader = new ProcessingShapeLoader(this)
 		val renderer = new Processing2DRenderer(g, resourceLoader, backgroundClr)
@@ -62,6 +58,25 @@ class Poortjes extends PApplet with Logging {
 		EntityManager().spawn(shepherdSpawner)
 
 		EntityManager().spawn(new Score)
+
+		addKeyListener(new KeyListener {
+			override def keyPressed(event: KeyEvent) {
+				if(event.getKeyCode == KeyEvent.VK_ESCAPE) {
+					System.exit(0)
+				}
+			}
+			override def keyReleased(event: KeyEvent) {}
+			override def keyTyped(event: KeyEvent) {}
+		})
+		addKeyListener(new KeyListener {
+			override def keyPressed(event: KeyEvent) {
+				if(event.getKeyCode == KeyEvent.VK_SPACE) {
+					initialize
+				}
+			}
+			override def keyReleased(event: KeyEvent) {}
+			override def keyTyped(event: KeyEvent) {}
+		})
 	}
 
 	var oldTime = 0L
