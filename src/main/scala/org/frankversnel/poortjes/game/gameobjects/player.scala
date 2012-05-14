@@ -20,14 +20,12 @@ abstract class Player(val resourceLoader: ResourceLoader) extends DrawableShape
 
 	val shape: ResourceId
 
-	def onCollision(collider: GameObject) {
-		if(collider.is[Candy]) {
-			val scores = EntityManager().gameObjects.map(_.as[Score]).flatten
-			if(scores.nonEmpty) {
-				scores.head.incrementMultiplier
-			}
+	def onCollision(candy: GameObject) {
+		//val scores = EntityManager().gameObjects.map(_.as[Score]).flatten
+		//if(scores.nonEmpty) {
+		//	scores.head.incrementMultiplier
+		//}
 
-			collider.destroy
-		}
+		candy.destroy
 	}
 }

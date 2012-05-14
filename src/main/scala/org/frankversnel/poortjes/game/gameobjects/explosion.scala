@@ -21,15 +21,13 @@ class Explosion extends Drawable with CollidableCircle with TimeBasedLife {
 		dimension = dimension.width(actualRadius.toInt).height(actualRadius.toInt)
 	}
 
-	def onCollision(collider: GameObject) {
-		if(collider.is[Shepherd]) {
-			val scores = EntityManager().gameObjects.map(_.as[Score]).flatten
-			if(scores.nonEmpty) {
-				scores.head.incrementScore
-			}
+	def onCollision(shepherd: GameObject) {
+		//val scores = EntityManager().gameObjects.map(_.as[Score]).flatten
+		//if(scores.nonEmpty) {
+		//	scores.head.incrementScore
+		//}
 
-			collider.destroy
-		}
+		shepherd.destroy
 	}
 
 	override def draw(renderer: Renderer) {
