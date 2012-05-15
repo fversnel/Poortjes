@@ -43,7 +43,8 @@ class Processing2DRenderer(
 
 	private def draw(transform: Transform) (drawFunction: => Unit) {
 		graphics.pushMatrix
-		graphics.setMatrix(Transform.processingMatrix(transform))
+		graphics.translate(transform.translation._1, transform.translation._2)
+		graphics.rotate(transform.rotationAngle)
 
 		drawFunction
 

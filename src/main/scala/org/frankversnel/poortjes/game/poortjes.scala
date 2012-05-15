@@ -1,9 +1,11 @@
 package org.frankversnel.poortjes.game;
 
-import org.slf4j.scala.Logging;
-import processing.core.PApplet;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import org.slf4j.scala.Logging
+import processing.core.PApplet
+import processing.core.PConstants
+import processing.opengl._
+import java.awt.event.KeyEvent
+import java.awt.event.KeyListener
 
 import org.frankversnel.poortjes._
 import org.frankversnel.poortjes.rendering._
@@ -19,7 +21,8 @@ class Poortjes extends PApplet with Logging {
 	private val backgroundClr = 0;
 
 	override def setup = {
-		size(screenWidthPx, screenHeightPx)
+		size(screenWidthPx, screenHeightPx, PConstants.OPENGL)
+		//size(screenWidthPx, screenHeightPx)
 		background(backgroundClr)
 		smooth
 

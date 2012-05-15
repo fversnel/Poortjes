@@ -8,7 +8,13 @@ trait Transform extends Dimension {
 	private var matrix = Matrix2D()
 
 	private var _rotationAngle = 0f
-	def rotationAngle = _rotationAngle
+	def rotationAngle: Float = {
+		return if(parent.isDefined) {
+			_rotationAngle + parent.get.asInstanceOf[Transform].rotationAngle
+		} else {
+			_rotationAngle
+		}
+	}
 	def setToRotation(theta: Float) {
 		rotate(-_rotationAngle)
 		rotate(theta)
