@@ -10,19 +10,11 @@ import org.frankversnel.poortjes.game.gameobjects.Player
 
 class EntityManager private(private val componentManagers: List[ComponentManager]) extends Logging {
 
-	private var _players: List[Player] = Nil
-	def players = _players
-
 	private var _gameObjects: List[GameObject] = Nil
-	// Getter
 	def gameObjects = _gameObjects
 
     def spawn(newGameObject: GameObject) {
 		_gameObjects ::= newGameObject
-
-		if(newGameObject.is[Player]) {
-			_players ::= newGameObject.asInstanceOf[Player]
-		}
 
 		newGameObject.onGameObjectAndChildren { gameObject =>
 			val component = gameObject.asInstanceOf[Component]
@@ -40,7 +32,6 @@ class EntityManager private(private val componentManagers: List[ComponentManager
 		val destroyedGameObjects = gameObjects.filter(_.isDestroyed)
 
 		_gameObjects = _gameObjects.filterNot(g => destroyedGameObjects.contains(g))
-		_players = _players.filterNot(g => destroyedGameObjects.contains(g))
 
 		destroyedGameObjects.foreach { destroyedGameObject =>
 			destroyedGameObject.onGameObjectAndChildren { gameObject =>

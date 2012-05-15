@@ -31,8 +31,8 @@ class GateConnector(protected val resourceLoader: ResourceLoader)
 
 	protected val shape = resourceLoader.addResource("gate-connector.svg")
 
-	def onCollision(player: GameObject) {
-		if(!hasSummoningSickness) {
+	def onCollision(collider: Collidable, update: Update) {
+		if(collider.isInstanceOf[Player] && !hasSummoningSickness) {
 			val explosion = new Explosion
 			explosion.translate(matrixStack.translation._1, matrixStack.translation._2)
 			EntityManager().spawn(explosion)

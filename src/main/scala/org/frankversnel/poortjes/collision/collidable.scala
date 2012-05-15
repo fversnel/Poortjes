@@ -12,7 +12,7 @@ trait Collidable extends Transform with Dimension with Logging {
 		boundingBox.intersects(otherCollidable.boundingBox)
 	}
 
-	def onCollision(collider: GameObject): Unit
+	def onCollision(collider: Collidable, update: Update): Unit
 
 	protected def boundingBox: Shape = {
 		val boundingBox = new Rectangle(0, 0, dimension.width, dimension.height)

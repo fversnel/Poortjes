@@ -11,9 +11,10 @@ class Processing2DRenderer(
 	private val shapeLoader: ProcessingShapeLoader,
 	private val backgroundColor: Int) extends Renderer {
 
-	def drawText(text: String, color: Color, x: Int, y: Int) {
-		fill(color)
-		graphics.text(text, x, y)
+	def drawText(transform: Transform, text: String, color: Color) {
+		draw(transform, color) {
+			graphics.text(text, 0, 0)
+		}
 	}
 
 	def drawRectangle(transform: Transform, color: Color) {

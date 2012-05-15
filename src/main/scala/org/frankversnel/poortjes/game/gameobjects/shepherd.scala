@@ -36,8 +36,8 @@ class Shepherd(protected val resourceLoader: ResourceLoader)
 	override def process(update: Update) {
 		super.process(update)
 
-		val players = EntityManager().players
-		val playerToFollow = fetchNearestOf(players)
+		val players = update.gameObjects.filter(_.isInstanceOf[Player])
+		val playerToFollow = fetchNearestOf(players.map(_.asInstanceOf[Player]))
 		if (playerToFollow.isDefined) {
 			setToRotation(angleTo(playerToFollow.get))
 		}

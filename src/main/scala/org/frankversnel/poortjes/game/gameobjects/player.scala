@@ -1,6 +1,7 @@
 package org.frankversnel.poortjes.game.gameobjects
 
 import org.frankversnel.poortjes.EntityManager
+import org.frankversnel.poortjes.Update
 import org.frankversnel.poortjes.GameObject
 import org.frankversnel.poortjes.Transform
 import org.frankversnel.poortjes.DimensionValue
@@ -20,12 +21,14 @@ abstract class Player(val resourceLoader: ResourceLoader) extends DrawableShape
 
 	val shape: ResourceId
 
-	def onCollision(candy: GameObject) {
-		//val scores = EntityManager().gameObjects.map(_.as[Score]).flatten
-		//if(scores.nonEmpty) {
-		//	scores.head.incrementMultiplier
-		//}
-
-		candy.destroy
+	def onCollision(collider: Collidable, update: Update) {
+		if(collider.isInstanceOf[Candy]) {
+			val score = update.gameObjects.filter(_.isInstanceOf[Score]).headOption
+			if(score.isDefined) {
+				score.get.asInstanceOf[Score].incrementMultiplier
+			}
+	
+			collider.destroy
+		}
 	}
 }

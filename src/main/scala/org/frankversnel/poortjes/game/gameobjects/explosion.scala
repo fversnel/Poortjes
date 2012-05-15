@@ -4,6 +4,7 @@ import org.frankversnel.poortjes._
 import org.frankversnel.poortjes.rendering.Drawable
 import org.frankversnel.poortjes.rendering.Renderer
 import org.frankversnel.poortjes.collision.CollidableCircle
+import org.frankversnel.poortjes.collision.Collidable
 import org.frankversnel.poortjes.resource_loading.ResourceLoader
 import org.frankversnel.poortjes.util.DeltaTime
 
@@ -21,13 +22,15 @@ class Explosion extends Drawable with CollidableCircle with TimeBasedLife {
 		dimension = dimension.width(actualRadius.toInt).height(actualRadius.toInt)
 	}
 
-	def onCollision(shepherd: GameObject) {
-		//val scores = EntityManager().gameObjects.map(_.as[Score]).flatten
-		//if(scores.nonEmpty) {
-		//	scores.head.incrementScore
-		//}
+	def onCollision(collider: Collidable, update: Update) {
+		if(collider.isInstanceOf[Shepherd]) {
+			val score = update.gameObjects.filter(_.isInstanceOf[Score]).headOption
+			if(score.isDefined) {
+				score.get.asInstanceOf[Score].incrementScore
+			}
 
-		shepherd.destroy
+			collider.destroy
+		}
 	}
 
 	override def draw(renderer: Renderer) {

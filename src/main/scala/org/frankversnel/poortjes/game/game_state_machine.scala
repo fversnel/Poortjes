@@ -17,8 +17,8 @@ class GameStateMachine extends Component with Logging {
 	override def process(update: Update) {
 		currentState match {
 			case Playing =>
-				val noPlayersLeft = EntityManager().players.isEmpty
-				if(noPlayersLeft) {
+				val playersLeft = update.gameObjects.exists(_.isInstanceOf[Player])
+				if(!playersLeft) {
 					currentState = GameOver
 				}
 			case GameOver =>

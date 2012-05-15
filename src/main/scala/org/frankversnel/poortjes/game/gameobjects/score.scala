@@ -8,12 +8,14 @@ import org.frankversnel.poortjes.Color
 import org.frankversnel.poortjes.rendering.Drawable
 import org.frankversnel.poortjes.rendering.Renderer
 
-class Score extends Component with Drawable with Logging {
+class Score extends Drawable with Logging {
 	private var _multiplier = 1
 	private var _value = 0
 
 	private val textColor = Color.white
 	var dimension = DimensionValue()
+
+	translate(0, 10)
 
 	def incrementMultiplier = {
 		_multiplier += 1
@@ -25,7 +27,6 @@ class Score extends Component with Drawable with Logging {
 	}
 
 	override def draw(renderer: Renderer) {
-		renderer.drawText(_value.toString, textColor, 10, 20)
-		renderer.drawText("x" + _multiplier, textColor, 10, 30)
+		renderer.drawText(this, _value + "\nx" + _multiplier, textColor)
 	}
 }

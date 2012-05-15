@@ -30,7 +30,7 @@ abstract class FastCollisionManager extends ComponentManager {
 		for(lhsCollidable <- lhsCollidables;
 			rhsCollidable <- rhsCollidables
 			if lhsCollidable.collidesWith(rhsCollidable)
-		) yield lhsCollidable.onCollision(rhsCollidable)
+		) yield lhsCollidable.onCollision(rhsCollidable, update)
 	}
 
 	protected def isCorrectLhs(component: Component): Boolean
