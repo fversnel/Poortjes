@@ -4,6 +4,7 @@ import org.slf4j.scala.Logging
 import processing.core.PApplet
 import processing.core.PConstants
 import processing.opengl._
+import java.util.Properties
 import java.awt.event.KeyEvent
 import java.awt.event.KeyListener
 
@@ -16,15 +17,24 @@ import org.frankversnel.poortjes.util._
 import org.frankversnel.poortjes.game.gameobjects._
 
 class Poortjes extends PApplet with Logging {
-	private val screenWidthPx = 800;
-	private val screenHeightPx = 500;
+	private var screenWidthPx = 640
+	private var screenHeightPx = 480
 	private val backgroundClr = 0;
 
 	override def setup = {
-		size(screenWidthPx, screenHeightPx, PConstants.OPENGL)
-		//size(screenWidthPx, screenHeightPx)
-		background(backgroundClr)
-		smooth
+		val properties = new Properties
+		properties.load(getClass.getClassLoader.getResourceAsStream("poortjes.properties"))
+
+		screenWidthPx = properties.getProperty("screen_width").toInt
+		screenHeightPx = properties.getProperty("screen_height").toInt
+		if(properties.getProperty("opengl").equals("true")) {
+			size(screenWidthPx, screenHeightPx, PConstants.OPENGL)
+			hint(PConstants.DISABLE_OPENGL_2X_SMOOTH)
+			hint(PConstants.ENABLE_OPENGL_2X_SMOOTH)
+		} else {
+			size(screenWidthPx, screenHeightPx)
+			smooth
+		}
 
 		initialize
 	}
