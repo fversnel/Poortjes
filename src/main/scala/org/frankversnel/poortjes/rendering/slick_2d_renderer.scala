@@ -12,7 +12,7 @@ class Slick2DRenderer(
 	private val graphics: Graphics,
 	private val shapeLoader: SlickImageLoader) extends Renderer {
 
-	def drawText(component: Transform, text: String, color: Color) {
+	def drawText(transform: Transform, text: String, color: Color) {
 		throw new RuntimeException("TODO Implement this method")
 	}
 
