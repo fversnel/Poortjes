@@ -4,11 +4,13 @@ import org.slf4j.scala.Logging;
 
 import org.frankversnel.poortjes.rendering._;
 import org.frankversnel.poortjes.collision._
-import org.frankversnel.poortjes.util.DeltaTime
 
 import org.frankversnel.poortjes.game.gameobjects.Player
 
-class EntityManager private(private val componentManagers: List[ComponentManager]) extends Logging {
+class EntityManager private(private val componentManagers: List[ComponentManager]) 
+		extends Logging {
+
+	private val deltaTimeTracker = new DeltaTimeTracker
 
 	private var _gameObjects: List[GameObject] = Nil
 	def gameObjects = _gameObjects
@@ -22,9 +24,10 @@ class EntityManager private(private val componentManagers: List[ComponentManager
 		}
 	}
 
-    def process(deltaTime: DeltaTime) {
+    def process {
+		val delta = deltaTimeTracker.getDelta
 		componentManagers.foreach {
-			_.processComponents(Update(deltaTime, _gameObjects))
+			_.processComponents(Update(delta, _gameObjects))
 		}
     }
 

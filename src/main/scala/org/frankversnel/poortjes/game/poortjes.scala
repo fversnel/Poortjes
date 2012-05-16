@@ -135,13 +135,8 @@ class Poortjes extends PApplet with Logging {
 		})
 	}
 
-	var oldTime = 0L
 	override def draw = {
-		val newTime = millis
-		val deltaMillis = (newTime - oldTime).toInt
-		oldTime = newTime
-
-		EntityManager().process(DeltaTime(deltaMillis))
+		EntityManager().process
 		EntityManager().cleanUp
 	}
 }

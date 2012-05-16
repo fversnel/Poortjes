@@ -34,7 +34,7 @@ class PoortjesSlick extends BasicGame("Poortjes") {
     }
 
     override def update(container: GameContainer, delta: Int): Unit = {
-		EntityManager().process(DeltaTime(delta))
+		EntityManager().process
 		EntityManager().cleanUp
 	}
 
