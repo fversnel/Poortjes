@@ -9,7 +9,7 @@ import org.newdawn.slick.Graphics
 import org.frankversnel.poortjes._
 import org.frankversnel.poortjes.rendering._
 import org.frankversnel.poortjes.resource_loading._
-import org.frankversnel.poortjes.input._
+import org.frankversnel.poortjes.input.keyboard._
 import org.frankversnel.poortjes.collision._
 import org.frankversnel.poortjes.util.DeltaTime
 import org.frankversnel.poortjes.game.gameobjects._
@@ -23,7 +23,7 @@ class PoortjesSlick extends BasicGame("Poortjes") {
 
         EntityManager.initialize(Nil)
 
-		val newPlayer = new Player(resourceLoader) with SlickKeyboardAdapter {
+		val newPlayer = new Player(resourceLoader) with Keyboard with SlickKeyListenerAdapter {
 			val shape = resourceLoader.addResource("ship-green.svg")
 
 			val keybindings = KeyboardBindings('w', 's', 'a', 'd')

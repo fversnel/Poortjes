@@ -1,4 +1,4 @@
-package org.frankversnel.poortjes.input
+package org.frankversnel.poortjes.input.gamepad
 
 import scala.math._
 import org.lwjgl.input._
@@ -16,21 +16,20 @@ trait Gamepad extends Component with Logging {
 	input.setDeadZone(1, 0.3f)
 	input.setDeadZone(2, 0.3f)
 
-	var previousVector = new Vector2f(0f, 0f)
-
 	override def process(update: Update) {
 		super.process(update)
 
 		// Retrieve new input from the gamepad
 		input.poll
+
 		//logger.info("x: " + input.getXAxisValue() + " y: " + input.getYAxisValue())
 		val inputVector = new Vector2f(input.getXAxisValue, input.getYAxisValue)
-		val directionVector = previousVector.sub(inputVector)
-		previousVector = inputVector
+
 		//val speed = direction.length
-		val rotation = atan2(directionVector.getY, directionVector.getX)
+		val rotation = atan2(inputVector.getY, inputVector.getX)
 		//logger.info("rotation: " + rotation)
-		//self.rotationSpeed = inputVector.getX
+		self.setToRotation(rotation.toFloat)
+
 		self.moveSpeed = (inputVector.getX, -inputVector.getY)
 	}
 }

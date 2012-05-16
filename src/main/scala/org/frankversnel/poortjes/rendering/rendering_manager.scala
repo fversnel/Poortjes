@@ -10,8 +10,8 @@ class RenderingManager(private val renderer: Renderer) extends ComponentManager 
 		renderer.clearScreen
 		allComponents.foreach(_.draw(renderer))
 		
-		// Draw framerate
 		if(GameConfiguration.isDebugEnabled) {
+			// Draw framerate
 			renderer.drawText(new Transform {
 					var dimension = DimensionValue()
 					translate(200, 10)},

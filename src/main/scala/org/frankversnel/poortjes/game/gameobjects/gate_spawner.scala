@@ -15,7 +15,7 @@ class GateSpawner(private val spawnArea: SpawnArea,
 	override def process(update: Update) {
 		spawnTime -= update.deltaTime.seconds
 
-		lazy val isSpaceLeft = update.gameObjects.filter(_.is[Gate]).size < MaxNumberOfGates
+		lazy val isSpaceLeft = update.gameObjects.filter(_.isInstanceOf[Gate]).size < MaxNumberOfGates
 		val isTimeToSpawn = spawnTime <= 0f
 		if(isTimeToSpawn && isSpaceLeft) {
 			spawnArea.spawn(Gate.build(resourceLoader))

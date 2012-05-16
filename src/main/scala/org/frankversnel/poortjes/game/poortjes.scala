@@ -11,7 +11,7 @@ import java.awt.event.KeyListener
 import org.frankversnel.poortjes._
 import org.frankversnel.poortjes.rendering._
 import org.frankversnel.poortjes.collision._
-import org.frankversnel.poortjes.input._
+import org.frankversnel.poortjes.input.keyboard._
 import org.frankversnel.poortjes.resource_loading._
 import org.frankversnel.poortjes.util._
 import org.frankversnel.poortjes.game.gameobjects._
@@ -22,16 +22,16 @@ class Poortjes extends PApplet with Logging {
 	private val backgroundClr = 0;
 
 	override def setup = {
-		smooth
-
 		screenWidthPx = GameConfiguration.getProperty("screen_width").toInt
 		screenHeightPx = GameConfiguration.getProperty("screen_height").toInt
 		if(GameConfiguration.isEnabled("opengl")) {
 			size(screenWidthPx, screenHeightPx, PConstants.OPENGL)
+			smooth
 			hint(PConstants.DISABLE_OPENGL_2X_SMOOTH)
 			hint(PConstants.ENABLE_OPENGL_2X_SMOOTH)
 		} else {
 			size(screenWidthPx, screenHeightPx)
+			smooth
 		}
 
 		initialize
@@ -89,7 +89,7 @@ class Poortjes extends PApplet with Logging {
 			)
 		)
 
-		val newPlayer = new Player(resourceLoader) with Keyboard {
+		val newPlayer = new Player(resourceLoader) with Keyboard with JavaKeyListenerAdapter {
 			val shape = resourceLoader.addResource("ship-green.svg")
 			val keybindings = KeyboardBindings('w', 's', 'a', 'd')
 		}
@@ -97,7 +97,7 @@ class Poortjes extends PApplet with Logging {
 		addKeyListener(newPlayer)
 		EntityManager().spawn(newPlayer)
 
-		val playerTwo = new Player(resourceLoader) with Keyboard {
+		val playerTwo = new Player(resourceLoader) with Keyboard with JavaKeyListenerAdapter {
 			val shape = resourceLoader.addResource("ship-purple.svg")
 			val keybindings = KeyboardBindings('i', 'k', 'j', 'l')
 		}

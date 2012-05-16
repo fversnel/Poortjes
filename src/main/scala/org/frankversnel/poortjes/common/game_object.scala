@@ -9,28 +9,13 @@ abstract class GameObject {
 	def destroy = _isDestroyed = true
 	def isDestroyed = _isDestroyed
 
-	def as[A: Manifest]: Option[A] = {
-		return if(is[A]) {
-			Some(this.asInstanceOf[A])
-		} else {
-			None 
-		}
-	}
-
-	def is[A: Manifest]: Boolean = {
-		Manifest.singleType(this) <:< manifest[A]
-	}
-
 	def parent = _parent
 	def parent_= (value: GameObject): Unit = {
 		_parent = Option(value)
-		_parent.get.addChild(this)
+		_parent.get._children = this :: parent.get._children
 	}
 
 	def children = _children
-	private def addChild(child: GameObject) {
-		_children = child :: _children
-	}
 
 	def onGameObjectAndChildren(apply: GameObject => Unit) {
 		apply(this)
