@@ -22,18 +22,16 @@ class Poortjes extends PApplet with Logging {
 	private val backgroundClr = 0;
 
 	override def setup = {
-		val properties = new Properties
-		properties.load(getClass.getClassLoader.getResourceAsStream("poortjes.properties"))
+		smooth
 
-		screenWidthPx = properties.getProperty("screen_width").toInt
-		screenHeightPx = properties.getProperty("screen_height").toInt
-		if(properties.getProperty("opengl").equals("true")) {
+		screenWidthPx = GameConfiguration.getProperty("screen_width").toInt
+		screenHeightPx = GameConfiguration.getProperty("screen_height").toInt
+		if(GameConfiguration.isEnabled("opengl")) {
 			size(screenWidthPx, screenHeightPx, PConstants.OPENGL)
 			hint(PConstants.DISABLE_OPENGL_2X_SMOOTH)
 			hint(PConstants.ENABLE_OPENGL_2X_SMOOTH)
 		} else {
 			size(screenWidthPx, screenHeightPx)
-			smooth
 		}
 
 		initialize
