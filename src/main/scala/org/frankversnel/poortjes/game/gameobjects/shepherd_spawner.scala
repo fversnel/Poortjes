@@ -4,13 +4,16 @@ import org.frankversnel.poortjes.Component
 import org.frankversnel.poortjes.Update
 import org.frankversnel.poortjes.game.SpawnArea
 import org.frankversnel.poortjes.resource_loading.ResourceLoader
+import org.frankversnel.poortjes.util.GameConfiguration
 
 class ShepherSpawner(private val spawnArea: SpawnArea,
 		private val resourceLoader: ResourceLoader) extends Component {
-	private val MaxNumberOfShepherds = 100
-	private val MaxNumberOfShepherdsAtOnce = 10
+	private val MaxNumberOfShepherds =
+			GameConfiguration.getProperty("max_number_of_shepherds").toInt
+	private val MaxNumberOfShepherdsAtOnce = 
+			GameConfiguration.getProperty("max_number_of_shepherds_at_once").toInt
 
-	private var spawnIntervalInSeconds = 5f
+	private var spawnIntervalInSeconds = GameConfiguration.getProperty("shepherd_spawn_interval_in_seconds").toFloat
 	private var spawnTime = spawnIntervalInSeconds
 
 	override def process(update: Update) {

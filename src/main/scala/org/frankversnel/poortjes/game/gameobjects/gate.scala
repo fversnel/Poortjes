@@ -7,14 +7,15 @@ import org.frankversnel.poortjes.collision.Collidable
 import org.frankversnel.poortjes.rendering.DrawableShape
 import org.frankversnel.poortjes.resource_loading.ResourceLoader
 import org.frankversnel.poortjes.moving._
+import org.frankversnel.poortjes.util.GameConfiguration
 
 class Gate extends Transform with Speed with Moveable {
 	var dimension = DimensionValue().width(10).height(70)
 
-	val distanceInMs = 0.001f
-	val rotationInMs = 0.0002f
+	val distanceInMs = GameConfiguration.getProperty("gate_move_speed").toFloat
+	val rotationInMs = GameConfiguration.getProperty("gate_rotation_speed").toFloat
 
-	moveSpeed = (math.random.toFloat, math.random.toFloat)
+	moveSpeed = (1f, 1f)
 	rotationSpeed = 1f
 }
 class GateEnd(protected val resourceLoader: ResourceLoader)

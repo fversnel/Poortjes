@@ -6,6 +6,7 @@ import org.frankversnel.poortjes._
 import org.frankversnel.poortjes.rendering.DrawableShape
 import org.frankversnel.poortjes.resource_loading.ResourceLoader
 import org.frankversnel.poortjes.moving._
+import org.frankversnel.poortjes.util.GameConfiguration
 import org.frankversnel.poortjes.game.SpawnArea
 import org.frankversnel.poortjes.game.Area
 
@@ -14,7 +15,7 @@ class Shepherd(protected val resourceLoader: ResourceLoader)
 	private val NumberOfCandiesToSpawn = 2
 
 	//speed
-	val distanceInMs = 0.05f
+	val distanceInMs = GameConfiguration.getProperty("shepherd_move_speed").toFloat
 	val rotationInMs = 0f
 	moveSpeed = (1, 0)
 

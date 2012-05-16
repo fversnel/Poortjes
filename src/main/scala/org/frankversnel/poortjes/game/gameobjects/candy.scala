@@ -5,10 +5,12 @@ import org.frankversnel.poortjes.resource_loading.ResourceLoader
 import org.frankversnel.poortjes.collision.Collidable
 import org.frankversnel.poortjes.Update
 import org.frankversnel.poortjes.DimensionValue
+import org.frankversnel.poortjes.util.GameConfiguration
 
 class Candy(protected val resourceLoader: ResourceLoader) extends DrawableShape with Collidable
 		with TimeBasedLife {
-	protected val maxTimeAliveMillis = 10000L
+	protected val maxTimeAliveMillis = 
+			GameConfiguration.getProperty("candy_life_time_in_seconds").toLong * 1000L
 
 	protected val shape = resourceLoader.addResource("candy.svg")
 

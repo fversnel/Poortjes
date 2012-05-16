@@ -10,12 +10,13 @@ import org.frankversnel.poortjes.resource_loading.ResourceLoader
 import org.frankversnel.poortjes.resource_loading.ResourceId
 import org.frankversnel.poortjes.collision.Collidable
 import org.frankversnel.poortjes.moving._
+import org.frankversnel.poortjes.util.GameConfiguration
 
 abstract class Player(val resourceLoader: ResourceLoader) extends DrawableShape
 		with Collidable with Moveable with Speed {
 	//speed
-	val distanceInMs = 0.15f
-	val rotationInMs = 0.007f
+	val distanceInMs = GameConfiguration.getProperty("player_move_speed").toFloat
+	val rotationInMs = GameConfiguration.getProperty("player_rotation_speed").toFloat
 
 	var dimension = DimensionValue().width(9).height(13)
 

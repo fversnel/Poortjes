@@ -7,13 +7,16 @@ import org.frankversnel.poortjes.collision.CollidableCircle
 import org.frankversnel.poortjes.collision.Collidable
 import org.frankversnel.poortjes.resource_loading.ResourceLoader
 import org.frankversnel.poortjes.util.DeltaTime
+import org.frankversnel.poortjes.util.GameConfiguration
 
 class Explosion extends Drawable with CollidableCircle with TimeBasedLife {
 	val color = Color.red.a(125)
 	var dimension = DimensionValue().width(0).height(0)
 
-	protected val maxTimeAliveMillis = 500L
-	private val targetRadius = 200f
+	protected val maxTimeAliveMillis = 
+			(GameConfiguration.getProperty("explosion_duration_in_seconds").toFloat * 1000f).toLong
+	private val targetRadius =
+			GameConfiguration.getProperty("explosion_impact_radius").toFloat
 
 	override def process(update: Update) {
 		super.process(update)
