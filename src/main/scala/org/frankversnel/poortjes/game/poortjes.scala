@@ -12,6 +12,7 @@ import org.frankversnel.poortjes._
 import org.frankversnel.poortjes.rendering._
 import org.frankversnel.poortjes.collision._
 import org.frankversnel.poortjes.input.keyboard._
+import org.frankversnel.poortjes.input.gamepad._
 import org.frankversnel.poortjes.resource_loading._
 import org.frankversnel.poortjes.util._
 import org.frankversnel.poortjes.game.gameobjects._
@@ -105,6 +106,9 @@ class Poortjes extends PApplet with Logging {
 		addKeyListener(playerTwo)
 		EntityManager().spawn(playerTwo)
 
+		val playerSpawner = new PlayerSpawner(resourceLoader)
+		EntityManager().spawn(playerSpawner)
+
 		val spawnArea = new SpawnArea(EntityManager(), Area(0, screenWidthPx, 0,
 				screenHeightPx))
 		val gateSpawner = new GateSpawner(spawnArea, resourceLoader)
@@ -136,6 +140,14 @@ class Poortjes extends PApplet with Logging {
 	}
 
 	override def draw = {
+		//Gamepad.controllers.foreach { c =>
+		//	c.poll
+		//	for(i <- 0 until c.getButtonCount) {
+		//		if(c.isButtonPressed(i)) {
+		//			logger.info("Pressed button: " + i)
+		//		}
+		//	}
+		//}
 		EntityManager().process
 		EntityManager().cleanUp
 	}

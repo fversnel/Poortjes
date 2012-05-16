@@ -12,9 +12,7 @@ import org.frankversnel.poortjes.util.DeltaTime
 trait Gamepad extends Component with Logging {
 	self: Speed with Transform =>
 
-	private val input = Gamepad.controllers(3)
-	input.setDeadZone(1, 0.3f)
-	input.setDeadZone(2, 0.3f)
+	protected val input: Controller
 
 	override def process(update: Update) {
 		super.process(update)
@@ -28,15 +26,22 @@ trait Gamepad extends Component with Logging {
 		//val speed = direction.length
 		val rotation = atan2(inputVector.getY, inputVector.getX)
 		//logger.info("rotation: " + rotation)
-		self.setToRotation(rotation.toFloat)
+		//self.setToRotation(rotation.toFloat)
 
 		self.moveSpeed = (inputVector.getX, -inputVector.getY)
 	}
 }
 object Gamepad {
-	private lazy val controllers = {
+	lazy val controllers = {
 		Controllers.create
 		for(i <- 0 until Controllers.getControllerCount)
 				yield Controllers.getController(i)
+	}
+
+	def isButtonPressed(button: Button): Option[Controller] = {
+		controllers.find { c =>
+			c.poll
+			c.isButtonPressed(button.index)
+		}
 	}
 }
