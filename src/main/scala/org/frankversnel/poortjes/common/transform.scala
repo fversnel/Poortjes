@@ -6,8 +6,9 @@ import org.frankversnel.poortjes.util.Matrix2D
 
 trait Transform extends Dimension {
 	private var matrix = Matrix2D()
-
 	private var _rotationAngle = 0f
+	private var _scale = (1f, 1f)
+
 	def rotationAngle: Float = {
 		return if(parent.isDefined) {
 			_rotationAngle + parent.get.asInstanceOf[Transform].rotationAngle
@@ -19,15 +20,20 @@ trait Transform extends Dimension {
 		rotate(-_rotationAngle)
 		rotate(theta)
 	}
-
-	def translate(x: Float, y: Float): Unit = matrix = matrix.translate(x, y)
-	def scale(x: Float, y: Float): Unit = matrix = matrix.scale(x, y)
 	def rotate(theta: Float): Unit = {
 		_rotationAngle = (_rotationAngle + theta) % (2 * Pi).toFloat
 		matrix = matrix.rotate(theta, dimension.width / 2, dimension.height / 2)
 	}
 
+	def translate(x: Float, y: Float): Unit = matrix = matrix.translate(x, y)
 	def translation = matrixStack.translation
+
+	def scale(x: Float, y: Float): Unit = matrix = matrix.scale(x, y)
+	def setToScale(x: Float, y: Float): Unit = {
+		_scale = (x, y)
+	}
+	def scale = _scale
+
 	def matrixStack: Matrix2D = {
 		return if(parent.isDefined) {
 			val parentTransform = parent.get.asInstanceOf[Transform]

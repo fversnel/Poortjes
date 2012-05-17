@@ -24,8 +24,8 @@ class PlayerSpawner(resourceLoader: ResourceLoader) extends Component {
 				input.setDeadZone(2, 0.3f)
 				val shape = resourceLoader.addResource("ship-red.svg")
 			}
-			newPlayer.translate(GameConfiguration.getProperty("screen_width").toInt / 2, 
-								GameConfiguration.getProperty("screen_height").toInt / 2)
+			newPlayer.translate(GameConfiguration.getProperty("game_width").toInt / 2,
+								GameConfiguration.getProperty("game_height").toInt / 2)
 
 			EntityManager().spawn(newPlayer)
 			gamepadsTaken = gamepad.get :: gamepadsTaken

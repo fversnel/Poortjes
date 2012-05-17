@@ -41,14 +41,20 @@ class Processing2DRenderer(
 
 	def clearScreen = graphics.background(backgroundColor)
 
-	private def draw(transform: Transform) (drawFunction: => Unit) {
+	def pushTransform(transform: Transform) {
 		graphics.pushMatrix
 		graphics.translate(transform.translation._1, transform.translation._2)
 		graphics.rotate(transform.rotationAngle)
-
-		drawFunction
-
+		graphics.scale(transform.scale._1, transform.scale._2)
+	}
+	def popTransform {
 		graphics.popMatrix
+	}
+
+	private def draw(transform: Transform) (drawFunction: => Unit) {
+		pushTransform(transform)
+		drawFunction
+		popTransform
 	}
 
 	private def fill(color: Color) {

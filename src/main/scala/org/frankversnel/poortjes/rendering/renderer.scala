@@ -9,5 +9,8 @@ trait Renderer {
 	def drawCircle(transform: Transform, color: Color)
 	def drawShape(transform: Transform, resourceId: ResourceId)
 
+	def pushTransform(transform: Transform)
+	def popTransform
+
 	def clearScreen
 }

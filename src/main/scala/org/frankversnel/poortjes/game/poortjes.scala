@@ -49,8 +49,15 @@ class Poortjes extends PApplet with Logging {
 		resourceLoader.addResource("candy.svg")
 
 		val renderer = new Processing2DRenderer(g, resourceLoader, backgroundClr)
+		val gameWidth = GameConfiguration.getProperty("game_width").toInt
+		val gameHeight = GameConfiguration.getProperty("game_height").toInt
+		val worldMatrix = new Transform {
+			var dimension = DimensionValue().width(gameWidth).height(gameHeight)
+			setToScale(screenWidthPx.toFloat / gameWidth.toFloat,
+					screenHeightPx.toFloat / gameHeight.toFloat)
+		}
 		EntityManager.initialize(List(
-				new RenderingManager(renderer),
+				new RenderingManager(renderer, worldMatrix),
 				new ComponentProcessingManager,
 				new FastCollisionManager {
 					type A = GateConnector
@@ -94,7 +101,7 @@ class Poortjes extends PApplet with Logging {
 			val shape = resourceLoader.addResource("ship-green.svg")
 			val keybindings = KeyboardBindings('w', 's', 'a', 'd')
 		}
-		newPlayer.translate((screenWidthPx / 2) - 10, screenHeightPx / 2)
+		newPlayer.translate((gameWidth / 2) - 10, gameHeight / 2)
 		addKeyListener(newPlayer)
 		EntityManager().spawn(newPlayer)
 
@@ -102,15 +109,15 @@ class Poortjes extends PApplet with Logging {
 			val shape = resourceLoader.addResource("ship-purple.svg")
 			val keybindings = KeyboardBindings('i', 'k', 'j', 'l')
 		}
-		playerTwo.translate((screenWidthPx / 2) + 10, screenHeightPx / 2)
+		playerTwo.translate((gameWidth / 2) + 10, gameHeight / 2)
 		addKeyListener(playerTwo)
 		EntityManager().spawn(playerTwo)
 
 		val playerSpawner = new PlayerSpawner(resourceLoader)
 		EntityManager().spawn(playerSpawner)
 
-		val spawnArea = new SpawnArea(EntityManager(), Area(0, screenWidthPx, 0,
-				screenHeightPx))
+		val spawnArea = new SpawnArea(EntityManager(), Area(0, gameWidth, 0,
+				gameHeight))
 		val gateSpawner = new GateSpawner(spawnArea, resourceLoader)
 		EntityManager().spawn(gateSpawner)
 

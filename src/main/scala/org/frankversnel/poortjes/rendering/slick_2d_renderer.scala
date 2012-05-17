@@ -35,6 +35,13 @@ class Slick2DRenderer(
 		}
 	}
 
+	def pushTransform(transform: Transform) {
+		// TODO implement this method
+	}
+	def popTransform {
+		// TODO  implement this method
+	}
+
 	def clearScreen = { /* No need to implement this method */ }
 
 	private def drawShapeWithColor(shape: Shape, component: Transform, color: Color) {
