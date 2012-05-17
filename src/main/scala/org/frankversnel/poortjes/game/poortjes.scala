@@ -123,9 +123,7 @@ class Poortjes extends PApplet with Logging {
 		val gateSpawner = new GateSpawner(spawnArea, resourceLoader)
 		EntityManager().spawn(gateSpawner)
 
-		val shepherSpawnArea = new SpawnArea(EntityManager(), Area(0, 50, 0,
-				50))
-		val shepherdSpawner = new ShepherSpawner(shepherSpawnArea, resourceLoader)
+		val shepherdSpawner = new ShepherSpawner(spawnArea, resourceLoader)
 		EntityManager().spawn(shepherdSpawner)
 
 		EntityManager().spawn(new Score)

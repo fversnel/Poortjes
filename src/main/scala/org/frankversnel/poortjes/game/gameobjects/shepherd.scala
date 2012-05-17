@@ -20,7 +20,9 @@ class Shepherd(protected val resourceLoader: ResourceLoader)
 	val rotationInMs = 0f
 	moveSpeed = (1, 0)
 
-	var dimension = DimensionValue().width(8).height(8)
+	var dimension = DimensionValue()
+			.width(GameConfiguration.getProperty("shepherd_width").toInt)
+			.height(GameConfiguration.getProperty("shepherd_height").toInt)
 
 	protected val shape = resourceLoader.addResource("shepherd.svg")
 

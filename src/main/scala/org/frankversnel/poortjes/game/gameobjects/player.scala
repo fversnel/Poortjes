@@ -14,7 +14,9 @@ abstract class Player(val resourceLoader: ResourceLoader) extends DrawableShape
 	val distanceInMs = GameConfiguration.getProperty("player_move_speed").toFloat
 	val rotationInMs = GameConfiguration.getProperty("player_rotation_speed").toFloat
 
-	var dimension = DimensionValue().width(9).height(13)
+	var dimension = DimensionValue()
+			.width(GameConfiguration.getProperty("player_width").toInt)
+			.height(GameConfiguration.getProperty("player_height").toInt)
 
 	val shape: ResourceId
 

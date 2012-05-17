@@ -22,18 +22,21 @@ class PlayerSpawner(resourceLoader: ResourceLoader) extends Component {
 			((GameWidth / 2) + 10,	(GameHeight / 2) - 10),
 			((GameWidth / 2) - 10,	(GameHeight / 2) + 10),
 			((GameWidth / 2) + 10,	(GameHeight / 2) + 10))
-	private var gamepadsTaken: List[Controller] = Nil
+	private var gamepadsTaken: List[Int] = Nil
 	private var numberOfPlayers = 0
 
 	override def process(update: Update) {
 		super.process(update)
 
-		val gamepad = Gamepad.isButtonPressed(BackButton)
-		if(gamepad.isDefined && !gamepadsTaken.contains(gamepad.get) && numberOfPlayers < 4) {
-			val newPlayer = createPlayer(gamepad.get)
-			EntityManager().spawn(newPlayer)
-			gamepadsTaken = gamepad.get :: gamepadsTaken
-			numberOfPlayers += 1
+		if(GameConfiguration.isEnabled("gamepad")) {
+			val gamepad = Gamepad.isButtonPressed(BackButton)
+			if(gamepad.isDefined && !gamepadsTaken.contains(gamepad.get.getIndex) && numberOfPlayers < 4) {
+				gamepadsTaken = gamepad.get.getIndex :: gamepadsTaken
+				numberOfPlayers += 1
+
+				val newPlayer = createPlayer(gamepad.get)
+				EntityManager().spawn(newPlayer)
+			}
 		}
 	}
 
