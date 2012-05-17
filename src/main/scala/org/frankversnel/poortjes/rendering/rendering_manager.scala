@@ -12,7 +12,6 @@ class RenderingManager(private val renderer: Renderer,
 	def processComponents(update: Update) {
 		renderer.clearScreen
 
-		logger.info("world matrix scale: " + worldMatrix.scale)
 		renderer.pushTransform(worldMatrix)
 
 		allComponents.foreach(_.draw(renderer))

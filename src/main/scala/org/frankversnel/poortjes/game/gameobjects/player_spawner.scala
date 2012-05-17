@@ -20,8 +20,6 @@ class PlayerSpawner(resourceLoader: ResourceLoader) extends Component {
 		if(gamepad.isDefined && !gamepadsTaken.contains(gamepad.get)) {
 			val newPlayer = new Player(resourceLoader) with Gamepad {
 				protected val input = gamepad.get
-				input.setDeadZone(1, 0.3f)
-				input.setDeadZone(2, 0.3f)
 				val shape = resourceLoader.addResource("ship-red.svg")
 			}
 			newPlayer.translate(GameConfiguration.getProperty("game_width").toInt / 2,
