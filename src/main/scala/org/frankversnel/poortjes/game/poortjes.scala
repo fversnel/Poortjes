@@ -97,21 +97,23 @@ class Poortjes extends PApplet with Logging {
 			)
 		)
 
-		val newPlayer = new Player(resourceLoader) with Keyboard with JavaKeyListenerAdapter {
-			val shape = resourceLoader.addResource("ship-green.svg")
-			val keybindings = KeyboardBindings('w', 's', 'a', 'd')
-		}
-		newPlayer.translate((gameWidth / 2) - 10, gameHeight / 2)
-		addKeyListener(newPlayer)
-		EntityManager().spawn(newPlayer)
+		if(GameConfiguration.isEnabled("keyboard")) {
+			val newPlayer = new Player(resourceLoader) with Keyboard with JavaKeyListenerAdapter {
+				val shape = resourceLoader.addResource("ship-green.svg")
+				val keybindings = KeyboardBindings('w', 's', 'a', 'd')
+			}
+			newPlayer.translate((gameWidth / 2) - 10, gameHeight / 2)
+			addKeyListener(newPlayer)
+			EntityManager().spawn(newPlayer)
 
-		val playerTwo = new Player(resourceLoader) with Keyboard with JavaKeyListenerAdapter {
-			val shape = resourceLoader.addResource("ship-purple.svg")
-			val keybindings = KeyboardBindings('i', 'k', 'j', 'l')
+			val playerTwo = new Player(resourceLoader) with Keyboard with JavaKeyListenerAdapter {
+				val shape = resourceLoader.addResource("ship-purple.svg")
+				val keybindings = KeyboardBindings('i', 'k', 'j', 'l')
+			}
+			playerTwo.translate((gameWidth / 2) + 10, gameHeight / 2)
+			addKeyListener(playerTwo)
+			EntityManager().spawn(playerTwo)
 		}
-		playerTwo.translate((gameWidth / 2) + 10, gameHeight / 2)
-		addKeyListener(playerTwo)
-		EntityManager().spawn(playerTwo)
 
 		val playerSpawner = new PlayerSpawner(resourceLoader)
 		EntityManager().spawn(playerSpawner)
@@ -121,7 +123,9 @@ class Poortjes extends PApplet with Logging {
 		val gateSpawner = new GateSpawner(spawnArea, resourceLoader)
 		EntityManager().spawn(gateSpawner)
 
-		val shepherdSpawner = new ShepherSpawner(spawnArea, resourceLoader)
+		val shepherSpawnArea = new SpawnArea(EntityManager(), Area(0, 50, 0,
+				50))
+		val shepherdSpawner = new ShepherSpawner(shepherSpawnArea, resourceLoader)
 		EntityManager().spawn(shepherdSpawner)
 
 		EntityManager().spawn(new Score)

@@ -5,7 +5,9 @@ import org.frankversnel.poortjes.Update
 import org.frankversnel.poortjes.collision.Collidable
 import org.frankversnel.poortjes.util.GameConfiguration
 
-trait PlayerKiller extends Collidable with SummoningSickness {
+trait PlayerKiller extends SummoningSickness {
+	self: Collidable =>
+
 	protected val maxSicknessDurationMillis =
 			(GameConfiguration.getProperty("summoning_sickness_in_seconds").toFloat * 1000f).toLong
 

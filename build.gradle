@@ -36,7 +36,7 @@ jar {
 }
 
 run {
-	def os = System.getProperty("os.name").toLowerCase()
+	def os = System.getProperty("os.name").toLowerCase().replaceAll(" ", "")
 	def os_architecture = System.getProperty("os.arch")
 	def os_bitness = os_architecture.endsWith("64") ? "64" : "32"
 	systemProperties['java.library.path'] = './lib/natives/' + os + os_bitness

@@ -18,8 +18,9 @@ trait Gamepad extends Component with Logging {
 
 	override def process(update: Update) {
 		super.process(update)
-		input.setDeadZone(1, Deadzone)
-		input.setDeadZone(2, Deadzone)
+		for(i <- 0 until input.getAxisCount) {
+			input.setDeadZone(i, Deadzone)
+		}
 
 		// Retrieve new input from the gamepad
 		input.poll
