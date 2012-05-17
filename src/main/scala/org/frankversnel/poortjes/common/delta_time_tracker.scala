@@ -7,8 +7,9 @@ class DeltaTimeTracker {
 
 	def getDelta = {
 		val newTime = System.currentTimeMillis
-		val deltaMillis = DeltaTime((newTime - oldTime).toInt)
+		val deltaMillis = (newTime - oldTime).toInt
 		oldTime = newTime
-		deltaMillis
+		// Prevent division by zero errors
+		if (deltaMillis < 1) DeltaTime(1) else DeltaTime(deltaMillis)
 	}
 }
