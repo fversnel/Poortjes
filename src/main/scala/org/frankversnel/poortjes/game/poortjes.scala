@@ -164,5 +164,10 @@ class Poortjes extends PApplet with Logging {
 
 object Poortjes extends App with Logging {
 	logger.info("initializing Poortjes...")
-	PApplet.main(Array("org.frankversnel.poortjes.game.Poortjes"));
+
+	if(GameConfiguration.isEnabled("full_screen")) {
+		PApplet.main(Array("--present", "org.frankversnel.poortjes.game.Poortjes"))
+	} else {
+		PApplet.main(Array("org.frankversnel.poortjes.game.Poortjes"))
+	}
 }

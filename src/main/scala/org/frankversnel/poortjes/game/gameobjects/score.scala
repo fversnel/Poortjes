@@ -9,8 +9,8 @@ import org.frankversnel.poortjes.rendering.Drawable
 import org.frankversnel.poortjes.rendering.Renderer
 
 class Score extends Drawable with Logging {
-	private var _multiplier = 1
-	private var _value = 0
+	private var _multiplier = 1L
+	private var _value = 0L
 
 	private val textColor = Color.white
 	var dimension = DimensionValue()
@@ -18,7 +18,7 @@ class Score extends Drawable with Logging {
 	translate(0, 10)
 
 	def incrementMultiplier = {
-		_multiplier += 1
+		_multiplier += 1L
 		//logger.info("Multiplier: " + _multiplier)
 	}
 	def incrementScore = {

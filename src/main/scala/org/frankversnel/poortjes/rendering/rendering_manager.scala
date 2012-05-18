@@ -9,6 +9,8 @@ class RenderingManager(private val renderer: Renderer,
 		private val worldMatrix: Transform) extends ComponentManager with Logging {
 	type T = Drawable
 
+	private val frameRateCounter = new FramerateCounter
+
 	def processComponents(update: Update) {
 		renderer.clearScreen
 
@@ -16,7 +18,7 @@ class RenderingManager(private val renderer: Renderer,
 
 		allComponents.foreach(_.draw(renderer))
 		if(GameConfiguration.isDebugEnabled) {
-			drawFramerate(update.framerate)
+			drawFramerate(frameRateCounter.framerate(update))
 		}
 
 		renderer.popTransform
